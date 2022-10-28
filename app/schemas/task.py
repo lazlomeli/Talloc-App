@@ -1,6 +1,9 @@
 def taskEntity(item) -> dict:
+    """
+    An Item represents a Task
+    """
     return {
-        "id": item["id"],
+        "id": str(item["_id"]),
         "title": item["title"],
         "programming_language": item["programming_language"],
         "start_date": item["start_date"],
@@ -9,4 +12,7 @@ def taskEntity(item) -> dict:
     }
 
 def tasksEntity(entity) -> list:
-    [taskEntity(item) for item in entity ]
+    """
+    An Entity represents a Task in the list of Tasks
+    """
+    return [taskEntity(item) for item in entity]
