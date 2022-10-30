@@ -1,18 +1,17 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-//const router = require('./routers/router')
-const db = require('./config/db')
-
+const usersRouter = require('./routers/user')
+const mongoose = require('mongoose')
 const app = express()
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(router)
-
 const PORT = 3000;
 
-app.get('/', (req, res) => {
-    res.send("Simple API Gateway")
-})
+mongoose.connect('mongodb://127.0.0.1:27017/pstudioDB', { useNewUrlParser: true })
+const db = mongoose.connection
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+db.on('error', (error) => console.error('\n[*] Error connecting to the database\n', error))
+
+db.once('open', () => console.log("[*] Connected to Database\n"))
+
+app.use(express.json())
+app.use('/users', usersRouter)
+
+app.listen(PORT, () => console.log(`\n[*] Server running on port ${PORT}\n`))

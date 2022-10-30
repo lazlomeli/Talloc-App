@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
         password: req.body.password
     })
     try {
-        await user.save().
+        await user.save()
         res.status(201).json(user)
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -95,3 +95,5 @@ router.delete('/:id', getUser, async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 })
+
+module.exports = router
