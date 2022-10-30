@@ -7,9 +7,10 @@ from models.task import Task
 from starlette.status import HTTP_204_NO_CONTENT
 
 """
-DB: MongoDB connection to 'Local' database
+DB: MongoDB connection to 'pstudio-db' database
 """
-DB = conn.local
+
+DB = conn.pstudioDB
 
 task = APIRouter()
 
