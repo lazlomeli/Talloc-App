@@ -1,0 +1,22 @@
+{
+    "name": "nodejs-api",
+    "version": "1.0",
+    "description": "NodeJS Server Side of Programmer Studio App",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lazlomeli/Programmer-Studio"
+    },
+    "keywords": [
+        "nodejs-api",
+        "programmer-studio"
+    ],
+    "author": "Lazlo Meli <lazlomeli@gmail.com>",
+    "dependencies": {
+        "express": "^4.16.4",
+        "mongoose": "^6.7.0"
+    }
+}
