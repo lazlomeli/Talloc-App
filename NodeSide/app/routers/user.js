@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router()
 const User = require('../models/user')
 
+// const axiosClient = require('../../../APIGateway/axiosClient')
+// const gatewayPort = require('../../../APIGateway/app')
+// const URL = `http://localhost:${gatewayPort}`
+// const api = axiosClient(URL)
 
 /** Get User by ID from DB 
  * @param {Response} status(404) Error: Not found
@@ -27,14 +31,18 @@ const User = require('../models/user')
  * Get all users from DB
  * @param {Response} status(500) Error: Internal server error
  */
-router.get('/', async (req, res) => {
-    try {
-        const users = await User.find()
-        res.json(users)
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
+router.get('/', (req, res) => {
+    // api.get(req.path).then((response) => {
+        try {
+            const users = User.find()
+            res.json(users)
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }
+    // })
 }) 
+
+// id: 635e42a4b443505481a1c9e0
 
 /** 
  * Get user from DB by ID
@@ -42,7 +50,7 @@ router.get('/', async (req, res) => {
  */
 router.get('/:id', getUser, (req, res) => {
     res.json(res.user)
-})   
+}) 
 
 /** 
  * Create User
