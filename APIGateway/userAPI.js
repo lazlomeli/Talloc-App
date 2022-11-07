@@ -1,12 +1,11 @@
 /**
- * API Gateway router
+ * API Gateway - Users
  */
 const express = require('express')
 const axios = require('axios')
 const router = express.Router()
 
 const userAPI = 'http://localhost:3000'
-const taskAPI = 'http://localhost:8000'
 
 // Get all users
 router.get('/users', (req, res) => {
@@ -21,7 +20,7 @@ router.get('/users', (req, res) => {
 router.get('/users/:id', (req, res) => {
     axios.get(userAPI + req.path).then((resp) => {
         res.send(resp.data)
-        console.log('[*] Showing user:')
+        console.log(`[*] Showing user: ${req.params.id}`)
         console.log(resp.data)
     })
 })
@@ -39,7 +38,7 @@ router.post('/users', (req, res) => {
 router.patch('/users/:id', (req, res) => {
     axios.patch(userAPI + req.path, req.body).then((resp) => {
         res.send(resp.data)
-        console.log('[*] Updated user:')
+        console.log(`[*] Updated user: ${req.params.id}`)
         console.log(resp.data)
     })
 })
@@ -48,7 +47,7 @@ router.patch('/users/:id', (req, res) => {
 router.delete('/users/:id', (req, res) => {
     axios.delete(userAPI + req.path).then((resp) => {
         res.send(resp.data)
-        console.log('[*] Deleted user:')
+        console.log(`[*] Deleted user: ${req.params.id}`)
         console.log(resp.data)
     })
 })

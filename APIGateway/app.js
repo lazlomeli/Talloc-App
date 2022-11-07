@@ -1,5 +1,6 @@
 const express = require('express')
-const router = require('./router')
+const userRouter = require('./userAPI')
+const taskRouter = require('./taskAPI')
 const PORT = 8002
 
 /**
@@ -7,5 +8,6 @@ const PORT = 8002
  */
 app = express()
 app.use(express.json())
-app.use(router)
+app.use(userRouter)
+app.use(taskRouter)
 app.listen(PORT, () => console.log(`\n[*] Server running on port ${PORT}\n`))
