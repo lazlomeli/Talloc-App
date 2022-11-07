@@ -36,12 +36,22 @@ router.post('/users', (req, res) => {
 })
 
 // Update user
-router.patch('/users', (req, res) => {
-    axios.patch(userAPI + req.path).then((resp) => {
-        // res.send(resp.data)
-        // console.log('[*] Creating user:')
-        // console.log(resp.data)
+router.patch('/users/:id', (req, res) => {
+    axios.patch(userAPI + req.path, req.body).then((resp) => {
+        res.send(resp.data)
+        console.log('[*] Updated user:')
+        console.log(resp.data)
     })
 })
+
+// Delete user
+router.delete('/users/:id', (req, res) => {
+    axios.delete(userAPI + req.path).then((resp) => {
+        res.send(resp.data)
+        console.log('[*] Deleted user:')
+        console.log(resp.data)
+    })
+})
+
 
 module.exports = router
