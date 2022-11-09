@@ -1,6 +1,6 @@
 const express = require('express')
-const userRouter = require('./userAPI')
-const taskRouter = require('./taskAPI')
+const userRouter = require('./APIs/userAPI')
+const taskRouter = require('./APIs/taskAPI')
 const PORT = 8002
 
 /**

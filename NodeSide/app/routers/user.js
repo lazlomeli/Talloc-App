@@ -1,7 +1,23 @@
+require('dotenv').config()
+
 const express = require('express');
 const router = express.Router()
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
+
+function isAuthorized (req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if(token == null) return res.sendStatus(401)
+
+    jwt.verify(token, `${process.env.ACCESS_TOKEN}`, (err, user) => {
+        if(err) return res.sendStatus(403)
+        req.user = user
+        next()
+    })
+}
 
 /** Get User by ID from DB 
  * @param {Response} status(404) Error: Not found
@@ -23,11 +39,15 @@ const User = require('../models/user')
     next()
 }
 
+async function isRegistered() {
+
+}
+
 /** 
  * Get all users from DB
  * @param {Response} status(500) Error: Internal server error
  */
-router.get('/', async (req, res) => {
+router.get('/users', isAuthorized, async (req, res) => {
     try {
         const users = await User.find()
         res.json(users)
@@ -40,7 +60,7 @@ router.get('/', async (req, res) => {
  * Get user from DB by ID
  *  @param {function} getUser() asynchronously retrieves a user from the DB
  */
-router.get('/:id', getUser, (req, res) => {
+router.get('/users/:id', getUser, (req, res) => {
     res.json(res.user)
 })   
 
@@ -49,7 +69,7 @@ router.get('/:id', getUser, (req, res) => {
  * @param {Response} status(201) Succesfully created something
  * @param {Response} status(400) Error: The data sent was not correct
  */
-router.post('/', async (req, res) => {
+router.post('/users', async (req, res) => {
     const user = new User({
         username: req.body.username,
         email: req.body.email,
@@ -66,7 +86,7 @@ router.post('/', async (req, res) => {
 /**
  *  Update User
  */
-router.patch('/:id', getUser, async (req, res) => {
+router.patch('/users/:id', getUser, async (req, res) => {
     if (req.body.username != null) {
         res.user.username = req.body.username
     }
@@ -87,7 +107,7 @@ router.patch('/:id', getUser, async (req, res) => {
 /**
  * Delete User
  */
-router.delete('/:id', getUser, async (req, res) => {
+router.delete('/users/:id', getUser, async (req, res) => {
     try {
         await res.user.remove()
         res.json({ message: `Deleted user ${req.params.id}` })
@@ -95,5 +115,21 @@ router.delete('/:id', getUser, async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 })
+
+/**
+ * Log in
+ */
+router.post('/login', (req, res) => {
+    const user = 
+    {
+        username: req.body.username, 
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    const accessToken = jwt.sign(user, `${process.env.ACCESS_TOKEN}`)
+    res.json({ accessToken: accessToken })
+})
+
 
 module.exports = router
