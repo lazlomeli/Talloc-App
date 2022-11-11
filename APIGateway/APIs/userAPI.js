@@ -7,6 +7,12 @@ const router = express.Router()
 
 const userAPI = 'http://localhost:3000'
 
+// function axiosClient(res, path) {
+//     axios.get(path).then((resp) => {
+//         res.send(resp)
+//     })
+// }
+
 // Get all users
 router.get('/users', (req, res) => {
     axios.get(userAPI + req.path).then((resp) => {
@@ -15,6 +21,9 @@ router.get('/users', (req, res) => {
         console.log(resp.data)
     })
 })
+// router.get('/users', (req, res) => {
+//     axiosClient(res, userAPI + req.path)
+// })
 
 // Get user by ID
 router.get('/users/:id', (req, res) => {
@@ -49,6 +58,13 @@ router.delete('/users/:id', (req, res) => {
         res.send(resp.data)
         console.log(`[*] Deleted user: ${req.params.id}`)
         console.log(resp.data)
+    })
+})
+
+// Log in
+router.post('/login', (req, res) => {
+    axios.post(userAPI + req.path, req.body).then((resp) => {
+        res.send(resp.data)
     })
 })
 

@@ -47,7 +47,7 @@ async function isRegistered() {
  * Get all users from DB
  * @param {Response} status(500) Error: Internal server error
  */
-router.get('/users', isAuthorized, async (req, res) => {
+router.get('/users', async (req, res) => {
     try {
         const users = await User.find()
         res.json(users)
@@ -123,12 +123,19 @@ router.post('/login', (req, res) => {
     const user = 
     {
         username: req.body.username, 
-        email: req.body.email,
         password: req.body.password
     }
 
-    const accessToken = jwt.sign(user, `${process.env.ACCESS_TOKEN}`)
-    res.json({ accessToken: accessToken })
+    console.log(`${user.username} - ${user.password}`)
+
+    if(User.find({ username: user.username, password: user.password })) {
+        console.log(`Logged as ${user.username}`)
+        res.sendStatus(200)
+    } else {
+        res.sendStatus(404)
+    }
+    // const accessToken = jwt.sign(user, `${process.env.ACCESS_TOKEN}`)
+    // res.json({ accessToken: accessToken })
 })
 
 
