@@ -7,11 +7,12 @@ const router = express.Router()
 
 const userAPI = 'http://localhost:3000'
 
-// function axiosClient(res, path) {
-//     axios.get(path).then((resp) => {
-//         res.send(resp)
-//     })
-// }
+// Get user by username
+router.get('/users/:username', (req, res) => {
+    axios.get(userAPI + req.path).then((resp) => {
+        res.send(resp.data)
+    })
+})
 
 // Get all users
 router.get('/users', (req, res) => {
@@ -21,9 +22,6 @@ router.get('/users', (req, res) => {
         console.log(resp.data)
     })
 })
-// router.get('/users', (req, res) => {
-//     axiosClient(res, userAPI + req.path)
-// })
 
 // Get user by ID
 router.get('/users/:id', (req, res) => {

@@ -46,6 +46,19 @@ async function userExists(username) {
     return false
  }
 
+/**
+ * Get User by Username
+ */
+router.get('/users/:username', async (req, res) => {
+    let user;
+    try {
+        user = await User.findOne({ username: req.params.username })
+        res.json(user)
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+})
+
 /** 
  * Get all users from DB
  * @param {Response} status(500) Error: Internal server error
