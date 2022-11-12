@@ -68,5 +68,12 @@ router.post('/login', (req, res) => {
     })
 })
 
+// Sign up
+router.post('/register', (req, res) => {
+    axios.post(userAPI + req.path, req.body).then((resp) => {
+        res.send(resp.data)
+    })
+})
+
 
 module.exports = router

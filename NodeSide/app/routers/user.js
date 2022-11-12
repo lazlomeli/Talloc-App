@@ -39,9 +39,12 @@ function isAuthorized (req, res, next) {
     next()
 }
 
-async function isRegistered() {
-
-}
+async function userExists(username) {
+    if (await User.find({ username: username })) {
+     return true
+    }
+    return false
+ }
 
 /** 
  * Get all users from DB
@@ -126,8 +129,6 @@ router.post('/login', (req, res) => {
         password: req.body.password
     }
 
-    console.log(`${user.username} - ${user.password}`)
-
     if(User.find({ username: user.username, password: user.password })) {
         console.log(`Logged as ${user.username}`)
         res.sendStatus(200)
@@ -136,6 +137,26 @@ router.post('/login', (req, res) => {
     }
     // const accessToken = jwt.sign(user, `${process.env.ACCESS_TOKEN}`)
     // res.json({ accessToken: accessToken })
+})
+
+/**
+ * Sign up
+ */
+router.post('/register', async (req, res) => {
+    const user = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+    })
+
+    if(userExists === true){
+        console.log("[*] User already exists")
+        res.sendStatus(403)
+    } else {
+        console.log(`[*] User ${user.username} created`)
+        await user.save()
+        res.sendStatus(201)
+    }
 })
 
 
