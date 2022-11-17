@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-
 export function LoginMenu() {
   const [username, setUsername] = useState({ username: '' })
   const [password, setPassword] = useState({ password: '' })
@@ -19,17 +18,24 @@ export function LoginMenu() {
     setPassword({ password: e.target.value })
   }
   
-  const submitData = (e) => {
-    e.preventDefault()
+  const userExist = (u) => {
+    
+  }
 
+  function logIn() {
     axios.post('http://localhost:8002/login', loggedUser)
-    .catch((err) => console.log('Error: ' + err))
+
+  }
+
+  const submitData = (e) => {     
+    console.log(`Logged as ${username.username}`)
   }
 
   return (
       <div className="signin__menu">
         <form
         onSubmit={ (e) => submitData(e) }
+        action="/dashboard"
         > 
           <label htmlFor="loginUsername">
             Username:

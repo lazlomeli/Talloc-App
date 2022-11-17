@@ -1,13 +1,11 @@
-import axios from 'axios';
-const API = "http://127.0.0.1:8002/users"
+const API_URL = 'http://localhost:8002/users'
 
-export function getAllUsers() {
-    axios.get(API).then(resp => {
-        resp.send(resp.data)
-        console.log(resp.data)
-    })
-}   
-
-export function logIn() {
-    console.log()
+export async function getUser(u) {
+    try {
+      const response = await fetch(`${API_URL}/${u}`)
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.log(error)
+    }
 }

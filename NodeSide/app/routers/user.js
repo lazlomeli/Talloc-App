@@ -146,6 +146,7 @@ router.post('/login', (req, res) => {
         console.log(`Logged as ${user.username}`)
         res.sendStatus(200)
     } else {
+        console.log(`User: ${username.username} does not exist`)
         res.sendStatus(404)
     }
     // const accessToken = jwt.sign(user, `${process.env.ACCESS_TOKEN}`)

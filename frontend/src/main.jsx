@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { LoginMenu } from './LoginMenu'
-import RegisterMenu from './RegisterMenu'
+import { BrowserRouter } from 'react-router-dom'
+import { App } from './App'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  //<LoginMenu />
-  <RegisterMenu />
+  <BrowserRouter basename="/">
+    <App />
+  </BrowserRouter>
 )
