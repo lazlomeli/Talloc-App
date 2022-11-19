@@ -7,7 +7,7 @@ from models.task import Task
 from starlette.status import HTTP_204_NO_CONTENT
 
 """
-DB: MongoDB connection to 'pstudio-db' database
+DB: MongoDB connection to 'pstudioDB' database
 """
 
 DB = conn.pstudioDB

@@ -9,3 +9,60 @@
 .login__button {
    margin-left: 50px;
 }
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+.modalContainer {
+    max-width: 600px;
+    width: 100%;
+    position: fixed;
+    top: 35%;
+    left: 35%;
+    background-color: #fff;
+    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
+    outline: auto;
+    padding: 1rem;
+    z-index: 2;
+}
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    z-index: 2;
+}
+.modalLabel {
+    margin: 5px;
+}
+.modalClose {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    margin: 0;
+    padding: 5px;
+    cursor: pointer;
+}
+.task {
+    outline: auto;
+    z-index: 0;
+}
+.createTask {
+    outline: auto;
+}
+.taskSection {
+    position: relative;
+}
+.submitCreateTask {
+    cursor: pointer;
+}
+.modal, .overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+}

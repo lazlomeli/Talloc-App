@@ -1,7 +1,14 @@
 import React from 'react'
+import CreateTask from './CreateTask'
+import { Task } from './Task'
 
-export const Dashboard = (props) => { 
+export const Dashboard = ({ tasks }) => { 
+
   return (
-    <p>Logged as: { props.username }</p>
+    <>
+      <section className="taskSection">
+        <Task tasks={tasks} />
+      </section>
+    </>
   )
 }

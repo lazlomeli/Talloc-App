@@ -1,9 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
+import CreateTask from './CreateTask'
 
-export const Task = (props) => {
+export const Task = ({ tasks }) => {
+  const [openModal, setOpenModal] = useState(false)
+
   return (
-    <div>
-        <h1>{ props.task }</h1>
-    </div>
+    <>
+    {tasks.map(task => (
+      <div className="task">
+        <h1>{task.title}</h1>
+        <p>{task.programming_language}</p>
+        <p>{task.start_date}</p>
+        <section>
+          <p>{task.status}</p>
+          <button>Complete</button>
+        </section>
+      </div>
+    ))}
+      <div className="createTask">
+        <h1>Create a new Task</h1>
+        <button onClick={() => setOpenModal(true)}>+</button>
+      </div>
+      <CreateTask open={openModal} onClose={() => setOpenModal(false)}/>
+    </>
   )
 }

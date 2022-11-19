@@ -7,17 +7,20 @@ const RegisterMenu = () => {
   const [password, setPassword] = useState({ password: '' })
   const [repPassword, setRepPassword] = useState({ repPassword: '' })
   const [email, setMail] = useState({ email: '' })
-  const [exists, setExists] = useState('')
+  const [users, setUsers] = useState([])
+  const [exists, setExists] = useState(false)
 
   useEffect(() => {
-    axios.get(`http://localhost:8002/users/${username.username}`).then((resp) => {
-      if(resp.data !== '') {
-        setExists(resp.data.username) 
-      } else {
-        setExists('')
-      }
+    axios.get('http://localhost:8002/users/').then((resp) => {
+      setUsers(resp.data)
     }) 
-  }, [username.username])
+  }, [])
+
+  async function userExists(u) {
+    users.every(user => {
+      return (username.username === user.username) ? false : true
+    })
+  }
 
   const changeUsername = (e) => {
       setUsername({ username: e.target.value })
@@ -37,16 +40,10 @@ const RegisterMenu = () => {
       email: email.email,
       password: password.password
   } 
-
+  
   const isValidUser = (u) => {
     const validUser = new RegExp('^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$')
-    // return validUser.test(u) ? true : alert('User is not valid') && false
-    if(validUser.test(u)) {
-      return true
-    } else {
-      console.log('User is not valid');
-      return false
-    }
+    return validUser.test(u) ? true : console.log('User is not valid') && false
   }
 
   const isValidPassword = () => {
@@ -56,7 +53,8 @@ const RegisterMenu = () => {
   const signUp = (e) => {
     e.preventDefault()
 
-    if( (exists === '') && isValidUser(username.username) === true && isValidPassword() === true ) {
+    if( (exists && isValidUser(username.username) && isValidPassword()) === true ) 
+    {
       axios.post('http://localhost:8002/register', registeredUser)
       .catch((err) => console.log('Error: ' + err))
       console.log(`Registered as "${username.username}"`)
@@ -68,7 +66,7 @@ const RegisterMenu = () => {
   return (
     <div>
         <form
-        onSubmit={ (e) => signUp(e) }
+        onSubmit={ (e) => signUp(e)}
         > 
           <label htmlFor="registerUsername">
             Username:
@@ -78,7 +76,7 @@ const RegisterMenu = () => {
             placeholder="Choose a username" 
             value={ username.username }
             required
-            onChange={ (e) => changeUsername(e) }></input>
+            onChange={ (e) => changeUsername(e) } />
           </label>
           <label>
             Mail:
@@ -99,8 +97,7 @@ const RegisterMenu = () => {
             placeholder="Choose a password" 
             value={ password.password }
             required
-            onChange={ (e) => changePassword(e) }
-            ></input>
+            onChange={ (e) => changePassword(e) } />
           </label>
           <label htmlFor="registerPassword">
             Password:
@@ -110,14 +107,12 @@ const RegisterMenu = () => {
             placeholder="Repeat your password" 
             value={ repPassword.repPassword }
             required
-            onChange={ (e) => changeRepPassword(e) }
-            ></input>
+            onChange={ (e) => changeRepPassword(e) } />
           </label>
           <label>
             <input 
             type="submit" 
-            value="Sign up" 
-            ></input>
+            value="Sign up" />
           </label>
         </form>
     </div>
