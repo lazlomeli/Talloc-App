@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
 export function LoginMenu() {
   const [username, setUsername] = useState({ username: '' })
   const [password, setPassword] = useState({ password: '' })
+  const [user, setUser] = useState('')
+  const [pw, setPw] = useState('')
   
   const loggedUser = {
     username: username.username,
@@ -17,19 +20,28 @@ export function LoginMenu() {
   const changePassword = (e) => {
     setPassword({ password: e.target.value })
   }
-  
-  const userExist = (u) => {
+
+  const submitData = (e) => {    
+    e.preventDefault()
     
+    if( user === username.username && pw === password.password ) {
+      console.log(`Logged as ${username.username}`)
+    } else {
+      console.log("Could not log in. Try again")
+    }
   }
 
-  function logIn() {
-    axios.post('http://localhost:8002/login', loggedUser)
-
+  function userExists(u) {
+    axios.get(`http://localhost:8002/users/${u}`)
+    .then((resp) => {
+      setUser(resp.data.username)
+      setPw(resp.data.password)
+    })
   }
 
-  const submitData = (e) => {     
-    console.log(`Logged as ${username.username}`)
-  }
+  useEffect(() => {
+    userExists(username.username)
+  }, [submitData])
 
   return (
       <div className="signin__menu">
