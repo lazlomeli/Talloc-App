@@ -7,20 +7,7 @@ const RegisterMenu = () => {
   const [password, setPassword] = useState({ password: '' })
   const [repPassword, setRepPassword] = useState({ repPassword: '' })
   const [email, setMail] = useState({ email: '' })
-  const [users, setUsers] = useState([])
-  const [exists, setExists] = useState(false)
-
-  useEffect(() => {
-    axios.get('http://localhost:8002/users/').then((resp) => {
-      setUsers(resp.data)
-    }) 
-  }, [])
-
-  async function userExists(u) {
-    users.every(user => {
-      return (username.username === user.username) ? false : true
-    })
-  }
+  const [user, setUser] = useState('')
 
   const changeUsername = (e) => {
       setUsername({ username: e.target.value })
@@ -53,15 +40,28 @@ const RegisterMenu = () => {
   const signUp = (e) => {
     e.preventDefault()
 
-    if( (exists && isValidUser(username.username) && isValidPassword()) === true ) 
+    if( user !== username.username && ( isValidUser(username.username) && isValidPassword()) === true ) 
     {
       axios.post('http://localhost:8002/register', registeredUser)
-      .catch((err) => console.log('Error: ' + err))
-      console.log(`Registered as "${username.username}"`)
+      .then(() => {
+        console.log(`Registered as "${username.username}"`)
+      })
     } else {
-      console.log("User already exists")
+      console.log(`User "${username.username}" already exists`)
     }
   }
+
+  function userExists(u) {
+    axios.get(`http://localhost:8002/users/${u}`)
+    .then((resp) => {
+      setUser(resp.data.username)
+    })
+    .catch((err) => console.log(err))
+  }
+      
+  useEffect(() => {
+    userExists(username.username)
+  }, [signUp])
 
   return (
     <div>

@@ -1,8 +1,21 @@
+import axios from 'axios'
 import React, {useState} from 'react'
+import { useEffect } from 'react'
 import CreateTask from './CreateTask'
 
 export const Task = ({ tasks }) => {
   const [openModal, setOpenModal] = useState(false)
+
+  function completeTask() {
+    console.log("completed")
+  }
+
+  function deleteTask(task) {
+    axios.get(`http://localhost:8002/tasks/${task}`)
+    .then((resp) => {
+      console.log(resp.data)
+    })
+  }
 
   return (
     <>
@@ -13,7 +26,8 @@ export const Task = ({ tasks }) => {
         <p>{task.start_date}</p>
         <section>
           <p>{task.status}</p>
-          <button>Complete</button>
+          <button onClick={() => completeTask(task)}>Complete</button>
+          <button onClick={() => deleteTask(task)}>Delete</button>
         </section>
       </div>
     ))}

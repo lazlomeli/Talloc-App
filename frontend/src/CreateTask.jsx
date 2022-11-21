@@ -1,9 +1,47 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import '../styles/App.css'
+import Moment from 'moment'
+import axios from 'axios'
 
 const CreateTask = ({ open, onClose }) => {
+    const [taskTitle, setTaskTitle] = useState('')
+    const [taskLang, setTaskLang] = useState('')
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [taskStatus, setTaskStatus] = useState('')
 
-    const langOptions = ['Python', 'JavaScript', 'Java', 'C/C++', 'Ruby']
+    // const langOptions = process.env.REACT_APP_PROG_LANG.split(", ")
+    const langOptions = ["Select the language", "Python", "Java", "JavaScript"]
+
+    const newTask = {
+        title: taskTitle,
+        programming_language: taskLang,
+        start_date: startDate,
+        end_date: endDate,
+        status: taskStatus
+    }
+
+    useEffect(() => {
+        const formatDate = Moment().format('MMM Do YYYY')
+        setStartDate(formatDate)
+        setTaskStatus('On Going')
+    }, [newTask])
+
+    async function createTask(e) {
+        onClose()
+        e.preventDefault()
+
+        if(newTask.programming_language === 'Select the language') {
+            console.log("Choose a valid language")
+        } else {
+            axios.post('http://localhost:8002/tasks', newTask)
+            .then((resp) => {
+                console.log(resp.data)
+            })
+            .catch((err) => console.log(err))
+            window.location.reload()
+        }
+    }
 
     if (!open) return null
     return (
@@ -13,18 +51,25 @@ const CreateTask = ({ open, onClose }) => {
                     onClick={ (e) => e.stopPropagation() }
                     className="modalContainer">
                     <p onClick={ onClose } className="modalClose">x</p>
-                    <form className="modalForm">
+                    <form 
+                    className="modalForm"
+                    onSubmit={ (e) => createTask(e) }
+                    >
                         <label htmlFor="taskTitle" className="modalLabel">
                             Task title:
                             <input 
                                 name="taskTitle"
                                 type="text"
                                 placeholder="Enter the task title"
+                                value={ taskTitle }
+                                onChange={ (e) => setTaskTitle(e.target.value) }
                                 required />
                         </label>
                         <label className="modalLabel">
                             Language:
-                            <select>
+                            <select
+                                value={ taskLang }
+                                onChange={ (e) => setTaskLang(e.target.value) }>
                                 {langOptions.map(option => (
                                     <option>{ option }</option>
                                 ))}
@@ -34,7 +79,8 @@ const CreateTask = ({ open, onClose }) => {
                             <input 
                                 type="submit"
                                 value="Create Task"
-                                className="submitCreateTask" />
+                                className="submitCreateTask"
+                                />
                         </label>
                         {/* GitHub Repository */}
                     </form>

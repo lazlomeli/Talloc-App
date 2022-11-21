@@ -2,7 +2,7 @@ import React from 'react'
 import CreateTask from './CreateTask'
 import { Task } from './Task'
 
-export const Dashboard = ({ tasks }) => { 
+export const Dashboard = ({ tasks }) => {
 
   return (
     <>
