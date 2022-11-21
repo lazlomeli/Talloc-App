@@ -8,11 +8,11 @@ import {useState, useEffect} from 'react'
 import * as taskAPI from './services/taskService'
 
 export const App = () => {
-  // const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState([])
 
-  // useEffect(() => {
-  //   taskAPI.getAllTasks().then(setTasks)
-  // }, [])
+  useEffect(() => {
+    taskAPI.getAllTasks().then(setTasks)
+  }, [])
 
   return (
     <>
@@ -20,7 +20,7 @@ export const App = () => {
             <Route path="/" element={ <MainPage /> }/>
             <Route path="/login" element={ <LoginMenu/> }/>
             <Route path="/register" element={ <RegisterMenu /> }/>
-            {/* <Route path="/dashboard" element={ <Dashboard tasks={tasks}/>}/> */}
+            <Route path="/dashboard" element={ <Dashboard tasks={tasks}/>}/>
         </Routes>
     </>
   )

@@ -10,11 +10,8 @@ export const Task = ({ tasks }) => {
     console.log("completed")
   }
 
-  function deleteTask(task) {
-    axios.get(`http://localhost:8002/tasks/${task}`)
-    .then((resp) => {
-      console.log(resp.data)
-    })
+  function deleteTask() {
+    console.log("deleted")
   }
 
   return (
@@ -26,8 +23,8 @@ export const Task = ({ tasks }) => {
         <p>{task.start_date}</p>
         <section>
           <p>{task.status}</p>
-          <button onClick={() => completeTask(task)}>Complete</button>
-          <button onClick={() => deleteTask(task)}>Delete</button>
+          <button onClick={() => completeTask()}>Complete</button>
+          <button onClick={() => deleteTask()}>Delete</button>
         </section>
       </div>
     ))}
