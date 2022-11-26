@@ -3,6 +3,7 @@ import '../styles/App.css'
 import Moment from 'moment'
 import axios from 'axios'
 
+
 const CreateTask = ({ open, onClose }) => {
     const [taskTitle, setTaskTitle] = useState('')
     const [taskLang, setTaskLang] = useState('')
@@ -27,9 +28,8 @@ const CreateTask = ({ open, onClose }) => {
         setTaskStatus('On Going')
     }, [newTask])
 
-    async function createTask(e) {
+    async function createTask() {
         onClose()
-        e.preventDefault()
 
         if(newTask.programming_language === 'Select the language') {
             console.log("Choose a valid language")
@@ -51,7 +51,7 @@ const CreateTask = ({ open, onClose }) => {
                     onClick={ (e) => e.stopPropagation() }
                     className="modalContainer">
                     <p onClick={ onClose } className="modalClose">x</p>
-                    <form 
+                    <form
                     className="modalForm"
                     onSubmit={ (e) => createTask(e) }
                     >
@@ -70,8 +70,8 @@ const CreateTask = ({ open, onClose }) => {
                             <select
                                 value={ taskLang }
                                 onChange={ (e) => setTaskLang(e.target.value) }>
-                                {langOptions.map(option => (
-                                    <option>{ option }</option>
+                                {langOptions.map((option) => (
+                                    <option key={option}>{ option }</option>
                                 ))}
                             </select>
                         </label>

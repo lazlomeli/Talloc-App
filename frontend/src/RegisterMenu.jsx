@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import * as API from "./services/userService"
+
 
 const RegisterMenu = () => {
   const [username, setUsername] = useState({ username: '' })
@@ -45,6 +45,7 @@ const RegisterMenu = () => {
       axios.post('http://localhost:8002/register', registeredUser)
       .then(() => {
         console.log(`Registered as "${username.username}"`)
+        setLoggedUser({username: registeredUser.username, password: registeredUser.password})
       })
     } else {
       console.log(`User "${username.username}" already exists`)
@@ -67,6 +68,7 @@ const RegisterMenu = () => {
     <div>
         <form
         onSubmit={ (e) => signUp(e)}
+        action="/login"
         > 
           <label htmlFor="registerUsername">
             Username:

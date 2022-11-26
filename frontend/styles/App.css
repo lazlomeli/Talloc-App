@@ -66,3 +66,16 @@
     bottom: 0;
     position: fixed;
 }
+.insightsContainer {
+    display: flex;
+    outline: auto;
+    cursor: pointer;
+    justify-content: space-between;
+}
+.insightsCounter {
+    margin-top: 1.5rem;
+    margin-right: 1rem;
+}
+.insightsLang {
+    margin-left: 1rem;
+}
