@@ -1,11 +1,14 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 export function LoginMenu() {
   const [username, setUsername] = useState({ username: '' })
   const [password, setPassword] = useState({ password: '' })
-  const [loggedUser, setLoggedUser] = useState({username: '', password: ''})
+  const [isLogged, setIsLogged] = useState(false)
+  const navigate = useNavigate()
 
   const changeUsername = (e) => {
     setUsername({ username: e.target.value })
@@ -15,61 +18,46 @@ export function LoginMenu() {
     setPassword({ password: e.target.value })
   }
 
-  const submitData = (e) => {        
-    if( loggedUser.username === username.username && loggedUser.password === password.password ) {
-      console.log(`Logged as ${username.username}`)
-      console.log(loggedUser)
-    } else {
-      console.log("Could not log in. Try again")
+  const submitData = () => {        
+    const user = {
+      username: username.username,
+      password: password.password
     }
-  }
-
-  function userExists(u) {
-    axios.get(`http://localhost:8002/users/${u}`)
+    axios.post('http://localhost:8002/login', user)
     .then((resp) => {
-      setLoggedUser({username: resp.data.username, password: resp.data.password})
+      if(resp.status === 200) {
+        setIsLogged(true)
+      } else {
+        alert("Incorrect user or password. Try again")
+      }
     })
   }
 
   useEffect(() => {
-    userExists(username.username)
-  }, [submitData])
-
+    isLogged === true ? navigate('/dashboard') : null
+  }, [isLogged])
 
   return (
-    <div className="signin__menu">
-      <form
-        onSubmit={ (e) => submitData(e) }
-        action="/dashboard"
-        > 
-        <label htmlFor="loginUsername">
-          Username:
-          <input 
-          name="loginUsername" 
-          type="text" 
-          placeholder="Enter your username" 
-          required
-          value={ username.username }
-          onChange={ (e) => changeUsername(e) }></input>
-        </label>
-        <label htmlFor="loginPassword">
-          Password:
-          <input 
-          name="loginPassword"
-          type="password" 
-          placeholder="Enter your password" 
-          required
-          value={ password.password }
-          onChange={ (e) => changePassword(e) }
-          ></input>
-        </label>
-        <label className="login__button">
-          <input 
-          type="submit" 
-          value="Log in" 
-          ></input>
-        </label>
-      </form>
+    <div className="signinMenu">
+      <h1 className="loginTitles">Username</h1>
+      <input name="loginUsername"
+              className="loginInputs" 
+              type="text" 
+              placeholder="Enter your username" 
+              required
+              value={ username.username }
+              onChange={ (e) => changeUsername(e) } 
+            />
+      <h1 className="loginTitles">Password</h1>
+      <input name="loginPassword"
+              className="loginInputs"
+              type="password" 
+              placeholder="Enter your password" 
+              required
+              value={ password.password }
+              onChange={ (e) => changePassword(e) }
+              />
+      <button className="loginButton" onClick={submitData}>Log in</button>
     </div>
   )
 }

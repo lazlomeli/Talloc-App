@@ -1,13 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
-.signin__menu {
+.signinMenu {
+    background-color: rgb(222, 222, 222);
+    padding: 20px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 200px;
-    height: 300px;
-    justify-content: center;
 }
-.login__button {
-   margin-left: 50px;
+.loginTitles {
+    font-weight: normal;
+    font-size: 18px;
+    margin: 0px;
+}
+.loginInputs {
+    margin-bottom: 10px;
+    height: 20px;
+}
+.loginButton {
+    padding: 5px;
+    cursor: pointer;
 }
 .overlay {
     background-color: rgba(0, 0, 0, 0.5);

@@ -61,9 +61,11 @@ router.delete('/users/:id', (req, res) => {
 
 // Log in
 router.post('/login', (req, res) => {
-    axios.post(userAPI + req.path, req.body).then((resp) => {
+    axios.post(userAPI + req.path, req.body)
+    .then((resp) => {
         res.send(resp.data)
     })
+    .catch((err) => console.log(err))
 })
 
 // Sign up

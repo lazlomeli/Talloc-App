@@ -3,10 +3,20 @@ import React, {useState} from 'react'
 import { useEffect } from 'react'
 import CreateTask from './CreateTask'
 import Moment from 'moment'
+import * as API from './services/taskService'
 
-export const Task = ({ tasks }) => {
+
+export const Task = () => {
   const [openModal, setOpenModal] = useState(false)
   const [taskID, setTaskID] = useState('')
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    API.getAllTasks().then((resp) => {
+      setTasks(resp.data)
+    })
+  }, [])
+
 
   function completeTask(task) { 
     const newTask = {
@@ -21,13 +31,13 @@ export const Task = ({ tasks }) => {
     .then((resp) => {
       console.log(resp.data)
     })
-    window.location.reload()
   }
 
   function deleteTask(id) {
     axios.delete(`http://localhost:8002/tasks/${id}`)
-    .then((resp) => console.log(resp))
-    window.location.reload()
+    .then(() => {
+      setTasks([...tasks.filter(task => task.id === id ? false : true)])
+    })
   }
 
   return (
@@ -56,7 +66,7 @@ export const Task = ({ tasks }) => {
         <h1>Create a new Task</h1>
         <button onClick={() => setOpenModal(true)}>+</button>
       </div>
-      <CreateTask open={openModal} onClose={() => setOpenModal(false)}/>
+      <CreateTask tasks={tasks} setTasks={setTasks} open={openModal} onClose={() => setOpenModal(false)}/>
     </>
   )
 }

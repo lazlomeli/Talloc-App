@@ -4,7 +4,7 @@ import Moment from 'moment'
 import axios from 'axios'
 
 
-const CreateTask = ({ open, onClose }) => {
+const CreateTask = ({ open, onClose, tasks, setTasks }) => {
     const [taskTitle, setTaskTitle] = useState('')
     const [taskLang, setTaskLang] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -36,10 +36,11 @@ const CreateTask = ({ open, onClose }) => {
         } else {
             axios.post('http://localhost:8002/tasks', newTask)
             .then((resp) => {
-                console.log(resp.data)
+                setTasks([...tasks, resp.data])
+                setTaskTitle("")
+                setTaskLang("Select the language")
             })
             .catch((err) => console.log(err))
-            window.location.reload()
         }
     }
 

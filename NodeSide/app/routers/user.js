@@ -135,19 +135,15 @@ router.delete('/users/:id', getUser, async (req, res) => {
 /**
  * Log in
  */
-router.post('/login', (req, res) => {
-    const user = 
-    {
-        username: req.body.username, 
-        password: req.body.password
-    }
+router.post('/login', async (req, res) => {
+    const user = { username: req.body.username, password: req.body.password }
 
-    if(User.find({ username: user.username, password: user.password })) {
-        console.log(`Logged as ${user.username}`)
+    if(await User.findOne({ username: user.username, password: user.password })) {
         res.sendStatus(200)
+        console.log(`Logged as ${user.username}`)
     } else {
-        console.log(`User: ${username.username} does not exist`)
         res.sendStatus(404)
+        console.log(`Username or password are incorrect`)
     }
     // const accessToken = jwt.sign(user, `${process.env.ACCESS_TOKEN}`)
     // res.json({ accessToken: accessToken })
