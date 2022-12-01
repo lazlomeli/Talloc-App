@@ -19,10 +19,8 @@ function isAuthorized (req, res, next) {
     })
 }
 
-/** Get User by ID from DB 
- * @param {Response} status(404) Error: Not found
- */
- async function getUser(req, res, next) {
+
+async function getUser(req, res, next) {
     let user
     try {
         user = await User.findById(req.params.id)
@@ -39,16 +37,37 @@ function isAuthorized (req, res, next) {
     next()
 }
 
-async function userExists(username) {
-    if (await User.find({ username: username })) {
-     return true
-    }
-    return false
- }
 
-/**
- * Get User by Username
- */
+async function isValidUser(username) {
+    let foundUser
+    try {
+        foundUser = await User.findOne({ username: username })
+        if(foundUser === null) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        return res.status(404).json({ message: error.message })
+    }
+}
+
+
+async function isValidMail(mail) {
+    let foundUser
+    try {
+        foundUser = await User.findOne({ email: mail })
+        if(foundUser === null) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        return res.status(404).json({ message: error.message })
+    }
+}
+
+
 router.get('/users/:username', async (req, res) => {
     let user;
     try {
@@ -59,10 +78,7 @@ router.get('/users/:username', async (req, res) => {
     }
 })
 
-/** 
- * Get all users from DB
- * @param {Response} status(500) Error: Internal server error
- */
+
 router.get('/users', async (req, res) => {
     try {
         const users = await User.find()
@@ -72,19 +88,12 @@ router.get('/users', async (req, res) => {
     }
 }) 
 
-/** 
- * Get user from DB by ID
- *  @param {function} getUser() asynchronously retrieves a user from the DB
- */
+
 router.get('/users/:id', getUser, (req, res) => {
     res.json(res.user)
 })   
 
-/** 
- * Create User
- * @param {Response} status(201) Succesfully created something
- * @param {Response} status(400) Error: The data sent was not correct
- */
+
 router.post('/users', async (req, res) => {
     const user = new User({
         username: req.body.username,
@@ -99,9 +108,7 @@ router.post('/users', async (req, res) => {
     }
 })
 
-/**
- *  Update User
- */
+
 router.patch('/users/:id', getUser, async (req, res) => {
     if (req.body.username != null) {
         res.user.username = req.body.username
@@ -120,9 +127,7 @@ router.patch('/users/:id', getUser, async (req, res) => {
     }
 })
 
-/**
- * Delete User
- */
+
 router.delete('/users/:id', getUser, async (req, res) => {
     try {
         await res.user.remove()
@@ -132,9 +137,7 @@ router.delete('/users/:id', getUser, async (req, res) => {
     }
 })
 
-/**
- * Log in
- */
+
 router.post('/login', async (req, res) => {
     const user = { username: req.body.username, password: req.body.password }
 
@@ -149,23 +152,20 @@ router.post('/login', async (req, res) => {
     // res.json({ accessToken: accessToken })
 })
 
-/**
- * Sign up
- */
+
 router.post('/register', async (req, res) => {
     const user = new User({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
     })
-
-    if(userExists === true){
-        console.log("[*] User already exists")
-        res.sendStatus(403)
-    } else {
-        console.log(`[*] User ${user.username} created`)
+    if(( await isValidUser(user.username) && await isValidMail(user.email) ) === true) {
+        console.log(`[*] User '${user.username}' is valid. Saving it in DB`)
         await user.save()
-        res.sendStatus(201)
+        res.sendStatus(200)
+    } else {
+        console.log("[*] Username or e-mail already exists")
+        res.sendStatus(403)
     }
 })
 

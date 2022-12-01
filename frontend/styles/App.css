@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
-.signinMenu {
+/* Register & Login */
+.log_regMenu {
     background-color: rgb(222, 222, 222);
     padding: 20px;
     display: flex;
@@ -8,19 +9,21 @@
     align-items: center;
     width: 200px;
 }
-.loginTitles {
+.log_regTitles {
     font-weight: normal;
     font-size: 18px;
     margin: 0px;
 }
-.loginInputs {
+.log_regInputs {
     margin-bottom: 10px;
     height: 20px;
 }
-.loginButton {
+.log_regButton {
     padding: 5px;
     cursor: pointer;
 }
+
+/* Modal */
 .overlay {
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -57,6 +60,16 @@
     padding: 5px;
     cursor: pointer;
 }
+.modal, .overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+/* Task */
 .task {
     outline: auto;
     z-index: 0;
@@ -70,14 +83,8 @@
 .submitCreateTask {
     cursor: pointer;
 }
-.modal, .overlay {
-    top: 0;
-    left: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    position: fixed;
-}
+
+/* Insights */
 .insightsContainer {
     display: flex;
     outline: auto;

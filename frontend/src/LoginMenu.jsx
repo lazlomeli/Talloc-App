@@ -38,26 +38,24 @@ export function LoginMenu() {
   }, [isLogged])
 
   return (
-    <div className="signinMenu">
-      <h1 className="loginTitles">Username</h1>
-      <input name="loginUsername"
-              className="loginInputs" 
+    <div className="log_regMenu">
+      <h1 className="log_regTitles">Username</h1>
+      <input className="log_regInputs" 
               type="text" 
               placeholder="Enter your username" 
               required
               value={ username.username }
               onChange={ (e) => changeUsername(e) } 
             />
-      <h1 className="loginTitles">Password</h1>
-      <input name="loginPassword"
-              className="loginInputs"
+      <h1 className="log_regTitles">Password</h1>
+      <input className="log_regInputs"
               type="password" 
               placeholder="Enter your password" 
               required
               value={ password.password }
               onChange={ (e) => changePassword(e) }
               />
-      <button className="loginButton" onClick={submitData}>Log in</button>
+      <button className="log_regButton" onClick={submitData}>Log in</button>
     </div>
   )
 }

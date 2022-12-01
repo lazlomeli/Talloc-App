@@ -1,13 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const RegisterMenu = () => {
   const [username, setUsername] = useState({ username: '' })
   const [password, setPassword] = useState({ password: '' })
   const [repPassword, setRepPassword] = useState({ repPassword: '' })
-  const [email, setMail] = useState({ email: '' })
-  const [user, setUser] = useState('')
+  const [email, setEmail] = useState({ email: '' })
+  const [isRegistered, setIsRegistered] = useState(false)
+  const navigate = useNavigate()
 
   const changeUsername = (e) => {
       setUsername({ username: e.target.value })
@@ -19,7 +21,7 @@ const RegisterMenu = () => {
     setPassword({ password: e.target.value })
   }
   const changeMail = (e) => {
-      setMail({ email: e.target.value })
+      setEmail({ email: e.target.value })
   }
 
   const registeredUser = {
@@ -28,95 +30,64 @@ const RegisterMenu = () => {
       password: password.password
   } 
   
-  const isValidUser = (u) => {
-    const validUser = new RegExp('^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$')
-    return validUser.test(u) ? true : console.log('User is not valid') && false
+  const isValidUserSyntax = (username) => {
+    let validUser = new RegExp('^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$')
+    return validUser.test(username) ? true : alert("User syntax is invalid") && false
   }
 
   const isValidPassword = () => {
-    return (password.password === repPassword.repPassword) ? true : console.log("Passwords don't match") && false    
+    return (password.password === repPassword.repPassword) ? true : alert("Passwords don't match") && false    
   }
 
-  const signUp = (e) => {
-    e.preventDefault()
-
-    if( user !== username.username && ( isValidUser(username.username) && isValidPassword()) === true ) 
-    {
+  const signUp = () => {
+    if(( isValidUserSyntax(username.username) && isValidPassword() ) === true) {
       axios.post('http://localhost:8002/register', registeredUser)
-      .then(() => {
-        console.log(`Registered as "${username.username}"`)
-        setLoggedUser({username: registeredUser.username, password: registeredUser.password})
+      .then((resp) => {
+        if(resp.status === 200) {
+          setIsRegistered(true)
+        } else {
+          console.log("An account with that username or e-mail already exists. Try again")
+        }
       })
     } else {
-      console.log(`User "${username.username}" already exists`)
+      alert('Incorrect registration. Try again')
     }
   }
 
-  function userExists(u) {
-    axios.get(`http://localhost:8002/users/${u}`)
-    .then((resp) => {
-      setUser(resp.data.username)
-    })
-    .catch((err) => console.log(err))
-  }
-      
   useEffect(() => {
-    userExists(username.username)
-  }, [signUp])
+    isRegistered === true ? navigate('/login') : null
+  }, [isRegistered])
 
   return (
-    <div>
-        <form
-        onSubmit={ (e) => signUp(e)}
-        action="/login"
-        > 
-          <label htmlFor="registerUsername">
-            Username:
-            <input 
-            name="registerUsername" 
-            type="text" 
-            placeholder="Choose a username" 
-            value={ username.username }
-            required
-            onChange={ (e) => changeUsername(e) } />
-          </label>
-          <label>
-            Mail:
-            <input 
-            name="registerEmail"
-            type="email"
-            placeholder="Type your email"
-            value={ email.email }
-            required
-            onChange={ (e) => changeMail(e) }>
-            </input>
-          </label>
-          <label htmlFor="registerPassword">
-            Password:
-            <input 
-            name="registerPassword"
-            type="password" 
-            placeholder="Choose a password" 
-            value={ password.password }
-            required
-            onChange={ (e) => changePassword(e) } />
-          </label>
-          <label htmlFor="registerPassword">
-            Password:
-            <input 
-            name="registerRepPassword"
-            type="password" 
-            placeholder="Repeat your password" 
-            value={ repPassword.repPassword }
-            required
-            onChange={ (e) => changeRepPassword(e) } />
-          </label>
-          <label>
-            <input 
-            type="submit" 
-            value="Sign up" />
-          </label>
-        </form>
+    <div className="log_regMenu">
+      <h1 className="log_regTitles">Username</h1>
+      <input className="log_regInputs" 
+              type="text" 
+              placeholder="Choose a username" 
+              value={ username.username }
+              required
+              onChange={ (e) => changeUsername(e) } />
+      <h1 className="log_regTitles">Mail</h1>
+      <input className="log_regInputs"
+              type="email"
+              placeholder="Type your email"
+              value={ email.email }
+              required
+              onChange={ (e) => changeMail(e) } />
+      <h1 className="log_regTitles">Password</h1>
+      <input className="log_regInputs"
+              type="password" 
+              placeholder="Choose a password" 
+              value={ password.password }
+              required
+              onChange={ (e) => changePassword(e) } /> 
+      <input className="log_regInputs"
+              type="password" 
+              placeholder="Repeat your password" 
+              value={ repPassword.repPassword }
+              required
+              onChange={ (e) => changeRepPassword(e) } />
+      <button className="log_regButton" onClick={ signUp }>Sign up</button>
     </div>
   )
 }
