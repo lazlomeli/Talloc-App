@@ -38,6 +38,7 @@ const RegisterMenu = () => {
   const isValidPassword = () => {
     return (password.password === repPassword.repPassword) ? true : alert("Passwords don't match") && false    
   }
+  
 
   const signUp = () => {
     if(( isValidUserSyntax(username.username) && isValidPassword() ) === true) {
@@ -50,7 +51,7 @@ const RegisterMenu = () => {
         }
       })
     } else {
-      alert('Incorrect registration. Try again')
+      alert('Incorrect registration. Try again') 
     }
   }
 
@@ -59,35 +60,40 @@ const RegisterMenu = () => {
   }, [isRegistered])
 
   return (
-    <div className="log_regMenu">
-      <h1 className="log_regTitles">Username</h1>
-      <input className="log_regInputs" 
-              type="text" 
-              placeholder="Choose a username" 
-              value={ username.username }
-              required
-              onChange={ (e) => changeUsername(e) } />
-      <h1 className="log_regTitles">Mail</h1>
-      <input className="log_regInputs"
-              type="email"
-              placeholder="Type your email"
-              value={ email.email }
-              required
-              onChange={ (e) => changeMail(e) } />
-      <h1 className="log_regTitles">Password</h1>
-      <input className="log_regInputs"
-              type="password" 
-              placeholder="Choose a password" 
-              value={ password.password }
-              required
-              onChange={ (e) => changePassword(e) } /> 
-      <input className="log_regInputs"
-              type="password" 
-              placeholder="Repeat your password" 
-              value={ repPassword.repPassword }
-              required
-              onChange={ (e) => changeRepPassword(e) } />
-      <button className="log_regButton" onClick={ signUp }>Sign up</button>
+    <div className="log_regPage">
+      <img className="tallocLogin" src="../static/talloc.png"/>
+      <div className="registerMenu">
+        <h1 className="registerTitles">Username</h1>
+        <input className="registerInputs" 
+                type="text" 
+                placeholder="Choose a username" 
+                value={ username.username }
+                onChange={ (e) => changeUsername(e) } 
+                required />
+        <h1 className="registerTitles">Mail</h1>
+        <input className="registerInputs"
+                type="email"
+                placeholder="Type your email"
+                value={ email.email }
+                onChange={ (e) => changeMail(e) } 
+                required />
+        <h1 className="registerTitles">Password</h1>
+        <input className="registerInputs"
+                type="password" 
+                placeholder="Choose a password" 
+                value={ password.password }
+                onChange={ (e) => changePassword(e) } 
+                required /> 
+        <h1 className="registerTitles"/>
+        <input className="registerInputs"
+                type="password" 
+                placeholder="Repeat your password" 
+                value={ repPassword.repPassword }
+                onChange={ (e) => changeRepPassword(e) } 
+                required />
+        <div className="registerLine"/>
+        <button className="log_regButton" onClick={ signUp }>Sign up</button>
+      </div>
     </div>
   )
 }

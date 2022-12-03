@@ -1,11 +1,14 @@
+require('dotenv').config()
 /**
  * API Gateway - Users
  */
 const express = require('express')
 const axios = require('axios')
+const auth = require('../controller/auth')
 const router = express.Router()
-
 const userAPI = 'http://localhost:3000'
+const jwt = require('jsonwebtoken')
+
 
 // Get user by username
 router.get('/users/:username', (req, res) => {
@@ -61,6 +64,11 @@ router.delete('/users/:id', (req, res) => {
 
 // Log in
 router.post('/login', (req, res) => {
+    const user = { username: req.body.username }
+    const accessToken = auth.generateAccessToken(user)
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN)
+    
+    
     axios.post(userAPI + req.path, req.body)
     .then((resp) => {
         res.send(resp.data)

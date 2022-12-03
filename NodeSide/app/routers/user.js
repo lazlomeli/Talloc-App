@@ -3,21 +3,6 @@ require('dotenv').config()
 const express = require('express');
 const router = express.Router()
 const User = require('../models/user')
-const jwt = require('jsonwebtoken')
-
-
-function isAuthorized (req, res, next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-
-    if(token == null) return res.sendStatus(401)
-
-    jwt.verify(token, `${process.env.ACCESS_TOKEN}`, (err, user) => {
-        if(err) return res.sendStatus(403)
-        req.user = user
-        next()
-    })
-}
 
 
 async function getUser(req, res, next) {
@@ -148,8 +133,6 @@ router.post('/login', async (req, res) => {
         res.sendStatus(404)
         console.log(`Username or password are incorrect`)
     }
-    // const accessToken = jwt.sign(user, `${process.env.ACCESS_TOKEN}`)
-    // res.json({ accessToken: accessToken })
 })
 
 

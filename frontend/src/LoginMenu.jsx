@@ -38,24 +38,25 @@ export function LoginMenu() {
   }, [isLogged])
 
   return (
-    <div className="log_regMenu">
-      <h1 className="log_regTitles">Username</h1>
-      <input className="log_regInputs" 
-              type="text" 
-              placeholder="Enter your username" 
-              required
-              value={ username.username }
-              onChange={ (e) => changeUsername(e) } 
-            />
-      <h1 className="log_regTitles">Password</h1>
-      <input className="log_regInputs"
-              type="password" 
-              placeholder="Enter your password" 
-              required
-              value={ password.password }
-              onChange={ (e) => changePassword(e) }
+    <div className="log_regPage">
+      <img className="tallocLogin" src="../static/talloc.png"/>
+      <div className="log_regMenu">
+        <input className="log_regInputs" 
+                type="text" 
+                placeholder="Enter your username" 
+                required
+                value={ username.username }
+                onChange={ (e) => changeUsername(e) } 
               />
-      <button className="log_regButton" onClick={submitData}>Log in</button>
+        <input className="log_regInputs"
+                type="password" 
+                placeholder="Enter your password" 
+                required
+                value={ password.password }
+                onChange={ (e) => changePassword(e) }
+                />
+        <button className="log_regButton" onClick={submitData}>Log in</button>
+      </div>
     </div>
   )
 }
