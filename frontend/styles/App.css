@@ -505,15 +505,16 @@ body {
     margin-top: 50px;
     margin-left: 70px;
     padding: 5px;
-    background: #00a586;
-    color: rgb(0, 0, 0);
-    border-color:rgb(0, 0, 0);
+    background: #313b47;
+    color: rgb(206, 206, 206);
+    border-color:rgb(65, 65, 65);
     border-width: 1px;
     cursor: pointer;
 }
 .submitCreateTask:hover {
-    color: #fff;
-    border-color: #fff;
+    color: rgb(105, 105, 105);
+    background:#1c2229;
+    border-color: rgb(172, 172, 172);
 }
 .dashboardPage {
     position: fixed;
