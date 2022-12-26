@@ -162,7 +162,7 @@ body {
     cursor: pointer;
     margin-top: 50px;
     background: #00a586;
-    color: #fff;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 5px;
     width: 100px;
@@ -172,7 +172,7 @@ body {
 }
 .log_regButton:hover {
     background: #2d43c0;
-    color: #000000;
+    color: #fff;
 }
 .registerMenu {
     background-color: #161b22;
@@ -246,32 +246,87 @@ body {
 
 /* Modal */
 .overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(19, 18, 24, 0.5);
     position: fixed;
     width: 100%;
     height: 100%;
 }
 .modalContainer {
+    font-family: "Alliance No.1";
     max-width: 600px;
+    height: 200px;
     width: 100%;
     position: fixed;
     top: 35%;
     left: 35%;
-    background-color: #fff;
+    background-color: #161b22;
+    color: #fff;
     box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
-    outline: auto;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: #30363d;
+    border-radius: 5px;
     padding: 1rem;
     z-index: 2;
 }
 .modalForm {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-content: center;
     flex-wrap: wrap;
     z-index: 2;
 }
 .modalLabel {
     margin: 5px;
+    flex-basis: 50%;
+    font-weight: normal;
+    font-size: 15px;
+    color: rgb(203, 203, 203);
+}
+.modalInput {
+    margin-left: 50px;
+    font-family: "Alliance No.1";
+    background: #010409;
+    text-align: center;
+    outline: solid;
+    outline-color: #5a6169;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    color: #5a6169;
+    border-radius: 3px;
+    outline-width: 1px;
+    margin-top: 20px;
+    padding: 5px;
+    height: 20px;
+}
+.modalInput:focus {
+    background: #30363d;
+    color: #fff;
+}
+.modalSelect {
+    margin-left: 45px;
+    font-family: "Alliance No.1";
+    background: #010409;
+    text-align: center;
+    outline: solid;
+    outline-color: #5a6169;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    color: #5a6169;
+    border-radius: 3px;
+    outline-width: 1px;
+    margin-top: 20px;
+    padding: 5px;
+    height: 30px
+}
+.modalSelect:focus {
+    background: #30363d;
+    color: #fff;
 }
 .modalClose {
     position: absolute;
@@ -292,17 +347,207 @@ body {
 
 /* Task */
 .task {
-    outline: auto;
-    z-index: 0;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: #30363d;
+    border-radius: 5px;
+    background: #161b22;
+    color: #fff;
+    height: 260px;
+    width: 350px;
+    margin: 10px;
+    padding: 10px;
+}
+.taskLine {
+    z-index: 1;
+    width: 350px;
+    height: 1px;
+    background: #30363d;
+    margin: 0px;
+    margin-top: 20px;
+}
+.taskTitle {
+    font-family: "Alliance No.1";
+    color: rgb(235, 235, 235);
+    font-weight: normal;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+.taskLangContainer {
+    display: flex;
+    margin-top: 15px;
+}
+.taskLang {
+    font-family: "Alliance No.1";
+    color: #78808a;
+    margin: 0px;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+.taskLangLogo {
+    width: 25px;
+    height: 25px;
+}
+.taskDate {
+    font-family: "Alliance No.1";
+    flex-basis: 100%;
+    color: #78808a;
+    margin-left: 5px;
+}
+.taskStatus-onGoing {
+    font-family: "Alliance No.1";
+    color: rgb(194, 100, 100);
+    margin: 0px;
+    margin-bottom: 10px;
+    flex-basis: 100%;
+    margin-left: 5px;
+}
+.taskStatus-completed {
+    font-family: "Alliance No.1";
+    color: rgb(123, 177, 123);
+    margin-left: 5px;
+}
+.taskButtonsSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.taskDelete {
+    border-radius: 5px;
+    width: 150px;
+    margin: 10px;
+    margin-top: 50px;
+    padding: 5px;
+    background: #2c333f;
+    color: #707982; 
+    border-color: rgb(10, 10, 10);
+    border-width: 1px;
+    cursor: pointer;
+}
+.taskDelete:hover {
+    background: #bc4c4c;
+    color: rgb(199, 199, 199);
+    border-color: #3c4249;
+}
+.taskDelete-completed {
+    border-radius: 5px;
+    width: 150px;
+    padding: 5px;
+    background: #2c333f;
+    color: #707982; 
+    border-color: rgb(10, 10, 10);
+    border-width: 1px;
+    cursor: pointer;
+    margin-left: 100px;
+    margin-top: 10px;
+}
+.taskDelete-completed:hover {
+    background: #bc4c4c;
+    color: rgb(199, 199, 199);
+    border-color: #3c4249;
+}
+.taskComplete {
+    border-radius: 5px;
+    width: 150px;
+    margin: 10px;
+    margin-top: 50px;
+    padding: 5px;
+    background: #00a586;
+    color: rgb(0, 0, 0);
+    border-color:rgb(0, 0, 0);
+    border-width: 1px;
+    cursor: pointer;
+}
+.taskComplete:hover {
+    color: #fff;
+    border-color: #fff;
 }
 .createTask {
-    outline: auto;
+    border: dashed 2px;
+    border-color: #30363d;
+    border-radius: 5px;
+    background: #161b22;
+    color: #fff;
+    height: 257px;
+    width: 350px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-.taskSection {
-    position: relative;
+.createTaskTitle {
+    font-family: "Alliance No.1";
+    color: #6a7178;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+.createTaskButton {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    border: dashed 2px;
+    font-size: 50px;
+    font-weight: 50;
+    color: #434a4f; 
+    background: #161b22;
+}
+.createTaskButton:hover {
+    color: #7e848b;
+    background: #1c2229;
 }
 .submitCreateTask {
+    border-radius: 5px;
+    width: 150px;
+    margin: 10px;
+    margin-top: 50px;
+    margin-left: 70px;
+    padding: 5px;
+    background: #00a586;
+    color: rgb(0, 0, 0);
+    border-color:rgb(0, 0, 0);
+    border-width: 1px;
     cursor: pointer;
+}
+.submitCreateTask:hover {
+    color: #fff;
+    border-color: #fff;
+}
+.dashboardPage {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #0d1117;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.dashboardTasks {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 1600px;
+    margin: 10px;
+    align-content: flex-start;
+}
+.dashboardTop {
+    background-color: #1f2530;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: #30363d; 
+    height: 50px;
+    flex-basis: 100%;
+    z-index: 1;
+}
+.dashboardSide {
+    background-color: #161b22;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: #30363d; 
+    width: 300px;
+    height: 100%;
 }
 
 /* Insights */

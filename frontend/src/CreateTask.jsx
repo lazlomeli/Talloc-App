@@ -25,7 +25,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks }) => {
     useEffect(() => {
         const formatDate = Moment().format('MMM Do YYYY')
         setStartDate(formatDate)
-        setTaskStatus('On Going')
+        setTaskStatus('ON GOING')
     }, [newTask])
 
     async function createTask() {
@@ -62,6 +62,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks }) => {
                                 name="taskTitle"
                                 type="text"
                                 placeholder="Enter the task title"
+                                className="modalInput"
                                 value={ taskTitle }
                                 onChange={ (e) => setTaskTitle(e.target.value) }
                                 required />
@@ -70,6 +71,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks }) => {
                             Language:
                             <select
                                 value={ taskLang }
+                                className="modalSelect"
                                 onChange={ (e) => setTaskLang(e.target.value) }>
                                 {langOptions.map((option) => (
                                     <option key={option}>{ option }</option>
