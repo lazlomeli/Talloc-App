@@ -328,6 +328,9 @@ body {
     background: #30363d;
     color: #fff;
 }
+.modalSelect:hover {
+    cursor: pointer;
+}
 .modalClose {
     position: absolute;
     top: 8px;
@@ -493,6 +496,7 @@ body {
     font-weight: 50;
     color: #434a4f; 
     background: #161b22;
+    cursor: pointer;
 }
 .createTaskButton:hover {
     color: #7e848b;
@@ -518,6 +522,8 @@ body {
 }
 .dashboardPage {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background: #0d1117;
@@ -552,16 +558,50 @@ body {
 }
 
 /* Insights */
+.insightsBackground {
+    background-color: #0d1117;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 .insightsContainer {
+    font-family: "Alliance No.1";
     display: flex;
-    outline: auto;
-    cursor: pointer;
+    flex-wrap: wrap;
+    align-content: center;
     justify-content: space-between;
+    outline: solid;
+    outline-color: #252a31;
+    outline-width: 1px;
+    color: #fff;
+    margin: 5px;
+    height: 100px;
+    cursor: pointer;
+    background-color: #161b22; 
+}
+.insightsContainer:hover {
+    background:#1c2229;
 }
 .insightsCounter {
-    margin-top: 1.5rem;
-    margin-right: 1rem;
+    margin: 0px;
+    margin-top: 15px;
+    margin-right: 40px;
+    color: rgb(139, 139, 139);
 }
 .insightsLang {
-    margin-left: 1rem;
+    margin: 0px;
+    margin-top: 8px;
+    margin-left: 30px;
+    color: rgb(238, 238, 238);
+}
+.insightsLangLogo {
+    margin: 0px;
+    margin-left: 25px;
+    height: 50px;
+    width: 50px;
+}
+.insightsPhotoAndLang {
+    display: flex;
 }

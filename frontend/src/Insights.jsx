@@ -38,15 +38,18 @@ const Insights = () => {
     }, [tasks])
 
   return (
-    <>
+    <div className="insightsBackground">
     {langs.map(lang => (
         <section title="Click to view more" className="insightsContainer" key={lang}>
-            <h2 className="insightsLang">{lang}</h2>
-            <p className="insightsCounter">{countLanguageTasks(tasks, lang)} tasks</p>
+            <div className="insightsPhotoAndLang">
+                <img className="insightsLangLogo" src={`../static/${lang}.png`}/>
+                <h2 className="insightsLang">{lang}</h2>
+            </div>
+            <p className="insightsCounter">{countLanguageTasks(tasks, lang)} task(s)</p>
         </section>
         ))
     }
-    </>
+    </div>
   )
 }
 
