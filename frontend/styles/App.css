@@ -540,21 +540,108 @@ body {
     align-content: flex-start;
 }
 .dashboardTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #1f2530;
     outline: solid;
     outline-width: 1px;
     outline-color: #30363d; 
-    height: 50px;
+    height: 60px;
     flex-basis: 100%;
     z-index: 1;
 }
+.dashboardTopLeftSection {
+    display: flex;
+}
+.dashboardTopRightSect {
+    display: flex;
+}
+.learnMore {
+    font-family: "Alliance No.1";
+    font-weight: lighter;
+    color: #aab3c5;
+    margin-right: 30px;
+}
+.githubLogo {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+.learnMore:hover {
+    cursor: pointer;
+    color: #697486;
+}
+.dashboardTopLogo {
+    width: 35px;
+    height: 35px;
+    margin-left: 20px;
+}
+.dashboardTopTitle {
+    font-family: "Aileron";
+    font-weight: lighter;
+    color: #fff;
+    margin: 0px;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+.dashboardTopDesc {
+    font-family: "Alliance No.1";
+    font-weight: lighter;
+    color: #697486;
+    margin: 0px;
+    margin-left: 20px;
+    margin-top: 7px;
+}
 .dashboardSide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #161b22;
     outline: solid;
     outline-width: 1px;
     outline-color: #30363d; 
     width: 300px;
     height: 100%;
+}
+.dashboardSideTitle {
+    font-family: "Alliance No.1";
+    font-weight: lighter;
+    color: #e4eaf0;
+    margin: 0px;
+    margin-top: 39px;
+}
+.dashboardSideDesc {
+    font-family: "Alliance No.1";
+    font-weight: lighter;
+    color: #4c5764;
+    margin: 0px;
+    margin-top: 20px;
+}
+.dashboardSideBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: #394047;
+    border-radius: 5px;
+    height: 120px;
+    width: 140px;
+    margin-top: 20px;
+}
+.dashboardSideBoxOption {
+    font-family: "Alliance No.1";
+    font-weight: lighter;
+    color: #838f9c;
+    margin: 0px;
+    margin: 5px;
+    padding: 5px;
+}
+.dashboardSideBoxOption:hover {
+    cursor: pointer;
+    color:#505b68;
 }
 
 /* Insights */

@@ -4,12 +4,13 @@ import { useEffect } from 'react'
 import CreateTask from './CreateTask'
 import Moment from 'moment'
 import * as API from './services/taskService'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 export const Task = () => {
   const [openModal, setOpenModal] = useState(false)
-  const [taskID, setTaskID] = useState('')
   const [tasks, setTasks] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     API.getAllTasks().then((resp) => {
@@ -20,6 +21,7 @@ export const Task = () => {
 
   function completeTask(task) { 
     const newTask = {
+      id: task.id,
       title: task.title,
       programming_language: task.programming_language,
       start_date: task.start_date,
@@ -28,8 +30,10 @@ export const Task = () => {
     }
 
     axios.put(`http://localhost:8002/tasks/${task.id}`, newTask)
-    .then((resp) => {
-      console.log(resp.data)
+    .then(() => {
+        let updatedTasks = tasks.filter(t => t.id === newTask.id ? false : true)
+        updatedTasks.push(newTask)
+        setTasks(updatedTasks)
     })
   }
 
@@ -40,10 +44,39 @@ export const Task = () => {
     })
   }
 
+  function goToInsights() {
+    navigate('/insights')
+  }
+
+  function goToDashbord() {
+    navigate('/dashboard')
+  }
+
+  function learnMore() {
+    window.location.replace('https://github.com/lazlomeli')
+  }
+
   return (
     <div className="dashboardPage">
-      <div className="dashboardTop"></div>
-      <div className="dashboardSide"></div>
+      <div className="dashboardTop">
+        <section className="dashboardTopLeftSection">
+          <img className="dashboardTopLogo" src={"../static/talloc.png"}/>
+          <h1 className="dashboardTopTitle">Talloc App</h1>
+          <p className="dashboardTopDesc">Think. Plan. Achieve.</p>
+        </section>
+        <section className="dashboardTopRightSect">
+          <img className="githubLogo" src={"../static/github.png"}/>
+          <p className="learnMore" onClick={() => learnMore()}>Learn more!</p>
+        </section>
+      </div>
+      <div className="dashboardSide">
+        <h1 className="dashboardSideTitle">Welcome, (username)</h1>
+        <p className="dashboardSideDesc">Navigate to...</p>
+        <section className="dashboardSideBox">
+          <p className="dashboardSideBoxOption" onClick={() => goToDashbord()}>Dashboard</p>
+          <p className="dashboardSideBoxOption" onClick={() => goToInsights()}>Insights</p>
+        </section>
+      </div>
       <div className="dashboardTasks">
         {tasks.map(task => (
           <div key={task.id} className="task">
@@ -54,7 +87,7 @@ export const Task = () => {
               <p className="taskLang">{task.programming_language}</p>
             </div>
             <p className="taskDate">Started at: {task.start_date}</p>
-            {task.status != "Completed" ? (
+            {task.status != "COMPLETED" ? (
               <section className="taskButtonsSection">
                 <p className="taskStatus-onGoing">{task.status}</p>
                   <button className="taskComplete" onClick={() => completeTask(task)}>Complete</button>
