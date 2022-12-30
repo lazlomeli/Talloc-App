@@ -39,7 +39,8 @@ const Insights = () => {
 
   return (
     <div className="insightsBackground">
-    {langs.map(lang => (
+    {langs.length > 0 ? (
+        langs.map(lang => (
         <section title="Click to view more" className="insightsContainer" key={lang}>
             <div className="insightsPhotoAndLang">
                 <img className="insightsLangLogo" src={`../static/${lang}.png`}/>
@@ -48,6 +49,12 @@ const Insights = () => {
             <p className="insightsCounter">{countLanguageTasks(tasks, lang)} task(s)</p>
         </section>
         ))
+    ) : (
+        <section className="insightsEmpty">
+            <h1 className="insightsEmptyTitle">Wow, it's very quiet around here</h1>
+            <p className="insightsEmptyDesc">Create your first task to view it's insights</p>
+        </section>
+    )
     }
     </div>
   )

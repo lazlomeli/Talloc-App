@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, {useState} from 'react'
 import { useEffect } from 'react'
 import CreateTask from './CreateTask'
+import Insights from './Insights'
 import Moment from 'moment'
 import * as API from './services/taskService'
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -10,6 +11,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 export const Task = () => {
   const [openModal, setOpenModal] = useState(false)
   const [tasks, setTasks] = useState([])
+  const [togglePage, setTogglePage] = useState('dashboard')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -45,15 +47,19 @@ export const Task = () => {
   }
 
   function goToInsights() {
-    navigate('/insights')
+    setTogglePage('insights')
   }
 
   function goToDashbord() {
-    navigate('/dashboard')
+    setTogglePage('dashboard')
   }
 
   function learnMore() {
     window.location.replace('https://github.com/lazlomeli')
+  }
+
+  function logout() {
+    navigate('/')
   }
 
   return (
@@ -70,14 +76,21 @@ export const Task = () => {
         </section>
       </div>
       <div className="dashboardSide">
-        <h1 className="dashboardSideTitle">Welcome, (username)</h1>
-        <p className="dashboardSideDesc">Navigate to...</p>
+        <h1 className="dashboardSideTitle">Welcome, {localStorage.getItem('username')}</h1>
+        <p className="dashboardSideDesc">Click to navigate:</p>
         <section className="dashboardSideBox">
           <p className="dashboardSideBoxOption" onClick={() => goToDashbord()}>Dashboard</p>
+        </section>
+        <section className="dashboardSideBox">
           <p className="dashboardSideBoxOption" onClick={() => goToInsights()}>Insights</p>
         </section>
+        <section className="logout" onClick={() => logout()}>
+          <img className="logoutLogo" src={"../static/logout.png"}/>
+          <p className="logoutDesc">Log out</p>
+        </section>
       </div>
-      <div className="dashboardTasks">
+      {togglePage === 'dashboard' ? (
+        <div className="dashboardTasks">
         {tasks.map(task => (
           <div key={task.id} className="task">
             <h1 className="taskTitle">{task.title}</h1>
@@ -108,6 +121,9 @@ export const Task = () => {
           </div>
           <CreateTask tasks={tasks} setTasks={setTasks} open={openModal} onClose={() => setOpenModal(false)}/>
       </div>
+      ) : (
+        <Insights/>
+      )}
     </div>
   )
 }

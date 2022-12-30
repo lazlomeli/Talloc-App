@@ -465,6 +465,12 @@ body {
     color: #fff;
     border-color: #fff;
 }
+.taskStatus-onGoing {
+    font-weight: bold;
+}
+.taskStatus-completed {
+    font-weight: bold;
+}
 .createTask {
     border: dashed 2px;
     border-color: #30363d;
@@ -536,8 +542,10 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     width: 1600px;
+    height: 840px;
     margin: 10px;
     align-content: flex-start;
+    overflow-y: auto;
 }
 .dashboardTop {
     display: flex;
@@ -627,8 +635,8 @@ body {
     outline-width: 1px;
     outline-color: #394047;
     border-radius: 5px;
-    height: 120px;
-    width: 140px;
+    height: 40px;
+    width: 120px;
     margin-top: 20px;
 }
 .dashboardSideBoxOption {
@@ -643,15 +651,42 @@ body {
     cursor: pointer;
     color:#505b68;
 }
+.logout {
+    position: fixed;
+    bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #56616e;
+    width: 120px;
+    height: 40px;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: #252a30;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.logout:hover {
+    background-color: #bc4c4c;
+}
+.logoutLogo {
+    width: 20px;
+    height: 20px;
+}
+.logoutDesc {
+    font-family: "Alliance No.1";
+    font-weight: light;
+    color: #fff;
+    margin: 0px;
+    margin-left: 5px;
+}
 
 /* Insights */
 .insightsBackground {
     background-color: #0d1117;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    width: 1620px;
+    z-index: -1;
+    overflow-y: auto;
 }
 .insightsContainer {
     font-family: "Alliance No.1";
@@ -663,7 +698,7 @@ body {
     outline-color: #252a31;
     outline-width: 1px;
     color: #fff;
-    margin: 5px;
+    margin: 10px;
     height: 100px;
     cursor: pointer;
     background-color: #161b22; 
@@ -691,4 +726,41 @@ body {
 }
 .insightsPhotoAndLang {
     display: flex;
+}
+.insightsEmpty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.insightsEmptyTitle {
+    font-family: "Alliance No.1";
+    font-weight: lighter;
+    font-size: 40px;
+    color:#646d7c;
+    margin: 0px;
+}
+.insightsEmptyDesc {
+    font-family: "Alliance No.1";
+    font-weight: lighter;
+    font-size: 20px;
+    color:#444b58;
+    margin: 0px;
+    margin-top: 20px;
+    margin-bottom: 120px;
+}
+
+/* Webkit Customization */
+::-webkit-scrollbar {
+    width: 15px;
+}
+::-webkit-scrollbar-track {
+    background: #2b343d;
+}
+::-webkit-scrollbar-thumb {
+    background: #58626e;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #525d69;
 }
