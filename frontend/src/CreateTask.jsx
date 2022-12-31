@@ -51,7 +51,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks }) => {
                 <div
                     onClick={ (e) => e.stopPropagation() }
                     className="modalContainer">
-                    <p onClick={ onClose } className="modalClose">x</p>
+                    <img onClick={ onClose } className="modalClose" src={"../static/cross.png"}/>
                     <form
                     className="modalForm"
                     onSubmit={ (e) => createTask(e) }

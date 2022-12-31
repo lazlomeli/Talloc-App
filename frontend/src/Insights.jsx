@@ -79,6 +79,7 @@ const Insights = () => {
             <div className="'modal'">
                 <div className="overlay" onClick={() => toggleInsightsModal()}/>
                 <div className="insightsModal">
+                    <img onClick={() => toggleInsightsModal()} className="modalClose" src={"../static/cross.png"}/>
                     <h1 className="insightsModalTitle">{selectedLang} Insights:</h1>
                     <div className="insightsModalLine"/>
                     <p className="insightsModalDesc">Your {selectedLang} tasks make up the  
