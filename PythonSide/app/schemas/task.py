@@ -9,7 +9,8 @@ def taskEntity(item) -> dict:
         "start_date": item["start_date"],
         "end_date": item["end_date"],
         "status": item["status"],
-        "created_by": item["created_by"]
+        "created_by": item["created_by"],
+        "repository_name": item["repository_name"]
     }
 
 def tasksEntity(entity) -> list:

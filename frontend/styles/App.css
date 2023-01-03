@@ -114,6 +114,8 @@ body {
     width: 100%;
     height: 100%;
     background: #0d1117;
+    top: 0;
+    left: 0;
 }
 .tallocLogin {
     width: 50px;
@@ -255,6 +257,7 @@ body {
     font-family: "Alliance No.1";
     max-width: 600px;
     width: 100%;
+    height: 800px;
     position: fixed;
     left: 650px;
     background-color: #161b22;
@@ -269,7 +272,7 @@ body {
 }
 .modalContainer {
     top: 35%;
-    height: 200px;
+    height: 250px;
 }
 .modalClose {
     width: 15px;
@@ -284,11 +287,17 @@ body {
     z-index: 2;
 }
 .modalLabel {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-around;
     margin: 5px;
-    flex-basis: 50%;
     font-weight: normal;
     font-size: 15px;
     color: rgb(203, 203, 203);
+}
+.modalLabelName {
+    margin: 0px;
+    margin-top: 26px;
 }
 .modalInput {
     margin-left: 50px;
@@ -362,7 +371,7 @@ body {
     border-radius: 5px;
     background: #161b22;
     color: #fff;
-    height: 260px;
+    height: 300px;
     width: 350px;
     margin: 10px;
     padding: 10px;
@@ -385,6 +394,7 @@ body {
 .taskLangContainer {
     display: flex;
     margin-top: 15px;
+    margin-left: 8px;
 }
 .taskLang {
     font-family: "Alliance No.1";
@@ -401,15 +411,36 @@ body {
     font-family: "Alliance No.1";
     flex-basis: 100%;
     color: #78808a;
+    margin-left: 8px;
+    margin-bottom: 5px;
+}
+.githubRepo {
+    font-family: "Alliance No.1";
+    color: #535a63;
     margin-left: 5px;
+    margin-top: 15px;
+    outline: solid;
+    outline-width: 1px;
+    outline-color: #252b33;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #0d1014;
+    cursor: pointer;
+}
+.githubRepo:hover {
+    background-color: #13161b;
+    color: #616872;
+}
+.repoName {
+    color: #0c9de0;
 }
 .taskStatus-onGoing {
     font-family: "Alliance No.1";
     color: rgb(194, 100, 100);
     margin: 0px;
     margin-bottom: 10px;
+    margin-left: 8px;
     flex-basis: 100%;
-    margin-left: 5px;
 }
 .taskStatus-completed {
     font-family: "Alliance No.1";
@@ -425,7 +456,7 @@ body {
     border-radius: 5px;
     width: 150px;
     margin: 10px;
-    margin-top: 50px;
+    margin-top: 35px;
     padding: 5px;
     background: #2c333f;
     color: #707982; 
@@ -449,6 +480,7 @@ body {
     cursor: pointer;
     margin-left: 100px;
     margin-top: 10px;
+    margin-bottom: 15px;
 }
 .taskDelete-completed:hover {
     background: #bc4c4c;
@@ -459,7 +491,7 @@ body {
     border-radius: 5px;
     width: 150px;
     margin: 10px;
-    margin-top: 50px;
+    margin-top: 35px;
     padding: 5px;
     background: #00a586;
     color: rgb(0, 0, 0);
@@ -471,7 +503,16 @@ body {
     color: #fff;
     border-color: #fff;
 }
+.taskStatus {
+    font-family: "Alliance No.1";
+    flex-basis: 100%;
+    color: #78808a;
+    margin: 0px;
+    margin-left: 8px;
+    margin-bottom: 15px;
+}
 .taskStatus-onGoing {
+    margin-top: 5px;
     font-weight: bold;
 }
 .taskStatus-completed {
@@ -483,7 +524,7 @@ body {
     border-radius: 5px;
     background: #161b22;
     color: #fff;
-    height: 257px;
+    height: 297px;
     width: 350px;
     margin: 10px;
     padding: 10px;
@@ -517,9 +558,8 @@ body {
 .submitCreateTask {
     border-radius: 5px;
     width: 150px;
-    margin: 10px;
-    margin-top: 50px;
-    margin-left: 70px;
+    margin-top: 35px;
+    margin-right: 17px;
     padding: 5px;
     background: #313b47;
     color: rgb(206, 206, 206);
@@ -528,9 +568,9 @@ body {
     cursor: pointer;
 }
 .submitCreateTask:hover {
-    color: rgb(105, 105, 105);
-    background:#1c2229;
-    border-color: rgb(172, 172, 172);
+    color: rgb(0, 0, 0);
+    background:#00a586;
+    border-color: rgb(0, 0, 0);
 }
 .dashboardPage {
     position: fixed;
@@ -769,7 +809,7 @@ body {
     margin-left: 5px;
 }
 .insightsModalLine {
-    background-color: #545a61;
+    background-color: #30363d;
     height: 1px;
     width: 600px;
 }

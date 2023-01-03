@@ -27,7 +27,9 @@ const calculatePercentage = (tasks, lang) => {
     return Math.floor((taskCounter/tasks.length)*100)
 }
 
-const Insights = () => {
+// Add each task %
+
+const Insights = (session_user) => {
 
     const [tasks, setTasks] = useState([])
     const [langs, setLangs] = useState([])
@@ -40,7 +42,7 @@ const Insights = () => {
     }
 
     useEffect(() => {
-        API.getAllTasks().then((resp) => {
+        API.getUserTasks(session_user.session_user.user).then((resp) => {
             setTasks(resp.data)
         })
     }, [])

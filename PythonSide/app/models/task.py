@@ -8,3 +8,4 @@ class Task(BaseModel):
     end_date: str
     status: str
     created_by: str
+    repository_name: str

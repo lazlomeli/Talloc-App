@@ -14,6 +14,8 @@ export const Task = (session_user) => {
   const [togglePage, setTogglePage] = useState('dashboard')
   const navigate = useNavigate()
 
+  const repositories = JSON.parse(localStorage.getItem("repositories"))
+
   useEffect(() => {
     API.getUserTasks(session_user.user).then((resp) => {
       setTasks(resp.data)
@@ -28,7 +30,9 @@ export const Task = (session_user) => {
       programming_language: task.programming_language,
       start_date: task.start_date,
       end_date: Moment().format('MMM Do YYYY'),
-      status: "COMPLETED"
+      status: "COMPLETED",
+      created_by: session_user.user,
+      repository_name: task.repository_name
     }
 
     axios.put(`http://localhost:8002/tasks/${task.id}`, newTask)
@@ -55,7 +59,15 @@ export const Task = (session_user) => {
   }
 
   function learnMore() {
-    window.location.replace('https://github.com/lazlomeli')
+    window.location.href = 'https://github.com/lazlomeli'
+  }
+
+  function goToRepos() {
+    try {
+      window.location.href = `https://github.com/${session_user.user}?=repositories`
+    } catch (error) {
+      console.log("Something went wrong. Please try again")
+    }
   }
 
   function logout() {
@@ -100,15 +112,16 @@ export const Task = (session_user) => {
               <p className="taskLang">{task.programming_language}</p>
             </div>
             <p className="taskDate">Started at: {task.start_date}</p>
+            <p className="githubRepo" onClick={() => goToRepos()}>GitHub Repo: <span className="repoName">{task.repository_name}</span></p>
             {task.status != "COMPLETED" ? (
               <section className="taskButtonsSection">
-                <p className="taskStatus-onGoing">{task.status}</p>
+                <p className="taskStatus">Status:<span className="taskStatus-onGoing">{task.status}</span></p>
                   <button className="taskComplete" onClick={() => completeTask(task)}>Complete</button>
                   <button className="taskDelete" onClick={() => deleteTask(task.id)}>Delete</button>
               </section>
             ) : (
               <section className="taskButtonsSection-completed">
-                <p className="taskStatus-completed">{task.status}</p>
+                <p className="taskStatus">Status:<span className="taskStatus-completed">{task.status}</span></p>
                 <p className="taskDate">Ended at: {task.end_date}</p>
                 <button className="taskDelete-completed" onClick={() => deleteTask(task.id)}>Delete</button>
               </section>
@@ -119,10 +132,16 @@ export const Task = (session_user) => {
             <h1 className="createTaskTitle">Create a new task</h1>
             <button className="createTaskButton" onClick={() => setOpenModal(true)}>+</button>
           </div>
-          <CreateTask tasks={tasks} setTasks={setTasks} open={openModal} onClose={() => setOpenModal(false)} session_u={session_user}/>
+          <CreateTask 
+          tasks={tasks} 
+          setTasks={setTasks} 
+          open={openModal} onClose={() => setOpenModal(false)} 
+          session_u={session_user} 
+          repositories={repositories}
+          />
       </div>
       ) : (
-        <Insights/>
+        <Insights session_user={session_user}/>
       )}
     </div>
   )

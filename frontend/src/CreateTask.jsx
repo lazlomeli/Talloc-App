@@ -2,18 +2,20 @@ import React, {useState, useEffect} from 'react'
 import '../styles/App.css'
 import Moment from 'moment'
 import axios from 'axios'
+import * as API from './services/taskService'
 
 
-const CreateTask = ({ open, onClose, tasks, setTasks, session_u }) => {
+const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories }) => {
     const [taskTitle, setTaskTitle] = useState('')
     const [taskLang, setTaskLang] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [taskStatus, setTaskStatus] = useState('')
-    const [createdBy, setCreatedBy] = useState('')
+    const [repositoryName, setRepositoryName] = useState('')
 
     // const langOptions = process.env.REACT_APP_PROG_LANG.split(", ")
     const langOptions = ["Select the language", "Python", "Java", "JavaScript"]
+    const repositories_test = ["MyRepo"]
 
     const newTask = {
         title: taskTitle,
@@ -21,7 +23,8 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u }) => {
         start_date: startDate,
         end_date: endDate,
         status: taskStatus,
-        created_by: session_u.user
+        created_by: session_u.user,
+        repository_name: repositoryName
     }
 
     useEffect(() => {
@@ -59,7 +62,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u }) => {
                     onSubmit={ (e) => createTask(e) }
                     >
                         <label htmlFor="taskTitle" className="modalLabel">
-                            Task title:
+                            <p className="modalLabelName">Task title:</p>
                             <input 
                                 name="taskTitle"
                                 type="text"
@@ -70,13 +73,25 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u }) => {
                                 required />
                         </label>
                         <label className="modalLabel">
-                            Language:
+                            <p className="modalLabelName">Language:</p>
                             <select
                                 value={ taskLang }
                                 className="modalSelect"
                                 onChange={ (e) => setTaskLang(e.target.value) }>
                                 {langOptions.map((option) => (
                                     <option key={option}>{ option }</option>
+                                ))}
+                            </select>
+                        </label>
+                        <label className="modalLabel">
+                            <p className="modalLabelName">GitHub Repository:</p>
+                            <select
+                                value={ taskLang }
+                                className="modalSelect"
+                                onChange={ (e) => setRepositoryName(e.target.value) }
+                                >
+                                {repositories.map((repo) => (
+                                    <option key={repo}>{ repo }</option>
                                 ))}
                             </select>
                         </label>

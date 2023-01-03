@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import * as API from './services/taskService'
 
 
 export function LoginMenu() {
@@ -35,6 +36,17 @@ export function LoginMenu() {
   }
 
   useEffect(() => {
+    try {
+      API.getGithubRepos(username.username)
+      .then((resp) => {
+        let data = resp.data
+        let repositories = []
+        data.map(repo => repositories.push(repo.name))
+        localStorage.setItem("repositories", JSON.stringify(repositories))
+      })
+    } catch (error) {
+      console.log("Username not found in GitHub")
+    }
     isLogged === true ? navigate('/dashboard') : null
   }, [isLogged])
 
