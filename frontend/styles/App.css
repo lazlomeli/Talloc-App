@@ -780,6 +780,7 @@ body {
 }
 .insightsModalDescSub {
     color: #46505e;
+    margin-left: 5px;
 }
 .insightsModalMainPanel {
     display: flex;

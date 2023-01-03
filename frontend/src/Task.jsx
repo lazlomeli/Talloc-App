@@ -8,14 +8,14 @@ import * as API from './services/taskService'
 import { Navigate, useNavigate } from 'react-router-dom';
 
 
-export const Task = () => {
+export const Task = (session_user) => {
   const [openModal, setOpenModal] = useState(false)
   const [tasks, setTasks] = useState([])
   const [togglePage, setTogglePage] = useState('dashboard')
   const navigate = useNavigate()
 
   useEffect(() => {
-    API.getAllTasks().then((resp) => {
+    API.getUserTasks(session_user.user).then((resp) => {
       setTasks(resp.data)
     })
   }, [])
@@ -76,7 +76,7 @@ export const Task = () => {
         </section>
       </div>
       <div className="dashboardSide">
-        <h1 className="dashboardSideTitle">Welcome, {localStorage.getItem('username')}</h1>
+        <h1 className="dashboardSideTitle">Welcome, {localStorage.getItem('talloc_username')}</h1>
         <p className="dashboardSideDesc">Click to navigate:</p>
         <section className="dashboardSideBox">
           <p className="dashboardSideBoxOption" onClick={() => goToDashbord()}>Dashboard</p>
@@ -92,7 +92,7 @@ export const Task = () => {
       {togglePage === 'dashboard' ? (
         <div className="dashboardTasks">
         {tasks.map(task => (
-          <div key={task.id} className="task">
+          <div key={task.title} className="task">
             <h1 className="taskTitle">{task.title}</h1>
             <div className="taskLine"></div>
             <div className="taskLangContainer">
@@ -119,7 +119,7 @@ export const Task = () => {
             <h1 className="createTaskTitle">Create a new task</h1>
             <button className="createTaskButton" onClick={() => setOpenModal(true)}>+</button>
           </div>
-          <CreateTask tasks={tasks} setTasks={setTasks} open={openModal} onClose={() => setOpenModal(false)}/>
+          <CreateTask tasks={tasks} setTasks={setTasks} open={openModal} onClose={() => setOpenModal(false)} session_u={session_user}/>
       </div>
       ) : (
         <Insights/>

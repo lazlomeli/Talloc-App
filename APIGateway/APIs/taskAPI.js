@@ -17,6 +17,15 @@ router.get('/tasks', (req, res) => {
     })
 })
 
+// Get user tasks
+router.get('/tasks/:username', (req, res) => {
+    axios.get(taskAPI + req.path).then((resp) => {
+        res.send(resp.data)
+        console.log(`[*] Showing ${req.params.username} tasks:`)
+        console.log(resp.data)
+    })
+})
+
 // Get task by ID
 router.get('/tasks/:id', (req, res) => {
     axios.get(taskAPI + req.path).then((resp) => {

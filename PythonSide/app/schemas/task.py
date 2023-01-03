@@ -8,7 +8,8 @@ def taskEntity(item) -> dict:
         "programming_language": item["programming_language"],
         "start_date": item["start_date"],
         "end_date": item["end_date"],
-        "status": item["status"]
+        "status": item["status"],
+        "created_by": item["created_by"]
     }
 
 def tasksEntity(entity) -> list:

@@ -7,3 +7,4 @@ class Task(BaseModel):
     start_date: str
     end_date: str
     status: str
+    created_by: str

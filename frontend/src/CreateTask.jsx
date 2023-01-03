@@ -4,12 +4,13 @@ import Moment from 'moment'
 import axios from 'axios'
 
 
-const CreateTask = ({ open, onClose, tasks, setTasks }) => {
+const CreateTask = ({ open, onClose, tasks, setTasks, session_u }) => {
     const [taskTitle, setTaskTitle] = useState('')
     const [taskLang, setTaskLang] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [taskStatus, setTaskStatus] = useState('')
+    const [createdBy, setCreatedBy] = useState('')
 
     // const langOptions = process.env.REACT_APP_PROG_LANG.split(", ")
     const langOptions = ["Select the language", "Python", "Java", "JavaScript"]
@@ -19,7 +20,8 @@ const CreateTask = ({ open, onClose, tasks, setTasks }) => {
         programming_language: taskLang,
         start_date: startDate,
         end_date: endDate,
-        status: taskStatus
+        status: taskStatus,
+        created_by: session_u.user
     }
 
     useEffect(() => {

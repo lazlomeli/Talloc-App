@@ -14,6 +14,12 @@ DB = conn.pstudioDB
 
 task = APIRouter()
 
+
+# Get a user's list of tasks
+@task.get('/tasks/{username}', response_model=list[Task], tags=["Tasks"])
+def find_user_tasks(username: str):
+    return tasksEntity(DB.task.find({"created_by": username}))
+
 # Get all tasks
 @task.get('/tasks', response_model=list[Task], tags=["Tasks"])
 def find_all_tasks():

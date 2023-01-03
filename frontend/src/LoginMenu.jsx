@@ -27,7 +27,7 @@ export function LoginMenu() {
     .then((resp) => {
       if(resp.status === 200) {
         setIsLogged(true)
-        localStorage.setItem('username', user.username)
+        localStorage.setItem('talloc_username', user.username)
       } else {
         alert("Incorrect user or password. Try again")
       }
