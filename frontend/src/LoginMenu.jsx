@@ -45,7 +45,7 @@ export function LoginMenu() {
         localStorage.setItem("repositories", JSON.stringify(repositories))
       })
     } catch (error) {
-      console.log("Username not found in GitHub")
+      alert("Username not found in GitHub")
     }
     isLogged === true ? navigate('/dashboard') : null
   }, [isLogged])

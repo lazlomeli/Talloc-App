@@ -13,9 +13,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
     const [taskStatus, setTaskStatus] = useState('')
     const [repositoryName, setRepositoryName] = useState('')
 
-    // const langOptions = process.env.REACT_APP_PROG_LANG.split(", ")
-    const langOptions = ["Select the language", "Python", "Java", "JavaScript"]
-    const repositories_test = ["MyRepo"]
+    const langOptions = import.meta.env.VITE_PROG_LANGS.split(", ")
 
     const newTask = {
         title: taskTitle,
@@ -34,10 +32,13 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
     }, [newTask])
 
     async function createTask() {
-        onClose()
-
-        if(newTask.programming_language === 'Select the language') {
-            console.log("Choose a valid language")
+        if(
+            (newTask.programming_language === 'Select the language' ||
+            newTask.programming_language === '') && 
+            (newTask.repository_name === 'Select your repository' ||
+            newTask.repository_name === '')
+            ) {
+            alert('Choose valid data')
         } else {
             axios.post('http://localhost:8002/tasks', newTask)
             .then((resp) => {
@@ -47,6 +48,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
             })
             .catch((err) => console.log(err))
         }
+        onClose()
     }
 
     if (!open) return null
@@ -102,7 +104,6 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
                                 className="submitCreateTask"
                                 />
                         </label>
-                        {/* GitHub Repository */}
                     </form>
                 </div>
             </div>

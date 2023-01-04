@@ -15,6 +15,8 @@ export const Task = (session_user) => {
   const navigate = useNavigate()
 
   const repositories = JSON.parse(localStorage.getItem("repositories"))
+  repositories.unshift("None")
+  repositories.unshift("Select your repository")
 
   useEffect(() => {
     API.getUserTasks(session_user.user).then((resp) => {
@@ -62,17 +64,21 @@ export const Task = (session_user) => {
     window.location.href = 'https://github.com/lazlomeli'
   }
 
-  function goToRepos() {
+  function goToRepos(repository) {
     try {
-      window.location.href = `https://github.com/${session_user.user}?=repositories`
+      window.location.href = `https://github.com/${session_user.user}/${repository}`
     } catch (error) {
       console.log("Something went wrong. Please try again")
     }
   }
 
   function logout() {
+    localStorage.removeItem("talloc_username")
+    localStorage.removeItem("repositories")
     navigate('/')
   }
+
+
 
   return (
     <div className="dashboardPage">
@@ -105,14 +111,22 @@ export const Task = (session_user) => {
         <div className="dashboardTasks">
         {tasks.map(task => (
           <div key={task.title} className="task">
-            <h1 className="taskTitle">{task.title}</h1>
+            {task.title.length <= 10 ? (
+              <h1 title={task.title} className="taskTitle">{task.title}</h1>
+            ) : (
+              <h1 title={task.title} className="taskTitle">{task.title.substring(0, 32 - 3)}...</h1>
+            )}
             <div className="taskLine"></div>
             <div className="taskLangContainer">
               <img className="taskLangLogo" src={`../static/${task.programming_language}.png`}/>
               <p className="taskLang">{task.programming_language}</p>
             </div>
             <p className="taskDate">Started at: {task.start_date}</p>
-            <p className="githubRepo" onClick={() => goToRepos()}>GitHub Repo: <span className="repoName">{task.repository_name}</span></p>
+            {task.repository_name === 'None' ? (
+              <p className="githubRepo" onClick={() => goToRepos(task.repository_name)}>GitHub Repo: <span style={{color: '#adb5bd'}}>{task.repository_name}</span></p>
+            ) : (
+              <p className="githubRepo" onClick={() => goToRepos(task.repository_name)}>GitHub Repo: <span className="repoName">{task.repository_name}</span></p>
+            )}
             {task.status != "COMPLETED" ? (
               <section className="taskButtonsSection">
                 <p className="taskStatus">Status:<span className="taskStatus-onGoing">{task.status}</span></p>

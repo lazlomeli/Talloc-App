@@ -47,7 +47,7 @@ const RegisterMenu = () => {
         if(resp.status === 200) {
           setIsRegistered(true)
         } else {
-          console.log("An account with that username or e-mail already exists. Try again")
+          alert("An account with that username or e-mail already exists. Try again")
         }
       })
     } else {

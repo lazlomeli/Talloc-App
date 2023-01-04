@@ -27,8 +27,6 @@ const calculatePercentage = (tasks, lang) => {
     return Math.floor((taskCounter/tasks.length)*100)
 }
 
-// Add each task %
-
 const Insights = (session_user) => {
 
     const [tasks, setTasks] = useState([])

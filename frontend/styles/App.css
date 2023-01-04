@@ -436,7 +436,7 @@ body {
 }
 .taskStatus-onGoing {
     font-family: "Alliance No.1";
-    color: rgb(194, 100, 100);
+    color: rgb(219, 85, 114);
     margin: 0px;
     margin-bottom: 10px;
     margin-left: 8px;
@@ -444,7 +444,7 @@ body {
 }
 .taskStatus-completed {
     font-family: "Alliance No.1";
-    color: rgb(123, 177, 123);
+    color: rgb(65, 211, 150);
     margin-left: 5px;
 }
 .taskButtonsSection {
@@ -465,9 +465,9 @@ body {
     cursor: pointer;
 }
 .taskDelete:hover {
-    background: #bc4c4c;
-    color: rgb(199, 199, 199);
-    border-color: #3c4249;
+    background: rgb(219, 85, 114);
+    color: #000;
+    border-color: #000;
 }
 .taskDelete-completed {
     border-radius: 5px;
@@ -483,9 +483,9 @@ body {
     margin-bottom: 15px;
 }
 .taskDelete-completed:hover {
-    background: #bc4c4c;
-    color: rgb(199, 199, 199);
-    border-color: #3c4249;
+    background: rgb(219, 85, 114);
+    color: #000;
+    border-color: #000;
 }
 .taskComplete {
     border-radius: 5px;
@@ -500,8 +500,8 @@ body {
     cursor: pointer;
 }
 .taskComplete:hover {
-    color: #fff;
-    border-color: #fff;
+    background: #006452;
+    color: rgb(158, 206, 199);
 }
 .taskStatus {
     font-family: "Alliance No.1";
@@ -713,7 +713,7 @@ body {
     cursor: pointer;
 }
 .logout:hover {
-    background-color: #bc4c4c;
+    background-color: rgb(219, 85, 114);
 }
 .logoutLogo {
     width: 20px;
