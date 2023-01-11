@@ -11,6 +11,26 @@ export function LoginMenu() {
   const [isLogged, setIsLogged] = useState(false)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    isLogged === true ? (
+      API.getGithubRepos(username.username)
+      .then((resp) => {
+        let data = resp.data
+        let repositories = []
+        data.map(repo => repositories.push(repo.name))
+        localStorage.setItem("repositories", JSON.stringify(repositories))
+      })
+    ) : null
+  }, [isLogged])
+
+  useEffect(() => {
+    isLogged === true ? (
+      setTimeout(() => {
+      navigate('/dashboard')
+    }, 1500)
+    ) : null
+  }, [isLogged])
+
   const changeUsername = (e) => {
     setUsername({ username: e.target.value })
   }                                           
@@ -35,21 +55,6 @@ export function LoginMenu() {
       }
     })
   }
-
-  useEffect(() => {
-    try {
-      API.getGithubRepos(username.username)
-      .then((resp) => {
-        let data = resp.data
-        let repositories = []
-        data.map(repo => repositories.push(repo.name))
-        localStorage.setItem("repositories", JSON.stringify(repositories))
-      })
-    } catch (error) {
-      alert("Username not found in GitHub")
-    }
-    isLogged === true ? navigate('/dashboard') : null
-  }, [isLogged])
 
   return (
     <div className="log_regPage">

@@ -25,7 +25,6 @@ export const Task = (session_user) => {
     })
   }, [])
 
-
   function completeTask(task) { 
     const newTask = {
       id: task.id,

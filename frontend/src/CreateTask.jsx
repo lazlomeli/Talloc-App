@@ -14,7 +14,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
     const [taskStatus, setTaskStatus] = useState('')
     const [repositoryName, setRepositoryName] = useState('')
 
-    const langOptions = import.meta.env.VITE_PROG_LANGS.split(", ")
+    const langOptions = "Select the language, Python, Java, JavaScript, TypeScript, React, NodeJS, C, C++, C#, HTML, CSS, PHP, Ruby, R, Perl, Bash, Kotlin, Swift, SQL, Rust".split(", ")
 
     const newTask = {
         title: taskTitle,
