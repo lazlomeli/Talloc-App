@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import * as API from './services/taskService'
+import * as taskAPI from './services/taskService'
 import * as auth from './services/authService'
+import languages from '../langs.json'
 
 function getLanguages(tasks) {
     let languages = []
@@ -41,7 +42,8 @@ const Insights = (session_user) => {
     }
 
     useEffect(() => {
-        API.getUserTasks(session_user.session_user.user, auth.config()).then((resp) => {
+        taskAPI.getUserTasks(session_user.session_user.user, auth.config())
+        .then((resp) => {
             setTasks(resp.data)
         })
     }, [])
@@ -59,7 +61,7 @@ const Insights = (session_user) => {
             title="Click to view more" 
             className="insightsContainer" 
             onClick ={() => toggleInsightsModal(lang)} 
-            key={lang}
+            key={languages.indexOf(lang)}
             >
                 {lang === "C#" ? (
                 <div className="insightsPhotoAndLang">

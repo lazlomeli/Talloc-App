@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import * as API from './services/taskService'
+import { useNavigate } from 'react-router-dom';
+import * as taskAPI from './services/taskService'
+import * as userAPI from './services/userService'
 
 
 export function LoginMenu() {
@@ -13,12 +13,15 @@ export function LoginMenu() {
 
   useEffect(() => {
     isLogged === true ? (
-      API.getGithubRepos(username.username)
+      taskAPI.getGithubRepos(username.username)
       .then((resp) => {
         let data = resp.data
         let repositories = []
         data.map(repo => repositories.push(repo.name))
         localStorage.setItem("repositories", JSON.stringify(repositories))
+      })
+      .catch(() => {
+        localStorage.setItem("repositories", "None")
       })
     ) : null
   }, [isLogged])
@@ -44,8 +47,7 @@ export function LoginMenu() {
       username: username.username,
       password: password.password
     }
-    axios.post('http://localhost:8002/login', user)
-    .then((resp) => {
+    userAPI.logIn(user).then((resp) => {
       if(resp.status === 200) {
         setIsLogged(true)
         localStorage.setItem('talloc_username', user.username)

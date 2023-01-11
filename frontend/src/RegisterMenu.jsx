@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as userAPI from './services/userService'
 
 
 const RegisterMenu = () => {
@@ -42,7 +42,7 @@ const RegisterMenu = () => {
 
   const signUp = () => {
     if(( isValidUserSyntax(username.username) && isValidPassword() ) === true) {
-      axios.post('http://localhost:8002/register', registeredUser)
+      userAPI.registerUser(registeredUser)
       .then((resp) => {
         if(resp.status === 200) {
           setIsRegistered(true)

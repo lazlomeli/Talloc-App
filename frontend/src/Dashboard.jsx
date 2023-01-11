@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import { Task } from './Task'
-import axios from 'axios'
 
 
 export const Dashboard = () => {

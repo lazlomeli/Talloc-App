@@ -1,20 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import '../styles/App.css'
 import Moment from 'moment'
-import axios from 'axios'
-import * as API from './services/taskService'
+import * as taskAPI from './services/taskService'
 import * as auth from './services/authService'
+import languages from '../langs.json'
 
 
 const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories }) => {
     const [taskTitle, setTaskTitle] = useState('')
     const [taskLang, setTaskLang] = useState('')
     const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
+    const [endDate] = useState('')
     const [taskStatus, setTaskStatus] = useState('')
     const [repositoryName, setRepositoryName] = useState('')
-
-    const langOptions = "Select the language, Python, Java, JavaScript, TypeScript, React, NodeJS, C, C++, C#, HTML, CSS, PHP, Ruby, R, Perl, Bash, Kotlin, Swift, SQL, Rust".split(", ")
 
     const newTask = {
         title: taskTitle,
@@ -41,7 +39,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
             ) {
             alert('Choose valid data')
         } else {
-            axios.post('http://localhost:8002/tasks', newTask, auth.config())
+            taskAPI.postTask(newTask, auth.config())
             .then((resp) => {
                 setTasks([...tasks, resp.data])
                 setTaskTitle("")
@@ -81,7 +79,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
                                 value={ taskLang }
                                 className="modalSelect"
                                 onChange={ (e) => setTaskLang(e.target.value) }>
-                                {langOptions.map((option) => (
+                                {languages.map((option) => (
                                     <option key={option}>{ option }</option>
                                 ))}
                             </select>

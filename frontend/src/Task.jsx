@@ -1,12 +1,11 @@
-import axios from 'axios'
 import React, {useState} from 'react'
 import { useEffect } from 'react'
 import CreateTask from './CreateTask'
 import Insights from './Insights'
 import Moment from 'moment'
-import * as API from './services/taskService'
+import * as taskAPI from './services/taskService'
 import * as auth from './services/authService'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Task = (session_user) => {
@@ -15,12 +14,19 @@ export const Task = (session_user) => {
   const [togglePage, setTogglePage] = useState('dashboard')
   const navigate = useNavigate()
 
-  const repositories = JSON.parse(localStorage.getItem("repositories"))
-  repositories.unshift("None")
-  repositories.unshift("Select your repository")
+  let repositories = []
+  
+  if(repositories.length > 2) {
+    repositories = JSON.parse(localStorage.getItem("repositories"))
+    repositories.unshift("None")
+    repositories.unshift("Select your repository")
+  } else {
+    repositories.unshift("None")
+    repositories.unshift("Select your repository")
+  }
 
   useEffect(() => {
-    API.getUserTasks(session_user.user, auth.config()).then((resp) => {
+    taskAPI.getUserTasks(session_user.user, auth.config()).then((resp) => {
       setTasks(resp.data)
     })
   }, [])
@@ -37,7 +43,7 @@ export const Task = (session_user) => {
       repository_name: task.repository_name
     }
 
-    axios.put(`http://localhost:8002/tasks/${task.id}`, newTask, auth.config())
+    taskAPI.updateTask(task.id, newTask, auth.config())
     .then(() => {
         let updatedTasks = tasks.filter(t => t.id === newTask.id ? false : true)
         updatedTasks.push(newTask)
@@ -46,7 +52,7 @@ export const Task = (session_user) => {
   }
 
   function deleteTask(id) {
-    axios.delete(`http://localhost:8002/tasks/${id}`, auth.config())
+    taskAPI.deleteTaskByID(id, auth.config())
     .then(() => {
       setTasks([...tasks.filter(task => task.id === id ? false : true)])
     })
@@ -109,11 +115,11 @@ export const Task = (session_user) => {
       {togglePage === 'dashboard' ? (
         <div className="dashboardTasks">
         {tasks.map(task => (
-          <div key={task.title} className="task">
+          <div key={task.id} className="task">
             {task.title.length <= 10 ? (
               <h1 title={task.title} className="taskTitle">{task.title}</h1>
             ) : (
-              <h1 title={task.title} className="taskTitle">{task.title.substring(0, 32 - 3)}...</h1>
+              <h1 title={task.title} className="taskTitle">{task.title.substring(0, 26 - 3)}...</h1>
             )}
             <div className="taskLine"></div>
             {task.programming_language === "C#" ? (
