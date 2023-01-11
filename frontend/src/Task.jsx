@@ -5,6 +5,7 @@ import CreateTask from './CreateTask'
 import Insights from './Insights'
 import Moment from 'moment'
 import * as API from './services/taskService'
+import * as auth from './services/authService'
 import { Navigate, useNavigate } from 'react-router-dom';
 
 
@@ -19,7 +20,7 @@ export const Task = (session_user) => {
   repositories.unshift("Select your repository")
 
   useEffect(() => {
-    API.getUserTasks(session_user.user).then((resp) => {
+    API.getUserTasks(session_user.user, auth.config()).then((resp) => {
       setTasks(resp.data)
     })
   }, [])
@@ -37,7 +38,7 @@ export const Task = (session_user) => {
       repository_name: task.repository_name
     }
 
-    axios.put(`http://localhost:8002/tasks/${task.id}`, newTask)
+    axios.put(`http://localhost:8002/tasks/${task.id}`, newTask, auth.config())
     .then(() => {
         let updatedTasks = tasks.filter(t => t.id === newTask.id ? false : true)
         updatedTasks.push(newTask)
@@ -46,7 +47,7 @@ export const Task = (session_user) => {
   }
 
   function deleteTask(id) {
-    axios.delete(`http://localhost:8002/tasks/${id}`)
+    axios.delete(`http://localhost:8002/tasks/${id}`, auth.config())
     .then(() => {
       setTasks([...tasks.filter(task => task.id === id ? false : true)])
     })
@@ -74,11 +75,10 @@ export const Task = (session_user) => {
 
   function logout() {
     localStorage.removeItem("talloc_username")
+    localStorage.removeItem("talloc_user_token")
     localStorage.removeItem("repositories")
     navigate('/')
   }
-
-
 
   return (
     <div className="dashboardPage">
@@ -117,10 +117,17 @@ export const Task = (session_user) => {
               <h1 title={task.title} className="taskTitle">{task.title.substring(0, 32 - 3)}...</h1>
             )}
             <div className="taskLine"></div>
-            <div className="taskLangContainer">
+            {task.programming_language === "C#" ? (
+              <div className="taskLangContainer">
+                <img className="taskLangLogo" src={`../static/CSharp.png`}/>
+                <p className="taskLang">{task.programming_language}</p>
+              </div>
+            ) : (
+              <div className="taskLangContainer">
               <img className="taskLangLogo" src={`../static/${task.programming_language}.png`}/>
               <p className="taskLang">{task.programming_language}</p>
             </div>
+            )}
             <p className="taskDate">Started at: {task.start_date}</p>
             {task.repository_name === 'None' ? (
               <p className="githubRepo" onClick={() => goToRepos(task.repository_name)}>GitHub Repo: <span style={{color: '#adb5bd'}}>{task.repository_name}</span></p>

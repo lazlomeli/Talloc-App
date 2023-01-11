@@ -8,8 +8,7 @@ const auth = require('../controller/auth')
 const taskAPI = 'http://127.0.0.1:8000'
 
 
-// Get all tasks
-router.get('/tasks', (req, res) => {
+router.get('/tasks', auth.authenticateToken, (req, res) => {
     axios.get(taskAPI + req.path).then((resp) => {
         res.send(resp.data)
         console.log('[*] Showing all tasks:')
@@ -17,8 +16,7 @@ router.get('/tasks', (req, res) => {
     })
 })
 
-// Get user tasks
-router.get('/tasks/:username', (req, res) => {
+router.get('/tasks/:username', auth.authenticateToken, (req, res) => {
     axios.get(taskAPI + req.path).then((resp) => {
         res.send(resp.data)
         console.log(`[*] Showing ${req.params.username} tasks:`)
@@ -26,8 +24,7 @@ router.get('/tasks/:username', (req, res) => {
     })
 })
 
-// Get task by ID
-router.get('/tasks/:id', (req, res) => {
+router.get('/tasks/:id', auth.authenticateToken, (req, res) => {
     axios.get(taskAPI + req.path).then((resp) => {
         res.send(resp.data)
         console.log(`[*] Showing task: ${req.params.id}`)
@@ -35,8 +32,7 @@ router.get('/tasks/:id', (req, res) => {
     })
 })
 
-// Create task
-router.post('/tasks', (req, res) => {
+router.post('/tasks', auth.authenticateToken, (req, res) => {
     axios.post(taskAPI + req.path, req.body).then((resp) => {
         res.send(resp.data)
         console.log('[*] Creating task:')
@@ -44,8 +40,7 @@ router.post('/tasks', (req, res) => {
     })
 })
 
-// Update task
-router.put('/tasks/:id', (req, res) => {
+router.put('/tasks/:id', auth.authenticateToken, (req, res) => {
     axios.put(taskAPI + req.path, req.body).then((resp) => {
         res.send(resp.data)
         console.log(`[*] Updated task: ${req.params.id}`)
@@ -53,8 +48,7 @@ router.put('/tasks/:id', (req, res) => {
     })
 })
 
-// Delete task
-router.delete('/tasks/:id', (req, res) => {
+router.delete('/tasks/:id', auth.authenticateToken, (req, res) => {
     axios.delete(taskAPI + req.path).then((resp) => {
         res.send(resp.data)
         console.log(`[*] Deleted task: ${req.params.id}`)

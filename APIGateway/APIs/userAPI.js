@@ -7,18 +7,15 @@ const axios = require('axios')
 const auth = require('../controller/auth')
 const router = express.Router()
 const userAPI = 'http://localhost:3000'
-const jwt = require('jsonwebtoken')
 
 
-// Get user by username
-router.get('/users/:username', (req, res) => {
+router.get('/users/:username', auth.authenticateToken, (req, res) => {
     axios.get(userAPI + req.path).then((resp) => {
         res.send(resp.data)
     })
 })
 
-// Get all users
-router.get('/users', (req, res) => {
+router.get('/users', auth.authenticateToken, (req, res) => {
     axios.get(userAPI + req.path).then((resp) => {
         res.send(resp.data)
         console.log('[*] Showing all users:')
@@ -26,8 +23,7 @@ router.get('/users', (req, res) => {
     })
 })
 
-// Get user by ID
-router.get('/users/:id', (req, res) => {
+router.get('/users/:id', auth.authenticateToken, (req, res) => {
     axios.get(userAPI + req.path).then((resp) => {
         res.send(resp.data)
         console.log(`[*] Showing user: ${req.params.id}`)
@@ -35,8 +31,7 @@ router.get('/users/:id', (req, res) => {
     })
 })
 
-// Create user
-router.post('/users', (req, res) => {
+router.post('/users', auth.authenticateToken, (req, res) => {
     axios.post(userAPI + req.path, req.body).then((resp) => {
         res.send(resp.data)
         console.log('[*] Creating user:')
@@ -44,8 +39,7 @@ router.post('/users', (req, res) => {
     })
 })
 
-// Update user
-router.patch('/users/:id', (req, res) => {
+router.patch('/users/:id', auth.authenticateToken, (req, res) => {
     axios.patch(userAPI + req.path, req.body).then((resp) => {
         res.send(resp.data)
         console.log(`[*] Updated user: ${req.params.id}`)
@@ -53,8 +47,7 @@ router.patch('/users/:id', (req, res) => {
     })
 })
 
-// Delete user
-router.delete('/users/:id', (req, res) => {
+router.delete('/users/:id', auth.authenticateToken, (req, res) => {
     axios.delete(userAPI + req.path).then((resp) => {
         res.send(resp.data)
         console.log(`[*] Deleted user: ${req.params.id}`)
@@ -62,21 +55,20 @@ router.delete('/users/:id', (req, res) => {
     })
 })
 
-// Log in
 router.post('/login', (req, res) => {
-    const user = { username: req.body.username }
-    const accessToken = auth.generateAccessToken(user)
-    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN)
-    
+    const userForToken = { username: req.body.username }
+    const token = auth.generateAccessToken(userForToken)
     
     axios.post(userAPI + req.path, req.body)
-    .then((resp) => {
-        res.send(resp.data)
+    .then(() => {
+        res.send({
+            username: req.body.username,
+            token: token 
+        })
     })
     .catch((err) => console.log(err))
 })
 
-// Sign up
 router.post('/register', (req, res) => {
     axios.post(userAPI + req.path, req.body)
     .then((resp) => {

@@ -3,6 +3,7 @@ import '../styles/App.css'
 import Moment from 'moment'
 import axios from 'axios'
 import * as API from './services/taskService'
+import * as auth from './services/authService'
 
 
 const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories }) => {
@@ -40,7 +41,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
             ) {
             alert('Choose valid data')
         } else {
-            axios.post('http://localhost:8002/tasks', newTask)
+            axios.post('http://localhost:8002/tasks', newTask, auth.config())
             .then((resp) => {
                 setTasks([...tasks, resp.data])
                 setTaskTitle("")

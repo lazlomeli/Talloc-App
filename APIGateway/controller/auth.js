@@ -1,21 +1,27 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 
-function authenticateToken (req, res, next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
 
-    if(token == null) return res.sendStatus(401)
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.ACCESS_TOKEN)
+}
+
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization']
+    let token = ''
+
+    if(authHeader && authHeader.toLowerCase().startsWith('bearer')) {
+        token = authHeader.substring(7)
+    }
+
+    if (token == null) return res.status(401).json({ error: "Token missing"})
 
     jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
-        if(err) return res.sendStatus(403)
+        if (err) return res.status(403).json({ error: "The token you have is invalid"})
         req.user = user
         next()
     })
 }
 
-function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: '30s' })
-}
 
 module.exports = { authenticateToken, generateAccessToken }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as API from './services/taskService'
+import * as auth from './services/authService'
 
 function getLanguages(tasks) {
     let languages = []
@@ -40,7 +41,7 @@ const Insights = (session_user) => {
     }
 
     useEffect(() => {
-        API.getUserTasks(session_user.session_user.user).then((resp) => {
+        API.getUserTasks(session_user.session_user.user, auth.config()).then((resp) => {
             setTasks(resp.data)
         })
     }, [])
@@ -60,10 +61,17 @@ const Insights = (session_user) => {
             onClick ={() => toggleInsightsModal(lang)} 
             key={lang}
             >
+                {lang === "C#" ? (
+                <div className="insightsPhotoAndLang">
+                    <img className="insightsLangLogo" src={`../static/CSharp.png`}/>
+                    <h2 className="insightsLang">{lang}</h2>
+                </div>
+                ) : (
                 <div className="insightsPhotoAndLang">
                     <img className="insightsLangLogo" src={`../static/${lang}.png`}/>
                     <h2 className="insightsLang">{lang}</h2>
                 </div>
+                )}
                 <p className="insightsCounter">{countLanguageTasks(tasks, lang)} task(s)</p>
             </section>
             ))

@@ -29,6 +29,7 @@ export function LoginMenu() {
       if(resp.status === 200) {
         setIsLogged(true)
         localStorage.setItem('talloc_username', user.username)
+        localStorage.setItem('talloc_user_token', resp.data.token)
       } else {
         alert("Incorrect user or password. Try again")
       }

@@ -57,7 +57,7 @@ router.get('/users/:username', async (req, res) => {
     let user;
     try {
         user = await User.findOne({ username: req.params.username })
-        res.json(user)
+        res.status(200).json(user)
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
