@@ -5,8 +5,6 @@ from pathlib import Path
 from routes.task import task
 
 
-templates = Jinja2Templates(directory="templates")
-
 app = FastAPI(
     title="Programmer Studio API",
     description="REST API with MongoDB",
@@ -14,12 +12,6 @@ app = FastAPI(
     )
 
 app.include_router(task)
-
-
-@app.get("/", response_class=HTMLResponse)
-def main_page(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
 
 if __name__ == '__main__':
     import uvicorn
