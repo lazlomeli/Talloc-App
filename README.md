@@ -38,7 +38,10 @@ After all this, go to ```http://localhost:5173```. You should be welcomed by the
 
 ![image](https://user-images.githubusercontent.com/72606659/215571173-d72c6e49-6853-4985-a620-4b7091c07318.png)
 
-### Once registered or logged in, you should see the app dashboard ready to use:
+<br />
+
+Once registered or logged in, you should see the app dashboard ready to use:
+> Talloc Dashboard Page:
 
 ![image](https://user-images.githubusercontent.com/72606659/215571382-c5469611-4772-4e55-8fa8-6ebddea70b16.png)
 
