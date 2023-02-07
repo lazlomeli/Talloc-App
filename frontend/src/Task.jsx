@@ -14,16 +14,9 @@ export const Task = (session_user) => {
   const [togglePage, setTogglePage] = useState('dashboard')
   const navigate = useNavigate()
 
-  let repositories = []
-  
-  if(repositories.length > 2) {
-    repositories = JSON.parse(localStorage.getItem("repositories"))
-    repositories.unshift("None")
-    repositories.unshift("Select your repository")
-  } else {
-    repositories.unshift("None")
-    repositories.unshift("Select your repository")
-  }
+  let repositories = JSON.parse(localStorage.getItem("repositories"))
+  repositories.unshift("None")
+  repositories.unshift("Select your repository")
 
   useEffect(() => {
     taskAPI.getUserTasks(session_user.user, auth.config()).then((resp) => {
