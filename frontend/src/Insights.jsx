@@ -100,7 +100,7 @@ const Insights = (session_user) => {
                     <div className="insightsModalMainPanel">
                         {tasks.filter(task => task.programming_language === selectedLang)
                         .map(filteredTask => (
-                            <section className="mainPanelTaskInfo">
+                            <section className="mainPanelTaskInfo" key={filteredTask.id}>
                                 <h1 className="mainPanelTaskInfoTitle">Title: <span className="mainPanelTaskInfoTitle-task">{filteredTask.title}</span></h1>
                                 {filteredTask.status === "ON GOING" ? (
                                     <p className="mainPanelTaskInfoStatus">Status: <span className="status-ong">{filteredTask.status}</span></p>

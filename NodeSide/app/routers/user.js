@@ -131,7 +131,7 @@ router.post('/login', async (req, res) => {
         console.log(`Logged as ${user.username}`)
     } else {
         res.sendStatus(404)
-        console.log(`Username or password are incorrect`)
+        console.log(`Credentials are not correct`)
     }
 })
 

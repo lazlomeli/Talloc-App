@@ -19,18 +19,11 @@ export function LoginMenu() {
         let repositories = []
         data.map(repo => repositories.push(repo.name))
         localStorage.setItem("repositories", JSON.stringify(repositories))
+        navigate('/dashboard')
       })
       .catch(() => {
         localStorage.setItem("repositories", "None")
-      })
-    ) : null
-  }, [isLogged])
-
-  useEffect(() => {
-    isLogged === true ? (
-      setTimeout(() => {
-      navigate('/dashboard')
-    }, 1500)
+      }) 
     ) : null
   }, [isLogged])
 
@@ -47,14 +40,14 @@ export function LoginMenu() {
       username: username.username,
       password: password.password
     }
-    userAPI.logIn(user).then((resp) => {
-      if(resp.status === 200) {
-        setIsLogged(true)
-        localStorage.setItem('talloc_username', user.username)
-        localStorage.setItem('talloc_user_token', resp.data.token)
-      } else {
-        alert("Incorrect user or password. Try again")
-      }
+    userAPI.logIn(user)
+    .then((resp) => {
+      setIsLogged(true)
+      localStorage.setItem('talloc_username', user.username)
+      localStorage.setItem('talloc_user_token', resp.data.token)
+    })
+    .catch((err) => {
+      console.log("Errorsito")
     })
   }
 
