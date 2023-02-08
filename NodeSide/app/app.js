@@ -17,4 +17,4 @@ app.use(express.urlencoded({ extended: false }));
 app.use(usersRouter)
 
 
-app.listen(PORT, () => console.log(`\n[*] Server running on port ${PORT}\n`))
+app.listen(PORT, () => console.log(`\n🚀 Server running on port ${PORT}\n`))

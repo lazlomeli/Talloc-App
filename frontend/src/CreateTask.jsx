@@ -7,6 +7,7 @@ import languages from '../langs.json'
 
 
 const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories }) => {
+    const [taskID, setTaskID] = useState('')
     const [taskTitle, setTaskTitle] = useState('')
     const [taskLang, setTaskLang] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -15,6 +16,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
     const [repositoryName, setRepositoryName] = useState('')
 
     const newTask = {
+        id: taskID,
         title: taskTitle,
         programming_language: taskLang,
         start_date: startDate,
@@ -30,7 +32,7 @@ const CreateTask = ({ open, onClose, tasks, setTasks, session_u, repositories })
         setTaskStatus('ON GOING')
     }, [newTask])
 
-    async function createTask() {
+    function createTask() {
         if(
             (newTask.programming_language === 'Select the language' ||
             newTask.programming_language === '') && 

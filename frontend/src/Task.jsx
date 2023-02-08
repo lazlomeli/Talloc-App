@@ -12,14 +12,15 @@ export const Task = (session_user) => {
   const [openModal, setOpenModal] = useState(false)
   const [tasks, setTasks] = useState([])
   const [togglePage, setTogglePage] = useState('dashboard')
-  const navigate = useNavigate()
+  const navigateTo = useNavigate()
 
   let repositories = JSON.parse(localStorage.getItem("repositories"))
   repositories.unshift("None")
   repositories.unshift("Select your repository")
 
   useEffect(() => {
-    taskAPI.getUserTasks(session_user.user, auth.config()).then((resp) => {
+    taskAPI.getUserTasks(session_user.user, auth.config())
+    .then((resp) => {
       setTasks(resp.data)
     })
   }, [])
@@ -75,7 +76,7 @@ export const Task = (session_user) => {
     localStorage.removeItem("talloc_username")
     localStorage.removeItem("talloc_user_token")
     localStorage.removeItem("repositories")
-    navigate('/')
+    navigateTo('/')
   }
 
   return (
