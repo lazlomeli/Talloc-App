@@ -125,14 +125,10 @@ router.delete('/users/:id', getUser, async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const user = { username: req.body.username, password: req.body.password }
+    const foundUser = await User.findOne({ username: user.username, password: user.password })
 
-    if(await User.findOne({ username: user.username, password: user.password })) {
-        res.sendStatus(200)
-        console.log(`Logged as ${user.username}`)
-    } else {
-        res.sendStatus(404)
-        console.log(`Credentials are not correct`)
-    }
+    foundUser ? res.sendStatus(200) : res.sendStatus(404)
+    console.log("Status Code: ", res.statusCode)
 })
 
 

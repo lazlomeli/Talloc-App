@@ -9,7 +9,7 @@ export function LoginMenu() {
   const [username, setUsername] = useState({ username: '' })
   const [password, setPassword] = useState({ password: '' })
   const [isLogged, setIsLogged] = useState(false)
-  const navigate = useNavigate()
+  const navigateTo = useNavigate()
 
   useEffect(() => {
     isLogged === true ? (
@@ -19,7 +19,7 @@ export function LoginMenu() {
         let repositories = []
         data.map(repo => repositories.push(repo.name))
         localStorage.setItem("repositories", JSON.stringify(repositories))
-        navigate('/dashboard')
+        navigateTo('/dashboard')
       })
       .catch(() => {
         localStorage.setItem("repositories", "None")
@@ -27,28 +27,29 @@ export function LoginMenu() {
     ) : null
   }, [isLogged])
 
-  const changeUsername = (e) => {
-    setUsername({ username: e.target.value })
-  }                                           
-
-  const changePassword = (e) => {
-    setPassword({ password: e.target.value })
-  }
-
-  const submitData = () => {        
+  const submitData = () => {
     const user = {
       username: username.username,
       password: password.password
     }
+
     userAPI.logIn(user)
     .then((resp) => {
       setIsLogged(true)
       localStorage.setItem('talloc_username', user.username)
       localStorage.setItem('talloc_user_token', resp.data.token)
     })
-    .catch((err) => {
-      console.log("Errorsito")
+    .catch(() => {
+      console.log("The provided user credentials are wrong. Try again")
     })
+  }
+
+  const changeUsername = (e) => {
+    setUsername({ username: e.target.value })
+  }                                           
+
+  const changePassword = (e) => {
+    setPassword({ password: e.target.value })
   }
 
   return (
@@ -69,7 +70,7 @@ export function LoginMenu() {
                 value={ password.password }
                 onChange={ (e) => changePassword(e) }
                 />
-        <button className="log_regButton" onClick={submitData}>Log in</button>
+        <button className="log_regButton" onClick={ () => submitData() }>Log in</button>
       </div>
     </div>
   )

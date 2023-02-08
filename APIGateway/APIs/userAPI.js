@@ -65,9 +65,11 @@ router.post('/login', (req, res) => {
             username: req.body.username,
             token: token 
         })
+        console.log("Status Code: ", res.statusCode)
     })
-    .catch((err) => {
-        
+    .catch(() => {
+        res.sendStatus(404)
+        console.log("Status Code: ", res.statusCode)
     })
 })
 
