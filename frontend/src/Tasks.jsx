@@ -57,13 +57,13 @@ const Tasks = ({ userSession }) => {
     <div className="dashboardTasks">
       {tasks.map((task) => (
         <div key={task.id} className="task">
-          {task.title.length <= 10 ? (
+          {task.title.length <= 30 ? (
             <h1 title={task.title} className="taskTitle">
               {task.title}
             </h1>
           ) : (
             <h1 title={task.title} className="taskTitle">
-              {task.title.substring(0, 26 - 3)}...
+              {task.title.substring(0, 30)}...
             </h1>
           )}
           <div className="taskLine"></div>
