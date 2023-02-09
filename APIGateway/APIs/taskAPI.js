@@ -24,8 +24,7 @@ router.get("/tasks/:username", auth.authenticateToken, (req, res) => {
     .get(taskAPI + req.path)
     .then((resp) => {
       res.send(resp.data);
-      console.log(`✅ Showing ${req.params.username} tasks:`);
-      console.log(resp.data);
+      console.log(`✅ Showing ${req.params.username} tasks`);
     })
     .catch(() => {
       console.log(`⛔ Couldn't get <${req.params.username}> tasks`);
@@ -38,7 +37,6 @@ router.get("/tasks/:id", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log(`✅ Showing task: ${req.params.id}`);
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(`⛔ Couldn't get task by the ID: ${req.params.id}`);
@@ -51,7 +49,6 @@ router.post("/tasks", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log("✅ Creating task:");
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(`⛔ Couldn't create task`);
@@ -64,7 +61,6 @@ router.put("/tasks/:id", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log(`✅ Updated task: ${req.params.id}`);
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(`⛔ Couldn't update task`);
@@ -77,7 +73,6 @@ router.delete("/tasks/:id", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log(`✅ Deleted task: ${req.params.id}`);
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(`⛔ Couldn't delete task`);

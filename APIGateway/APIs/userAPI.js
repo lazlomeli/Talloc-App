@@ -25,7 +25,6 @@ router.get("/users", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log("✅ Showing all users:");
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(`⛔ Couldn't get all users`);
@@ -38,7 +37,6 @@ router.get("/users/:id", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log(`✅ Showing user: ${req.params.id}`);
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(
@@ -53,7 +51,6 @@ router.post("/users", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log("✅ Creating user:");
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(`⛔ Couldn't create user`);
@@ -66,7 +63,6 @@ router.patch("/users/:id", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log(`✅ Updated user: ${req.params.id}`);
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(`⛔ Couldn't update user`);
@@ -79,7 +75,6 @@ router.delete("/users/:id", auth.authenticateToken, (req, res) => {
     .then((resp) => {
       res.send(resp.data);
       console.log(`✅ Deleted user: ${req.params.id}`);
-      console.log(resp.data);
     })
     .catch(() => {
       console.log(`⛔ Couldn't delete user`);
@@ -97,11 +92,13 @@ router.post("/login", (req, res) => {
         username: req.body.username,
         token: token,
       });
-      console.log("✅ Status Code: ", res.statusCode);
+      console.log(
+        `✅ Succesfully logged as <<${req.body.username}>> Status Code: ${res.statusCode}`
+      );
     })
     .catch(() => {
       res.sendStatus(404);
-      console.log("⛔ Status Code: ", res.statusCode);
+      console.log("⛔ Error logging in. Status Code: ", res.statusCode);
     });
 });
 

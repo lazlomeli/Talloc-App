@@ -71,6 +71,7 @@ export const Task = (session_user) => {
   }
 
   function logout() {
+    console.log(`Logged out from ${session_user.user} session`);
     localStorage.removeItem("talloc_username");
     localStorage.removeItem("talloc_user_token");
     localStorage.removeItem("repositories");
