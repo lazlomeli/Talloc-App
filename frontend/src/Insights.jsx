@@ -4,6 +4,7 @@ import * as auth from "./services/authService";
 import languages from "../langs.json";
 import DashboardTopBar from "./DashboardTopBar";
 import DashboardSideBar from "./DashboardSideBar";
+import EmptyInsights from "./EmptyInsights";
 
 function getLanguages(tasks) {
   let languages = [];
@@ -90,14 +91,7 @@ const Insights = () => {
             </section>
           ))
         ) : (
-          <section className="insightsEmpty">
-            <h1 className="insightsEmptyTitle">
-              Wow, it's very quiet around here
-            </h1>
-            <p className="insightsEmptyDesc">
-              Create your first task to view it's insights
-            </p>
-          </section>
+          <EmptyInsights />
         )}
       </div>
       {modal && (
