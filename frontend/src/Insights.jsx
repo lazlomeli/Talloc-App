@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import * as taskAPI from "./services/taskService";
 import * as auth from "./services/authService";
 import languages from "../langs.json";
+import DashboardTopBar from "./DashboardTopBar";
+import DashboardSideBar from "./DashboardSideBar";
 
 function getLanguages(tasks) {
   let languages = [];
@@ -29,21 +31,14 @@ const calculatePercentage = (tasks, lang) => {
   return Math.floor((taskCounter / tasks.length) * 100);
 };
 
-const Insights = (session_user) => {
+const Insights = () => {
   const [tasks, setTasks] = useState([]);
   const [langs, setLangs] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedLang, setSelectedLang] = useState("");
 
-  const toggleInsightsModal = (lang) => {
-    setModal(!modal);
-    setSelectedLang(lang);
-  };
-
-  const user = session_user.session_user;
-
   useEffect(() => {
-    taskAPI.getUserTasks(user, auth.config()).then((resp) => {
+    taskAPI.getUserTasks(userSession, auth.config()).then((resp) => {
       setTasks(resp.data);
     });
   }, []);
@@ -52,8 +47,17 @@ const Insights = (session_user) => {
     setLangs(getLanguages(tasks));
   }, [tasks]);
 
+  const userSession = localStorage.getItem("talloc_username");
+
+  const toggleInsightsModal = (lang) => {
+    setModal(!modal);
+    setSelectedLang(lang);
+  };
+
   return (
-    <>
+    <section className="dashboardPage">
+      <DashboardTopBar />
+      <DashboardSideBar />
       <div className="insightsBackground">
         {langs.length > 0 ? (
           langs.map((lang) => (
@@ -148,7 +152,7 @@ const Insights = (session_user) => {
           </div>
         </div>
       )}
-    </>
+    </section>
   );
 };
 

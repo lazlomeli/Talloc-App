@@ -28,7 +28,7 @@ const CreateTask = ({
     start_date: startDate,
     end_date: endDate,
     status: taskStatus,
-    created_by: session_u.user,
+    created_by: session_u,
     repository_name: repositoryName,
   };
 
