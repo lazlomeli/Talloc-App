@@ -13,6 +13,7 @@ const CreateTask = ({
   session_u,
   repositories,
 }) => {
+  const [openModal, setOpenModal] = useState(false);
   const [taskID, setTaskID] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskLang, setTaskLang] = useState("");
@@ -53,22 +54,40 @@ const CreateTask = ({
           setTasks([...tasks, resp.data]);
           setTaskTitle("");
           setTaskLang("Select the language");
+          setRepositoryName("Select your repository");
+          onClose();
         })
         .catch((err) => console.log(err));
     }
+  }
+
+  function closeModal() {
     onClose();
+    setRepositoryName("Select your repository");
   }
 
   if (!open) return null;
   return (
     <div className="modal">
-      <div onClick={onClose} className="overlay">
+      <div onClick={() => closeModal()} className="overlay">
         <div onClick={(e) => e.stopPropagation()} className="modalContainer">
-          <img
-            onClick={onClose}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
             className="modalClose"
-            src={"../static/cross.png"}
-          />
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="#515b67"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            onClick={() => closeModal()}
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <path d="M10 10l4 4m0 -4l-4 4" />
+          </svg>
           <form className="modalForm" onSubmit={(e) => createTask(e)}>
             <label htmlFor="taskTitle" className="modalLabel">
               <p className="modalLabelName">Task title:</p>
@@ -97,7 +116,7 @@ const CreateTask = ({
             <label className="modalLabel">
               <p className="modalLabelName">GitHub Repository:</p>
               <select
-                value={taskLang}
+                value={repositoryName}
                 className="modalSelect"
                 onChange={(e) => setRepositoryName(e.target.value)}
               >
@@ -106,14 +125,15 @@ const CreateTask = ({
                 ))}
               </select>
             </label>
-            <label className="modalLabel">
-              <input
-                type="submit"
-                value="Create Task"
-                className="submitCreateTask"
-              />
-            </label>
           </form>
+          <label className="modalLabel_submit">
+            <input
+              type="submit"
+              value="Create Task"
+              className="submitCreateTask"
+              onClick={() => createTask()}
+            />
+          </label>
         </div>
       </div>
     </div>

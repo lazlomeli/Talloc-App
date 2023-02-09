@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as userAPI from "./services/userService";
 
-const RegisterMenu = () => {
+const RegisterPage = () => {
   const [username, setUsername] = useState({ username: "" });
   const [password, setPassword] = useState({ password: "" });
   const [repPassword, setRepPassword] = useState({ repPassword: "" });
@@ -67,7 +67,7 @@ const RegisterMenu = () => {
   return (
     <div className="log_regPage">
       <img className="tallocLogin" src="../static/talloc.png" />
-      <div className="registerMenu">
+      <div className="RegisterPage">
         <h1 className="registerTitles">Username</h1>
         <input
           className="registerInputs"
@@ -113,4 +113,4 @@ const RegisterMenu = () => {
   );
 };
 
-export default RegisterMenu;
+export default RegisterPage;

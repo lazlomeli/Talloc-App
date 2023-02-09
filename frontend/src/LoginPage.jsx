@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as taskAPI from "./services/taskService";
 import * as userAPI from "./services/userService";
 
-export function LoginMenu() {
+export function LoginPage() {
   const [username, setUsername] = useState({ username: "" });
   const [password, setPassword] = useState({ password: "" });
   const [isLogged, setIsLogged] = useState(false);

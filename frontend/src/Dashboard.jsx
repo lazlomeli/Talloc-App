@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Tasks from "./Tasks";
 import DashboardTopBar from "./DashboardTopBar";
-import { useNavigate } from "react-router-dom";
 import DashboardSideBar from "./DashboardSideBar";
 
 export const Dashboard = () => {

@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CreateTask from "./CreateTask";
-import { useState, useEffect } from "react";
 import Moment from "moment";
 import * as taskAPI from "./services/taskService";
 import * as auth from "./services/authService";

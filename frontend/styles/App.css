@@ -258,10 +258,13 @@ body {
 }
 .modalContainer,
 .insightsModal {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: center;
   font-family: "Alliance No.1";
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
-  height: 800px;
   position: fixed;
   left: 650px;
   background-color: #161b22;
@@ -271,7 +274,7 @@ body {
   outline-width: 1px;
   outline-color: #30363d;
   border-radius: 5px;
-  padding: 1rem;
+  padding: 2rem;
   z-index: 2;
 }
 .modalContainer {
@@ -279,8 +282,11 @@ body {
   height: 250px;
 }
 .modalClose {
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 25px;
+}
+.modalClose:hover {
+  stroke: #db5572;
 }
 .modalForm {
   display: flex;
@@ -293,18 +299,23 @@ body {
 .modalLabel {
   display: flex;
   flex-basis: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
   font-weight: normal;
   font-size: 15px;
   color: rgb(203, 203, 203);
+}
+.modalLabel_submit {
+  display: flex;
+  justify-content: center;
 }
 .modalLabelName {
   margin: 0px;
   margin-top: 26px;
 }
 .modalInput {
-  margin-left: 50px;
   font-family: "Alliance No.1";
   background: #010409;
   text-align: center;
@@ -320,13 +331,13 @@ body {
   margin-top: 20px;
   padding: 5px;
   height: 20px;
+  width: 190px;
 }
 .modalInput:focus {
   background: #30363d;
   color: #fff;
 }
 .modalSelect {
-  margin-left: 45px;
   font-family: "Alliance No.1";
   background: #010409;
   text-align: center;
@@ -336,16 +347,17 @@ body {
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom-style: hidden;
-  color: #5a6169;
+  color: #6b737c;
   border-radius: 3px;
   outline-width: 1px;
   margin-top: 20px;
   padding: 5px;
   height: 30px;
+  width: 200px;
 }
 .modalSelect:focus {
   background: #30363d;
-  color: #fff;
+  color: #abadb6;
 }
 .modalSelect:hover {
   cursor: pointer;
@@ -458,13 +470,14 @@ body {
   justify-content: center;
 }
 .taskDelete {
+  font-family: "Alliance No.1";
   border-radius: 5px;
   width: 150px;
   margin: 10px;
   margin-top: 35px;
   padding: 5px;
   background: #2c333f;
-  color: #707982;
+  color: #c9d0da;
   border-color: rgb(10, 10, 10);
   border-width: 1px;
   cursor: pointer;
@@ -475,6 +488,7 @@ body {
   border-color: #000;
 }
 .taskDelete-completed {
+  font-family: "Alliance No.1";
   border-radius: 5px;
   width: 150px;
   padding: 5px;
@@ -493,6 +507,7 @@ body {
   border-color: #000;
 }
 .taskComplete {
+  font-family: "Alliance No.1";
   border-radius: 5px;
   width: 150px;
   margin: 10px;
@@ -561,10 +576,10 @@ body {
   background: #1c2229;
 }
 .submitCreateTask {
+  font-family: "Alliance No.1";
   border-radius: 5px;
   width: 150px;
-  margin-top: 35px;
-  margin-right: 17px;
+  height: 30px;
   padding: 5px;
   background: #313b47;
   color: rgb(206, 206, 206);
@@ -576,6 +591,7 @@ body {
   color: rgb(0, 0, 0);
   background: #00a586;
   border-color: rgb(0, 0, 0);
+  font-weight: bolder;
 }
 .dashboardPage {
   position: fixed;
@@ -874,11 +890,14 @@ body {
   width: 15px;
 }
 ::-webkit-scrollbar-track {
-  background: #2b343d;
+  background: #262f36;
 }
 ::-webkit-scrollbar-thumb {
   background: #58626e;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #525d69;
+}
+::placeholder {
+  color: #6b737c;
 }
