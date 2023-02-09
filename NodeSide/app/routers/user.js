@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express');
+const bcrypt = require('bcrypt')
 const router = express.Router()
 const User = require('../models/user')
 
@@ -124,27 +125,43 @@ router.delete('/users/:id', getUser, async (req, res) => {
 
 
 router.post('/login', async (req, res) => {
-    const user = { username: req.body.username, password: req.body.password }
-    const foundUser = await User.findOne({ username: user.username, password: user.password })
+    try {
+        const user = await User.findOne({ username: req.body.username })
+        if(user == null) return res.status(400).send('⛔ Cannot find user')
 
-    foundUser ? res.sendStatus(200) : res.sendStatus(404)
-    console.log("Status Code: ", res.statusCode)
+        if(await bcrypt.compare(req.body.password, user.password)) {
+            res.status(200).send(`✅ Logged as ${req.body.username}`)
+        } else {
+            res.status(404).send('⛔ Passwords dont match')
+        }
+    } catch (error) {
+        
+    }
 })
 
 
 router.post('/register', async (req, res) => {
+    const salt = await bcrypt.genSalt()
+    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
     const user = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: hashedPassword
     })
-    if(( await isValidUser(user.username) && await isValidMail(user.email) ) === true) {
-        console.log(`✅ User '${user.username}' is valid. Saving it in DB`)
-        await user.save()
-        res.sendStatus(200)
-    } else {
-        console.log("⛔ Username or e-mail already exists")
-        res.sendStatus(403)
+
+    try {
+        if(( await isValidUser(user.username) && await isValidMail(user.email) ) === true) {
+            console.log(`✅ User '${user.username}' is valid. Saving it in DB`)
+            await user.save()
+            res.sendStatus(200)
+        } else {
+            console.log("⛔ Username or e-mail already exists")
+            res.sendStatus(403)
+        }
+    } catch (error) {
+        console.log("⛔ Something went wrong creating the new user")
+        res.sendStatus(500)
     }
 })
 

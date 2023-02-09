@@ -32,11 +32,11 @@ const RegisterMenu = () => {
   
   const isValidUserSyntax = (username) => {
     let validUser = new RegExp('^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$')
-    return validUser.test(username) ? true : alert("User syntax is invalid") && false
+    return validUser.test(username) ? true : console.log("User syntax is invalid") && false
   }
 
   const isValidPassword = () => {
-    return (password.password === repPassword.repPassword) ? true : alert("Passwords don't match") && false    
+    return (password.password === repPassword.repPassword) ? true : console.log("Passwords don't match") && false    
   }
   
 
@@ -47,11 +47,11 @@ const RegisterMenu = () => {
         if(resp.status === 200) {
           setIsRegistered(true)
         } else {
-          alert("An account with that username or e-mail already exists. Try again")
+          console.log("An account with that username or e-mail already exists. Try again")
         }
       })
     } else {
-      alert('Incorrect registration. Try again') 
+      console.log('Incorrect registration. Try again') 
     }
   }
 
