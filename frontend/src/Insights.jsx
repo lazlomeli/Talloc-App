@@ -40,12 +40,12 @@ const Insights = (session_user) => {
     setSelectedLang(lang);
   };
 
+  const user = session_user.session_user;
+
   useEffect(() => {
-    taskAPI
-      .getUserTasks(session_user.session_user.user, auth.config())
-      .then((resp) => {
-        setTasks(resp.data);
-      });
+    taskAPI.getUserTasks(user, auth.config()).then((resp) => {
+      setTasks(resp.data);
+    });
   }, []);
 
   useEffect(() => {
