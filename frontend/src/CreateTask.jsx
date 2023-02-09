@@ -4,6 +4,7 @@ import Moment from "moment";
 import * as taskAPI from "./services/taskService";
 import * as auth from "./services/authService";
 import languages from "../langs.json";
+import CrossIcon from "./icon_components/CrossIcon";
 
 const CreateTask = ({
   open,
@@ -71,23 +72,7 @@ const CreateTask = ({
     <div className="modal">
       <div onClick={() => closeModal()} className="overlay">
         <div onClick={(e) => e.stopPropagation()} className="modalContainer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="modalClose"
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#515b67"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            onClick={() => closeModal()}
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <rect x="4" y="4" width="16" height="16" rx="2" />
-            <path d="M10 10l4 4m0 -4l-4 4" />
-          </svg>
+          <CrossIcon toggleModal={closeModal} />
           <form className="modalForm" onSubmit={(e) => createTask(e)}>
             <label htmlFor="taskTitle" className="modalLabel">
               <p className="modalLabelName">Task title:</p>
