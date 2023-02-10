@@ -8,7 +8,11 @@ const RegisterPage = () => {
   const [repPassword, setRepPassword] = useState({ repPassword: "" });
   const [email, setEmail] = useState({ email: "" });
   const [isRegistered, setIsRegistered] = useState(false);
-  const navigate = useNavigate();
+  const navigateTo = useNavigate();
+
+  useEffect(() => {
+    isRegistered === true ? navigateTo("/login") : null;
+  }, [isRegistered]);
 
   const changeUsername = (e) => {
     setUsername({ username: e.target.value });
@@ -46,28 +50,23 @@ const RegisterPage = () => {
 
   const signUp = () => {
     if ((isValidUserSyntax(username.username) && isValidPassword()) === true) {
-      userAPI.registerUser(registeredUser).then((resp) => {
-        if (resp.status === 200) {
+      userAPI
+        .registerUser(registeredUser)
+        .then(() => {
           setIsRegistered(true);
-        } else {
-          console.log(
-            "An account with that username or e-mail already exists. Try again"
-          );
-        }
-      });
+        })
+        .catch(() => {
+          console.log("E-mail already exists. Choose a different one.");
+        });
     } else {
       console.log("Incorrect registration. Try again");
     }
   };
 
-  useEffect(() => {
-    isRegistered === true ? navigate("/login") : null;
-  }, [isRegistered]);
-
   return (
     <div className="log_regPage">
       <img className="tallocLogin" src="../static/talloc.png" />
-      <div className="RegisterPage">
+      <div className="registerMenu">
         <h1 className="registerTitles">Username</h1>
         <input
           className="registerInputs"

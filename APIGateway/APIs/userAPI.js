@@ -106,9 +106,11 @@ router.post("/register", (req, res) => {
   axios
     .post(userAPI + req.path, req.body)
     .then((resp) => {
-      res.send(resp.data);
+      res.status(200).send(resp.data);
     })
-    .catch((err) => console.log(err));
+    .catch(() => {
+      res.sendStatus(403);
+    });
 });
 
 module.exports = router;
