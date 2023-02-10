@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ErrorModal } from "./ErrorModal";
+import { ErrorContext } from "./services/ErrorContext";
 import * as taskAPI from "./services/taskService";
 import * as userAPI from "./services/userService";
 
@@ -8,6 +10,9 @@ export function LoginPage() {
   const [password, setPassword] = useState({ password: "" });
   const [isLogged, setIsLogged] = useState(false);
   const navigateTo = useNavigate();
+  const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
+  const { errorMessage, setErrorMessage } = useContext(ErrorContext);
+  const { errorModalHandler } = useContext(ErrorContext);
 
   useEffect(() => {
     isLogged === true
@@ -40,7 +45,7 @@ export function LoginPage() {
         localStorage.setItem("talloc_user_token", resp.data.token);
       })
       .catch(() => {
-        console.log("The provided user credentials are wrong. Try again");
+        errorModalHandler("The provided user credentials are wrong. Try again");
       });
   };
 
@@ -54,6 +59,11 @@ export function LoginPage() {
 
   return (
     <div className="log_regPage">
+      <ErrorModal
+        message={errorMessage}
+        openModal={openErrorModal}
+        closeModal={() => setOpenErrorModal(false)}
+      />
       <img className="tallocLogin" src="../static/talloc.png" />
       <div className="log_regMenu">
         <input

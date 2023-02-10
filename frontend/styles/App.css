@@ -260,7 +260,7 @@ body {
   font-family: "Alliance No.1";
   width: 550px;
   height: 510px;
-  top: 20%;
+  top: 17%;
   position: fixed;
   left: 650px;
   background-color: #161b22;
@@ -274,7 +274,7 @@ body {
   z-index: 2;
 }
 .modalContainer {
-  top: 35%;
+  top: 25%;
   height: 250px;
   display: flex;
   flex-wrap: wrap;
@@ -641,7 +641,6 @@ body {
   outline-color: #30363d;
   height: 60px;
   flex-basis: 100%;
-  z-index: 1;
 }
 .dashboardTopLeftSection {
   display: flex;
@@ -899,6 +898,28 @@ body {
 .status-com {
   font-weight: bold;
   color: #00a586;
+}
+/* Error Modal */
+.errorModal {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 90px;
+  width: 400px;
+  height: 60px;
+  background-color: rgb(85, 19, 19);
+  border-radius: 5px;
+  outline: solid;
+  outline-width: 1px;
+  outline-color: rgb(184, 52, 52);
+  z-index: 2;
+}
+.errorModalMessage {
+  font-family: "Alliance No.1";
+  font-weight: lighter;
+  color: #ffffff;
+  margin: 0px;
 }
 
 /* Webkit Customization */

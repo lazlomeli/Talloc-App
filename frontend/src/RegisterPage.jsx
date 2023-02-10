@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ErrorModal } from "./ErrorModal";
+import { ErrorContext } from "./services/ErrorContext";
 import * as userAPI from "./services/userService";
 
 const RegisterPage = () => {
@@ -9,6 +11,9 @@ const RegisterPage = () => {
   const [email, setEmail] = useState({ email: "" });
   const [isRegistered, setIsRegistered] = useState(false);
   const navigateTo = useNavigate();
+  const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
+  const { errorMessage, setErrorMessage } = useContext(ErrorContext);
+  const { errorModalHandler } = useContext(ErrorContext);
 
   useEffect(() => {
     isRegistered === true ? navigateTo("/login") : null;
@@ -37,15 +42,11 @@ const RegisterPage = () => {
     let validUser = new RegExp(
       "^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
     );
-    return validUser.test(username)
-      ? true
-      : console.log("User syntax is invalid") && false;
+    return validUser.test(username) ? true : false;
   };
 
   const isValidPassword = () => {
-    return password.password === repPassword.repPassword
-      ? true
-      : console.log("Passwords don't match") && false;
+    return password.password === repPassword.repPassword ? true : false;
   };
 
   const signUp = () => {
@@ -56,16 +57,21 @@ const RegisterPage = () => {
           setIsRegistered(true);
         })
         .catch(() => {
-          console.log("E-mail already exists. Choose a different one.");
+          errorModalHandler("E-mail already exists. Choose a different one");
         });
     } else {
-      console.log("Incorrect registration. Try again");
+      errorModalHandler("Incorrect username or password. Try again");
     }
   };
 
   return (
     <div className="log_regPage">
       <img className="tallocLogin" src="../static/talloc.png" />
+      <ErrorModal
+        message={errorMessage}
+        openModal={openErrorModal}
+        closeModal={() => setOpenErrorModal(false)}
+      />
       <div className="registerMenu">
         <h1 className="registerTitles">Username</h1>
         <input

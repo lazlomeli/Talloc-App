@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CreateTask from "./CreateTask";
 import Moment from "moment";
 import * as taskAPI from "./services/taskService";
@@ -49,7 +49,7 @@ const Tasks = ({ userSession }) => {
     try {
       window.location.href = `https://github.com/${userSession}/${repository}`;
     } catch (error) {
-      console.log("Something went wrong. Please try again");
+      errorModalHandler("Something went wrong. Please try again");
     }
   }
 

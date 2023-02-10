@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { ErrorModal } from "./ErrorModal";
+import { ErrorContext } from "./services/ErrorContext";
 import "../styles/App.css";
 import Moment from "moment";
 import * as taskAPI from "./services/taskService";
@@ -22,6 +24,9 @@ const CreateTask = ({
   const [endDate] = useState("");
   const [taskStatus, setTaskStatus] = useState("");
   const [repositoryName, setRepositoryName] = useState("");
+  const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
+  const { errorMessage, setErrorMessage } = useContext(ErrorContext);
+  const { errorModalHandler } = useContext(ErrorContext);
 
   const newTask = {
     id: taskID,
@@ -41,13 +46,15 @@ const CreateTask = ({
   }, [newTask]);
 
   function createTask() {
+    let pl = newTask.programming_language;
+    let rn = newTask.repository_name;
+    let t = newTask.title;
     if (
-      (newTask.programming_language === "Select the language" ||
-        newTask.programming_language === "") &&
-      (newTask.repository_name === "Select your repository" ||
-        newTask.repository_name === "")
+      pl === "Select the language" ||
+      rn === "Select your repository" ||
+      t === ""
     ) {
-      alert("Choose valid data");
+      errorModalHandler("Choose valid data");
     } else {
       taskAPI
         .postTask(newTask, auth.config())
@@ -69,59 +76,66 @@ const CreateTask = ({
 
   if (!open) return null;
   return (
-    <div className="modal">
-      <div onClick={() => closeModal()} className="overlay">
-        <div onClick={(e) => e.stopPropagation()} className="modalContainer">
-          <CrossIcon toggleModal={closeModal} />
-          <form className="modalForm" onSubmit={(e) => createTask(e)}>
-            <label htmlFor="taskTitle" className="modalLabel">
-              <p className="modalLabelName">Task title:</p>
+    <>
+      <div className="modal">
+        <div onClick={() => closeModal()} className="overlay">
+          <div onClick={(e) => e.stopPropagation()} className="modalContainer">
+            <CrossIcon toggleModal={closeModal} />
+            <form className="modalForm" onSubmit={(e) => createTask(e)}>
+              <label htmlFor="taskTitle" className="modalLabel">
+                <p className="modalLabelName">Task title:</p>
+                <input
+                  name="taskTitle"
+                  type="text"
+                  placeholder="Enter the task title"
+                  className="modalInput"
+                  value={taskTitle}
+                  onChange={(e) => setTaskTitle(e.target.value)}
+                  required
+                />
+              </label>
+              <label className="modalLabel">
+                <p className="modalLabelName">Language:</p>
+                <select
+                  value={taskLang}
+                  className="modalSelect"
+                  onChange={(e) => setTaskLang(e.target.value)}
+                >
+                  {languages.map((option) => (
+                    <option key={option}>{option}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="modalLabel">
+                <p className="modalLabelName">GitHub Repository:</p>
+                <select
+                  value={repositoryName}
+                  className="modalSelect"
+                  onChange={(e) => setRepositoryName(e.target.value)}
+                >
+                  {repositories.map((repo) => (
+                    <option key={repo}>{repo}</option>
+                  ))}
+                </select>
+              </label>
+            </form>
+            <label className="modalLabel_submit">
               <input
-                name="taskTitle"
-                type="text"
-                placeholder="Enter the task title"
-                className="modalInput"
-                value={taskTitle}
-                onChange={(e) => setTaskTitle(e.target.value)}
-                required
+                type="submit"
+                value="Create Task"
+                className="submitCreateTask"
+                onClick={() => createTask()}
               />
             </label>
-            <label className="modalLabel">
-              <p className="modalLabelName">Language:</p>
-              <select
-                value={taskLang}
-                className="modalSelect"
-                onChange={(e) => setTaskLang(e.target.value)}
-              >
-                {languages.map((option) => (
-                  <option key={option}>{option}</option>
-                ))}
-              </select>
-            </label>
-            <label className="modalLabel">
-              <p className="modalLabelName">GitHub Repository:</p>
-              <select
-                value={repositoryName}
-                className="modalSelect"
-                onChange={(e) => setRepositoryName(e.target.value)}
-              >
-                {repositories.map((repo) => (
-                  <option key={repo}>{repo}</option>
-                ))}
-              </select>
-            </label>
-          </form>
-          <label className="modalLabel_submit">
-            <input
-              type="submit"
-              value="Create Task"
-              className="submitCreateTask"
-              onClick={() => createTask()}
+            <ErrorModal
+              message={errorMessage}
+              openModal={openErrorModal}
+              closeModal={() => setOpenErrorModal(false)}
             />
-          </label>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
