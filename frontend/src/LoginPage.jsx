@@ -44,8 +44,9 @@ export function LoginPage() {
         localStorage.setItem("talloc_username", user.username);
         localStorage.setItem("talloc_user_token", resp.data.token);
       })
-      .catch(() => {
+      .catch((err) => {
         errorModalHandler("The provided user credentials are wrong. Try again");
+        console.log(err);
       });
   };
 

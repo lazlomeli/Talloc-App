@@ -150,7 +150,7 @@ router.post("/register", async (req, res) => {
       await user.save();
       res.sendStatus(200);
     } else {
-      // console.log("⛔ Username or e-mail already exists");
+      console.log("⛔ Username or e-mail already exists");
       res.sendStatus(403);
     }
   } catch (error) {

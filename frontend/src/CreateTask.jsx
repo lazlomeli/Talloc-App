@@ -16,7 +16,6 @@ const CreateTask = ({
   session_u,
   repositories,
 }) => {
-  const [openModal, setOpenModal] = useState(false);
   const [taskID, setTaskID] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskLang, setTaskLang] = useState("");

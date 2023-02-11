@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const auth = require("../controller/auth");
+const cookie = require("cookie");
 const router = express.Router();
 const userAPI = "http://localhost:3000";
 
@@ -88,6 +89,10 @@ router.post("/login", (req, res) => {
   axios
     .post(userAPI + req.path, req.body)
     .then(() => {
+      res.cookie("talloc_user_cookie_token", token, {
+        maxAge: 60 * 30, // 30 minutes until it expires
+        httpOnly: true,
+      });
       res.send({
         username: req.body.username,
         token: token,

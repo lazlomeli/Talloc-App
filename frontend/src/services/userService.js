@@ -14,7 +14,7 @@ export async function getUser(user) {
 }
 
 export function logIn(user) {
-  return axios.post(`${API_URL}/login`, user);
+  return axios.post(`${API_URL}/login`, user, { withCredentials: true });
 }
 
 export function registerUser(user) {
