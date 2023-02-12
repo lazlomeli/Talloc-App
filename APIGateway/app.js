@@ -13,8 +13,8 @@ const corsOptions = {
 };
 
 app = express();
-app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(userRouter);
 app.use(taskRouter);

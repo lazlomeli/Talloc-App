@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
 const router = express.Router();
 const User = require("../models/user");
 
@@ -157,6 +158,11 @@ router.post("/register", async (req, res) => {
     console.log("⛔ Something went wrong creating the new user");
     res.sendStatus(500);
   }
+});
+
+router.post("/logout", (req, res) => {
+  console.log("Succesfully logged out");
+  res.sendStatus(200);
 });
 
 module.exports = router;

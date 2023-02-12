@@ -16,7 +16,7 @@ router.get("/users/:username", auth.authenticateToken, (req, res) => {
       res.send(resp.data);
     })
     .catch(() => {
-      console.log(`⛔ Couldn't find user: ${req.params.username}`);
+      console.log("Find user by username error");
     });
 });
 
@@ -25,10 +25,9 @@ router.get("/users", auth.authenticateToken, (req, res) => {
     .get(userAPI + req.path)
     .then((resp) => {
       res.send(resp.data);
-      console.log("✅ Showing all users:");
     })
     .catch(() => {
-      console.log(`⛔ Couldn't get all users`);
+      console.log("Get all users error");
     });
 });
 
@@ -40,9 +39,7 @@ router.get("/users/:id", auth.authenticateToken, (req, res) => {
       console.log(`✅ Showing user: ${req.params.id}`);
     })
     .catch(() => {
-      console.log(
-        `⛔ Couldn't find user: ${req.params.username} by the ID: ${req.params.id}`
-      );
+      console("Find user by id error");
     });
 });
 
@@ -51,10 +48,9 @@ router.post("/users", auth.authenticateToken, (req, res) => {
     .post(userAPI + req.path, req.body)
     .then((resp) => {
       res.send(resp.data);
-      console.log("✅ Creating user:");
     })
     .catch(() => {
-      console.log(`⛔ Couldn't create user`);
+      console.log("Create error");
     });
 });
 
@@ -63,10 +59,9 @@ router.patch("/users/:id", auth.authenticateToken, (req, res) => {
     .patch(userAPI + req.path, req.body)
     .then((resp) => {
       res.send(resp.data);
-      console.log(`✅ Updated user: ${req.params.id}`);
     })
     .catch(() => {
-      console.log(`⛔ Couldn't update user`);
+      console.log("Update error");
     });
 });
 
@@ -75,35 +70,29 @@ router.delete("/users/:id", auth.authenticateToken, (req, res) => {
     .delete(userAPI + req.path)
     .then((resp) => {
       res.send(resp.data);
-      console.log(`✅ Deleted user: ${req.params.id}`);
     })
     .catch(() => {
-      console.log(`⛔ Couldn't delete user`);
+      console.log("Delete error");
     });
 });
 
 router.post("/login", (req, res) => {
   const userForToken = { username: req.body.username };
   const token = auth.generateAccessToken(userForToken);
-
   axios
     .post(userAPI + req.path, req.body)
     .then(() => {
       res.cookie("talloc_user_cookie_token", token, {
-        maxAge: 60 * 30, // 30 minutes until it expires
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
         httpOnly: true,
       });
-      res.send({
+
+      res.status(200).send({
         username: req.body.username,
-        token: token,
       });
-      console.log(
-        `✅ Succesfully logged as <<${req.body.username}>> Status Code: ${res.statusCode}`
-      );
     })
     .catch(() => {
       res.sendStatus(404);
-      console.log("⛔ Error logging in. Status Code: ", res.statusCode);
     });
 });
 
@@ -116,6 +105,17 @@ router.post("/register", (req, res) => {
     .catch(() => {
       res.sendStatus(403);
     });
+});
+
+router.post("/logout", (req, res) => {
+  axios
+    .get(userAPI + req.path)
+    .then(() => {
+      let token = req.cookies.talloc_user_cookie_token;
+      console.log("I will clear this cookie: ", token);
+      res.cookie(token, { path: "/" });
+    })
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

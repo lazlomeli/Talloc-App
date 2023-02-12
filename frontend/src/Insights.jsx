@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import * as taskAPI from "./services/taskService";
-import * as auth from "./services/authService";
 import languages from "../langs.json";
 import DashboardTopBar from "./DashboardTopBar";
 import DashboardSideBar from "./DashboardSideBar";
@@ -40,7 +39,7 @@ const Insights = () => {
   const [selectedLang, setSelectedLang] = useState("");
 
   useEffect(() => {
-    taskAPI.getUserTasks(userSession, auth.config()).then((resp) => {
+    taskAPI.getUserTasks(userSession).then((resp) => {
       setTasks(resp.data);
     });
   }, []);

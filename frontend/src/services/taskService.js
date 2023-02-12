@@ -1,28 +1,30 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8002/tasks";
-const GH_API = "https://api.github.com";
+const API_URL = "http://localhost:8002";
+const TASK_API_URL = "http://localhost:8002/tasks";
 
-export function getAllTasks(config) {
-  return axios.get(API_URL, config);
+axios.defaults.withCredentials = true;
+
+export function getAllTasks() {
+  return axios.get(TASK_API_URL);
 }
 
-export function getUserTasks(username, config) {
-  return axios.get(`${API_URL}/${username}`, config);
+export function getUserTasks(username) {
+  return axios.get(`${TASK_API_URL}/${username}`);
+}
+
+export function postTask(task) {
+  return axios.post(`${TASK_API_URL}`, task);
+}
+
+export function updateTask(id, task) {
+  return axios.put(`${TASK_API_URL}/${id}`, task);
+}
+
+export function deleteTaskByID(id) {
+  return axios.delete(`${TASK_API_URL}/${id}`);
 }
 
 export function getGithubRepos(username) {
-  return axios.get(`${GH_API}/users/${username}/repos`);
-}
-
-export function postTask(task, config) {
-  return axios.post(`${API_URL}`, task, config);
-}
-
-export function updateTask(id, task, config) {
-  return axios.put(`${API_URL}/${id}`, task, config);
-}
-
-export function deleteTaskByID(id, config) {
-  return axios.delete(`${API_URL}/${id}`, config);
+  return axios.post(`${API_URL}/github/${username}`);
 }

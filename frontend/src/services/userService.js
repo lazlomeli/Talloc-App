@@ -20,3 +20,7 @@ export function logIn(user) {
 export function registerUser(user) {
   return axios.post(`${API_URL}/register`, user);
 }
+
+export function clearCookieToken() {
+  return axios.post(`${API_URL}/logout`);
+}

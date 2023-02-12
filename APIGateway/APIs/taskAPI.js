@@ -1,8 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 const auth = require("../controller/auth");
 const taskAPI = "http://127.0.0.1:8000";
+const GH_API = "https://api.github.com";
 
 // 🚀 API Gateway ~ Tasks
 
@@ -76,6 +78,20 @@ router.delete("/tasks/:id", auth.authenticateToken, (req, res) => {
     })
     .catch(() => {
       console.log(`⛔ Couldn't delete task`);
+    });
+});
+
+router.post("/github/:username", (req, res) => {
+  config = {
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${process.env.GITHUB_PERSONAL_TOKEN}`,
+    },
+  };
+  axios
+    .get(`${GH_API}/users/${req.params.username}/repos`, config)
+    .then((resp) => {
+      res.send(resp.data);
     });
 });
 

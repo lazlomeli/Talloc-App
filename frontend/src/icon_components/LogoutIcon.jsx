@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import * as userAPI from "../services/userService";
 
 const LogoutIcon = () => {
   const navigateTo = useNavigate();
 
   function logout() {
+    // userAPI.clearCookieToken();
     localStorage.removeItem("talloc_username");
-    localStorage.removeItem("talloc_user_token");
     localStorage.removeItem("repositories");
     navigateTo("/");
   }

@@ -1,17 +1,13 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN);
 }
 
 const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  let token = "";
-
-  if (authHeader && authHeader.toLowerCase().startsWith("bearer")) {
-    token = authHeader.substring(7);
-  }
+  let token = req.cookies.talloc_user_cookie_token;
 
   if (token == null) return res.status(401).json({ error: "Token missing" });
 
@@ -21,6 +17,16 @@ const authenticateToken = (req, res, next) => {
     req.user = user;
     next();
   });
+};
+
+const clearCookieToken = (req, res, next) => {
+  let ck = req.cookies.talloc_user_cookie_token;
+  console.log(
+    "I will lear this cookie: ",
+    req.cookies.talloc_user_cookie_token
+  );
+  res.clearCookie(ck);
+  next();
 };
 
 module.exports = { authenticateToken, generateAccessToken };

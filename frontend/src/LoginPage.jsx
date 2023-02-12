@@ -15,20 +15,21 @@ export function LoginPage() {
   const { errorModalHandler } = useContext(ErrorContext);
 
   useEffect(() => {
-    isLogged === true
-      ? taskAPI
-          .getGithubRepos(username.username)
-          .then((resp) => {
-            let data = resp.data;
-            let repositories = [];
-            data.map((repo) => repositories.push(repo.name));
-            localStorage.setItem("repositories", JSON.stringify(repositories));
-            navigateTo("/dashboard");
-          })
-          .catch(() => {
-            localStorage.setItem("repositories", "None");
-          })
-      : null;
+    if (isLogged === true) {
+      taskAPI
+        .getGithubRepos(username.username)
+        .then((resp) => {
+          let data = resp.data;
+          let repositories = [];
+          data.map((repo) => repositories.push(repo.name));
+          localStorage.setItem("repositories", JSON.stringify(repositories));
+          navigateTo("/dashboard");
+        })
+        .catch(() => {
+          localStorage.setItem("repositories", "None");
+          navigateTo("/dashboard");
+        });
+    }
   }, [isLogged]);
 
   const submitData = () => {
@@ -39,10 +40,9 @@ export function LoginPage() {
 
     userAPI
       .logIn(user)
-      .then((resp) => {
+      .then(() => {
         setIsLogged(true);
         localStorage.setItem("talloc_username", user.username);
-        localStorage.setItem("talloc_user_token", resp.data.token);
       })
       .catch((err) => {
         errorModalHandler("The provided user credentials are wrong. Try again");

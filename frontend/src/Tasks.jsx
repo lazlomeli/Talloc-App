@@ -2,14 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import CreateTask from "./CreateTask";
 import Moment from "moment";
 import * as taskAPI from "./services/taskService";
-import * as auth from "./services/authService";
 
 const Tasks = ({ userSession }) => {
   const [openModal, setOpenModal] = useState(false);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    taskAPI.getUserTasks(userSession, auth.config()).then((resp) => {
+    taskAPI.getUserTasks(userSession).then((resp) => {
       setTasks(resp.data);
     });
   }, []);
@@ -30,7 +29,7 @@ const Tasks = ({ userSession }) => {
       repository_name: task.repository_name,
     };
 
-    taskAPI.updateTask(task.id, newTask, auth.config()).then(() => {
+    taskAPI.updateTask(task.id, newTask).then(() => {
       let updatedTasks = tasks.filter((t) =>
         t.id === newTask.id ? false : true
       );
@@ -40,7 +39,7 @@ const Tasks = ({ userSession }) => {
   }
 
   function deleteTask(id) {
-    taskAPI.deleteTaskByID(id, auth.config()).then(() => {
+    taskAPI.deleteTaskByID(id).then(() => {
       setTasks([...tasks.filter((task) => (task.id === id ? false : true))]);
     });
   }

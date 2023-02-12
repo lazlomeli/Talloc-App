@@ -4,7 +4,6 @@ import { ErrorContext } from "./services/ErrorContext";
 import "../styles/App.css";
 import Moment from "moment";
 import * as taskAPI from "./services/taskService";
-import * as auth from "./services/authService";
 import languages from "../langs.json";
 import CrossIcon from "./icon_components/CrossIcon";
 
@@ -23,6 +22,7 @@ const CreateTask = ({
   const [endDate] = useState("");
   const [taskStatus, setTaskStatus] = useState("");
   const [repositoryName, setRepositoryName] = useState("");
+  // const [isEmpty, setIsEmpty] = useState(false);
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
@@ -48,15 +48,21 @@ const CreateTask = ({
     let pl = newTask.programming_language;
     let rn = newTask.repository_name;
     let t = newTask.title;
+    // let emptyTitle = new RegExp("[ ]*")
+    // setIsEmpty(new RegExp("[ ]*").test(t));
+    // if (isEmpty === true) {
+    //   errorModalHandler("Task title cannot be empty");
+    // }
     if (
       pl === "Select the language" ||
       rn === "Select your repository" ||
-      t === ""
+      t === null
+      // isEmpty === false
     ) {
       errorModalHandler("Choose valid data");
     } else {
       taskAPI
-        .postTask(newTask, auth.config())
+        .postTask(newTask)
         .then((resp) => {
           setTasks([...tasks, resp.data]);
           setTaskTitle("");
