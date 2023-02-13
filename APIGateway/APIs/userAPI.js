@@ -85,7 +85,6 @@ router.post("/login", (req, res) => {
       res.cookie("talloc_user_cookie_token", token, {
         httpOnly: true,
       });
-
       res.status(200).send(resp.data);
     })
     .catch(() => {

@@ -102,7 +102,7 @@ router.patch("/users/:id", getUser, async (req, res) => {
     const updatedUser = await res.user.save();
     res.json(updatedUser, { message: `Updated user ${req.params.id}` });
   } catch (error) {
-    res.status(400).json({ message: "rror updating the user" });
+    res.status(400).json({ message: "Error updating the user" });
   }
 });
 
@@ -120,11 +120,17 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
     if (user == null) return res.status(400).send("Cannot find user");
 
-    if (await bcrypt.compare(req.body.password, user.password)) {
+    let valid = await bcrypt.compare(req.body.password, user.password);
+    console.log(valid);
+
+    if (valid === false) {
+      res.sendStatus(403);
+      console.log("asdasdads");
+    } else {
       res.status(200).send(user);
     }
   } catch (error) {
-    res.status(400);
+    res.sendStatus(400);
   }
 });
 

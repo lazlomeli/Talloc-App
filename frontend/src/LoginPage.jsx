@@ -36,10 +36,20 @@ export function LoginPage() {
   }, [isLogged]);
 
   const submitData = () => {
+    let u = username.username;
+    let p = password.password;
+
     const user = {
-      username: username.username,
-      password: password.password,
+      username: u,
+      password: p,
     };
+
+    const isEmpty = (str) => !str.trim().length;
+
+    if (isEmpty(u) || isEmpty(p)) {
+      errorModalHandler("The provided user credentials are wrong. Try again");
+    }
+
     userAPI
       .logIn(user)
       .then((resp) => {
@@ -50,9 +60,8 @@ export function LoginPage() {
         );
         localStorage.setItem("talloc_username", user.username);
       })
-      .catch((err) => {
+      .catch(() => {
         errorModalHandler("The provided user credentials are wrong. Try again");
-        console.log(err);
       });
   };
 
@@ -77,16 +86,16 @@ export function LoginPage() {
           className="log_regInputs"
           type="text"
           placeholder="Enter your username"
-          required
           value={username.username}
+          required
           onChange={(e) => changeUsername(e)}
         />
         <input
           className="log_regInputs"
           type="password"
           placeholder="Enter your password"
-          required
           value={password.password}
+          required
           onChange={(e) => changePassword(e)}
         />
         <button className="log_regButton" onClick={() => submitData()}>

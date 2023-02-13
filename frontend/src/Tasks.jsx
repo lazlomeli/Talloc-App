@@ -82,10 +82,7 @@ const Tasks = ({ userSession }) => {
           )}
           <p className="taskDate">Started at: {task.start_date}</p>
           {task.repository_name === "None" ? (
-            <p
-              className="githubRepo"
-              onClick={() => goToRepos(task.repository_name)}
-            >
+            <p className="githubRepo">
               GitHub Repo:{" "}
               <span style={{ color: "#adb5bd" }}>{task.repository_name}</span>
             </p>
