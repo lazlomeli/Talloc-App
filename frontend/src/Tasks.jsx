@@ -3,15 +3,15 @@ import CreateTask from "./CreateTask";
 import Moment from "moment";
 import * as taskAPI from "./services/taskService";
 
-const Tasks = ({ userSession }) => {
+const Tasks = ({ userSession, tasks, setTasks }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    taskAPI.getUserTasks(userSession).then((resp) => {
-      setTasks(resp.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   taskAPI.getUserTasks(userSession).then((resp) => {
+  //     setTasks(resp.data);
+  //   });
+  // }, []);
 
   let repositories = JSON.parse(localStorage.getItem("repositories"));
   repositories.unshift("None");

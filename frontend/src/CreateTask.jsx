@@ -44,16 +44,18 @@ const CreateTask = ({
   }, [newTask]);
 
   function createTask() {
+    let t = newTask.title;
     let pl = newTask.programming_language;
     let rn = newTask.repository_name;
-    let t = newTask.title;
     const isEmpty = (str) => !str.trim().length;
 
     if (
+      t === undefined ||
       pl === "Select the language" ||
       rn === "Select your repository" ||
-      t === null ||
-      isEmpty(newTask.title)
+      isEmpty(newTask.title) ||
+      isEmpty(newTask.programming_language) ||
+      isEmpty(newTask.repository_name)
     ) {
       errorModalHandler("Choose valid data");
     } else {

@@ -9,6 +9,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState({ password: "" });
   const [repPassword, setRepPassword] = useState({ repPassword: "" });
   const [email, setEmail] = useState({ email: "" });
+  const [inputVal, setInputVal] = useState("");
   const [githubUsername, setGithubUsername] = useState({ githubUsername: "" });
   const [checkedRadio, setCheckedRadio] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
@@ -35,9 +36,6 @@ const RegisterPage = () => {
   };
   const changeGitHubUsername = (e) => {
     setGithubUsername({ githubUsername: e.target.value });
-  };
-  const changeRadioButton = (e) => {
-    setCheckedRadio(e.target.value);
   };
 
   const registeredUser = {
@@ -129,7 +127,7 @@ const RegisterPage = () => {
                   id="registerRadio"
                   name="regRad"
                   value="Yes"
-                  onChange={(e) => changeRadioButton(e)}
+                  onChange={(e) => setCheckedRadio(e.target.value)}
                 />
               </label>
               <label className="registerRadio" htmlFor="registerRadio">
@@ -139,7 +137,7 @@ const RegisterPage = () => {
                   id="registerRadio"
                   name="regRad"
                   value="No"
-                  onChange={(e) => changeRadioButton(e)}
+                  onChange={() => setCheckedRadio("")}
                 />
               </label>
             </div>

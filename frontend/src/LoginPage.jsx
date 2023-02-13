@@ -40,7 +40,6 @@ export function LoginPage() {
       username: username.username,
       password: password.password,
     };
-
     userAPI
       .logIn(user)
       .then((resp) => {

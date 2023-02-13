@@ -221,6 +221,7 @@ body {
 .registerQuestionContainer {
   display: flex;
   margin-left: 5px;
+  height: 30px;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
@@ -266,6 +267,10 @@ body {
   margin-right: 21px;
   padding: 5px;
   height: 20px;
+}
+.registerGitHubInput:focus {
+  background: #30363d;
+  color: #fff;
 }
 .registerInputs:focus {
   background: #30363d;
