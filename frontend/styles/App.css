@@ -192,7 +192,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 400px;
-  height: 330px;
+  height: 400px;
   margin-bottom: 100px;
 }
 .registerTitles {
@@ -203,9 +203,37 @@ body {
   flex-basis: 50%;
   margin: 0px;
 }
+.registerGitHub {
+  display: flex;
+  align-self: flex-end;
+  flex-basis: 100%;
+  flex-direction: column;
+}
+.registerQuestion {
+  font-family: "Alliance No.1 Light";
+  font-weight: normal;
+  font-size: 12px;
+  color: rgb(148, 148, 148);
+  flex-basis: 50%;
+  margin: 10px;
+  margin-left: 10px;
+}
+.registerQuestionContainer {
+  display: flex;
+  margin-left: 5px;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.registerRadio {
+  font-family: "Alliance No.1 Light";
+  font-weight: normal;
+  font-size: 12px;
+  color: rgb(148, 148, 148);
+  padding: 5px;
+}
 .registerInputs {
   font-family: "Alliance No.1";
-  margin-bottom: 10px;
   background: #010409;
   text-align: center;
   outline: solid;
@@ -218,6 +246,24 @@ body {
   border-radius: 3px;
   outline-width: 1px;
   margin: 10px;
+  padding: 5px;
+  height: 20px;
+}
+.registerGitHubInput {
+  font-family: "Alliance No.1";
+  background: #010409;
+  text-align: center;
+  outline: solid;
+  outline-color: #5a6169;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  color: #5a6169;
+  border-radius: 3px;
+  outline-width: 1px;
+  margin: 10px;
+  margin-right: 21px;
   padding: 5px;
   height: 20px;
 }

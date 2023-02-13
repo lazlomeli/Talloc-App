@@ -17,7 +17,7 @@ export function LoginPage() {
   useEffect(() => {
     if (isLogged === true) {
       taskAPI
-        .getGithubRepos(username.username)
+        .getGithubRepos(localStorage.getItem("talloc_github_username"))
         .then((resp) => {
           let data = resp.data;
           let repositories = [];
@@ -25,9 +25,12 @@ export function LoginPage() {
           localStorage.setItem("repositories", JSON.stringify(repositories));
           navigateTo("/dashboard");
         })
-        .catch(() => {
-          localStorage.setItem("repositories", "None");
-          navigateTo("/dashboard");
+        .catch((err) => {
+          if (err.response.status == 404) {
+            let repositories = [];
+            localStorage.setItem("repositories", JSON.stringify(repositories));
+            navigateTo("/dashboard");
+          }
         });
     }
   }, [isLogged]);
@@ -40,8 +43,12 @@ export function LoginPage() {
 
     userAPI
       .logIn(user)
-      .then(() => {
+      .then((resp) => {
         setIsLogged(true);
+        localStorage.setItem(
+          "talloc_github_username",
+          resp.data.github_username
+        );
         localStorage.setItem("talloc_username", user.username);
       })
       .catch((err) => {

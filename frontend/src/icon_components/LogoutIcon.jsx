@@ -9,6 +9,7 @@ const LogoutIcon = () => {
     userAPI.clearCookieToken();
     localStorage.removeItem("talloc_username");
     localStorage.removeItem("repositories");
+    localStorage.removeItem("talloc_github_username");
     navigateTo("/");
   }
   return (

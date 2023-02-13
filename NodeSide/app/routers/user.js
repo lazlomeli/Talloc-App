@@ -121,7 +121,7 @@ router.post("/login", async (req, res) => {
     if (user == null) return res.status(400).send("Cannot find user");
 
     if (await bcrypt.compare(req.body.password, user.password)) {
-      res.status(200).send(`Logged as ${req.body.username}`);
+      res.status(200).send(user);
     }
   } catch (error) {
     res.status(400);
@@ -136,6 +136,7 @@ router.post("/register", async (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: hashedPassword,
+    github_username: req.body.github_username,
   });
 
   try {

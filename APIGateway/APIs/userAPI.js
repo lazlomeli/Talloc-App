@@ -81,14 +81,12 @@ router.post("/login", (req, res) => {
   const token = auth.generateAccessToken(userForToken);
   axios
     .post(userAPI + req.path, req.body)
-    .then(() => {
+    .then((resp) => {
       res.cookie("talloc_user_cookie_token", token, {
         httpOnly: true,
       });
 
-      res.status(200).send({
-        username: req.body.username,
-      });
+      res.status(200).send(resp.data);
     })
     .catch(() => {
       res.sendStatus(404);

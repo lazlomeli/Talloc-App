@@ -9,6 +9,8 @@ const RegisterPage = () => {
   const [password, setPassword] = useState({ password: "" });
   const [repPassword, setRepPassword] = useState({ repPassword: "" });
   const [email, setEmail] = useState({ email: "" });
+  const [githubUsername, setGithubUsername] = useState({ githubUsername: "" });
+  const [checkedRadio, setCheckedRadio] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const navigateTo = useNavigate();
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
@@ -31,11 +33,18 @@ const RegisterPage = () => {
   const changeMail = (e) => {
     setEmail({ email: e.target.value });
   };
+  const changeGitHubUsername = (e) => {
+    setGithubUsername({ githubUsername: e.target.value });
+  };
+  const changeRadioButton = (e) => {
+    setCheckedRadio(e.target.value);
+  };
 
   const registeredUser = {
     username: username.username,
     email: email.email,
     password: password.password,
+    github_username: githubUsername.githubUsername,
   };
 
   const isValidUserSyntax = (username) => {
@@ -109,6 +118,45 @@ const RegisterPage = () => {
           onChange={(e) => changeRepPassword(e)}
           required
         />
+        <section className="registerGitHub">
+          <h1 className="registerQuestion">Do you have a GitHub account?</h1>
+          <div className="registerQuestionContainer">
+            <div>
+              <label className="registerRadio" htmlFor="registerRadio">
+                Yes
+                <input
+                  type="radio"
+                  id="registerRadio"
+                  name="regRad"
+                  value="Yes"
+                  onChange={(e) => changeRadioButton(e)}
+                />
+              </label>
+              <label className="registerRadio" htmlFor="registerRadio">
+                No
+                <input
+                  type="radio"
+                  id="registerRadio"
+                  name="regRad"
+                  value="No"
+                  onChange={(e) => changeRadioButton(e)}
+                />
+              </label>
+            </div>
+            {checkedRadio === "Yes" ? (
+              <input
+                className="registerGitHubInput"
+                type="text"
+                placeholder="GitHub Username"
+                value={githubUsername.githubUsername}
+                onChange={(e) => changeGitHubUsername(e)}
+                required
+              />
+            ) : (
+              <input type="hidden" />
+            )}
+          </div>
+        </section>
         <div className="registerLine" />
         <button className="log_regButton" onClick={signUp}>
           Sign up
