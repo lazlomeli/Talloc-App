@@ -11,14 +11,12 @@ async function getUser(req, res, next) {
   try {
     user = await User.findById(req.params.id);
     if (user == null) {
-      return res.status(404).json({ message: "⛔ Cannot find user" });
+      return res.status(404).json({ message: "Cannot find user" });
     } else {
       res.json(user);
     }
   } catch (error) {
-    return res
-      .status(404)
-      .json({ message: "⛔ Error caught getting the user" });
+    return res.status(404).json({ message: "Error caught getting the user" });
   }
 
   res.user = user;
@@ -35,7 +33,7 @@ async function isValidUser(username) {
       return false;
     }
   } catch (error) {
-    return res.status(404).json({ message: "⛔ User provided is invalid" });
+    return res.status(404).json({ message: "User provided is invalid" });
   }
 }
 
@@ -49,7 +47,7 @@ async function isValidMail(mail) {
       return false;
     }
   } catch (error) {
-    return res.status(404).json({ message: "⛔ User e-mail is not valid" });
+    return res.status(404).json({ message: "User e-mail is not valid" });
   }
 }
 
@@ -57,20 +55,18 @@ router.get("/users/:username", async (req, res) => {
   let user;
   try {
     user = await User.findOne({ username: req.params.username });
-    res
-      .status(200)
-      .json(user, { message: `✅ Showing user: ${req.params.id}` });
+    res.status(200).json(user, { message: `Showing user: ${req.params.id}` });
   } catch (error) {
-    res.status(404).json({ message: "⛔ Error getting the user" });
+    res.status(404).json({ message: "Error getting the user" });
   }
 });
 
 router.get("/users", async (req, res) => {
   try {
     const users = await User.find();
-    res.json(users, { message: `✅ Showing users` });
+    res.json(users, { message: `Showing users` });
   } catch (error) {
-    res.status(500).json({ message: "⛔ Error getting all users" });
+    res.status(500).json({ message: "Error getting all users" });
   }
 });
 
@@ -86,9 +82,9 @@ router.post("/users", async (req, res) => {
   });
   try {
     await user.save();
-    res.status(201).json(user, { message: `✅ Created user` });
+    res.status(201).json(user, { message: `Created user` });
   } catch (error) {
-    res.status(400).json({ message: "⛔ Error creating the user" });
+    res.status(400).json({ message: "Error creating the user" });
   }
 });
 
@@ -104,32 +100,32 @@ router.patch("/users/:id", getUser, async (req, res) => {
   }
   try {
     const updatedUser = await res.user.save();
-    res.json(updatedUser, { message: `✅ Updated user ${req.params.id}` });
+    res.json(updatedUser, { message: `Updated user ${req.params.id}` });
   } catch (error) {
-    res.status(400).json({ message: "⛔ Error updating the user" });
+    res.status(400).json({ message: "rror updating the user" });
   }
 });
 
 router.delete("/users/:id", getUser, async (req, res) => {
   try {
     await res.user.remove();
-    res.json({ message: `✅ Deleted user ${req.params.id}` });
+    res.json({ message: `Deleted user ${req.params.id}` });
   } catch (error) {
-    res.status(500).json({ message: "⛔ Error deleting the user" });
+    res.status(500).json({ message: "Error deleting the user" });
   }
 });
 
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    if (user == null) return res.status(400).send("⛔ Cannot find user");
+    if (user == null) return res.status(400).send("Cannot find user");
 
     if (await bcrypt.compare(req.body.password, user.password)) {
-      res.status(200).send(`✅ Logged as ${req.body.username}`);
-    } else {
-      res.status(404).send("⛔ Passwords dont match");
+      res.status(200).send(`Logged as ${req.body.username}`);
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(400);
+  }
 });
 
 router.post("/register", async (req, res) => {
@@ -147,15 +143,12 @@ router.post("/register", async (req, res) => {
       ((await isValidUser(user.username)) &&
         (await isValidMail(user.email))) === true
     ) {
-      console.log(`✅ User '${user.username}' is valid. Saving it in DB`);
       await user.save();
       res.sendStatus(200);
     } else {
-      console.log("⛔ Username or e-mail already exists");
       res.sendStatus(403);
     }
   } catch (error) {
-    console.log("⛔ Something went wrong creating the new user");
     res.sendStatus(500);
   }
 });
