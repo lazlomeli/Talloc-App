@@ -83,7 +83,6 @@ router.post("/login", (req, res) => {
     .post(userAPI + req.path, req.body)
     .then(() => {
       res.cookie("talloc_user_cookie_token", token, {
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
         httpOnly: true,
       });
 
@@ -107,15 +106,14 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   axios
     .get(userAPI + req.path)
     .then(() => {
-      let token = req.cookies.talloc_user_cookie_token;
-      console.log("I will clear this cookie: ", token);
-      res.cookie(token, { path: "/" });
+      res.clearCookie("talloc_user_cookie_token");
+      res.status(200).send("Logged out");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err, "\nGW: Error deleting cookie"));
 });
 
 module.exports = router;

@@ -22,7 +22,6 @@ const CreateTask = ({
   const [endDate] = useState("");
   const [taskStatus, setTaskStatus] = useState("");
   const [repositoryName, setRepositoryName] = useState("");
-  // const [isEmpty, setIsEmpty] = useState(false);
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
@@ -48,16 +47,13 @@ const CreateTask = ({
     let pl = newTask.programming_language;
     let rn = newTask.repository_name;
     let t = newTask.title;
-    // let emptyTitle = new RegExp("[ ]*")
-    // setIsEmpty(new RegExp("[ ]*").test(t));
-    // if (isEmpty === true) {
-    //   errorModalHandler("Task title cannot be empty");
-    // }
+    const isEmpty = (str) => !str.trim().length;
+
     if (
       pl === "Select the language" ||
       rn === "Select your repository" ||
-      t === null
-      // isEmpty === false
+      t === null ||
+      isEmpty(newTask.title)
     ) {
       errorModalHandler("Choose valid data");
     } else {

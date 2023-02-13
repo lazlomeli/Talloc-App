@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import * as userAPI from "./services/userService";
 
 export const MainPage = () => {
+  // useEffect(() => {
+  //   userAPI.clearCookieToken();
+  // }, []);
+
   return (
     <div className="mainPage">
       <div className="mainPage_Logo">

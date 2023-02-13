@@ -13,11 +13,9 @@ router.get("/tasks", auth.authenticateToken, (req, res) => {
     .get(taskAPI + req.path)
     .then((resp) => {
       res.send(resp.data);
-      console.log("✅ Showing all tasks:");
-      console.log(resp.data);
     })
     .catch(() => {
-      console.log(`⛔ Couldn't get all tasks`);
+      console.log(`GW: Error getting all tasks`);
     });
 });
 
@@ -26,10 +24,9 @@ router.get("/tasks/:username", auth.authenticateToken, (req, res) => {
     .get(taskAPI + req.path)
     .then((resp) => {
       res.send(resp.data);
-      console.log(`✅ Showing ${req.params.username} tasks`);
     })
     .catch(() => {
-      console.log(`⛔ Couldn't get <${req.params.username}> tasks`);
+      console.log(`GW: Error getting tasks by username`);
     });
 });
 
@@ -38,10 +35,9 @@ router.get("/tasks/:id", auth.authenticateToken, (req, res) => {
     .get(taskAPI + req.path)
     .then((resp) => {
       res.send(resp.data);
-      console.log(`✅ Showing task: ${req.params.id}`);
     })
     .catch(() => {
-      console.log(`⛔ Couldn't get task by the ID: ${req.params.id}`);
+      console.log(`GW: Error getting task by ID`);
     });
 });
 
@@ -50,10 +46,9 @@ router.post("/tasks", auth.authenticateToken, (req, res) => {
     .post(taskAPI + req.path, req.body)
     .then((resp) => {
       res.send(resp.data);
-      console.log("✅ Creating task:");
     })
     .catch(() => {
-      console.log(`⛔ Couldn't create task`);
+      console.log(`GW: Error creating task`);
     });
 });
 
@@ -65,7 +60,7 @@ router.put("/tasks/:id", auth.authenticateToken, (req, res) => {
       console.log(`✅ Updated task: ${req.params.id}`);
     })
     .catch(() => {
-      console.log(`⛔ Couldn't update task`);
+      console.log(`GW: Error updating task`);
     });
 });
 
@@ -74,10 +69,9 @@ router.delete("/tasks/:id", auth.authenticateToken, (req, res) => {
     .delete(taskAPI + req.path)
     .then((resp) => {
       res.send(resp.data);
-      console.log(`✅ Deleted task: ${req.params.id}`);
     })
     .catch(() => {
-      console.log(`⛔ Couldn't delete task`);
+      console.log(`GW: Error deleting task`);
     });
 });
 

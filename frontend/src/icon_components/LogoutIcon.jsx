@@ -6,7 +6,7 @@ const LogoutIcon = () => {
   const navigateTo = useNavigate();
 
   function logout() {
-    // userAPI.clearCookieToken();
+    userAPI.clearCookieToken();
     localStorage.removeItem("talloc_username");
     localStorage.removeItem("repositories");
     navigateTo("/");

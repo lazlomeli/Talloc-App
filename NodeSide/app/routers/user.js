@@ -160,9 +160,14 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/logout", (req, res) => {
-  console.log("Succesfully logged out");
-  res.sendStatus(200);
+router.get("/logout", (req, res) => {
+  try {
+    console.log("Succesfully logged out");
+    res.sendStatus(200);
+  } catch (error) {
+    console.log("Error logging out");
+    res.sendStatus(500);
+  }
 });
 
 module.exports = router;

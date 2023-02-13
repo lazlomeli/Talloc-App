@@ -22,5 +22,5 @@ export function registerUser(user) {
 }
 
 export function clearCookieToken() {
-  return axios.post(`${API_URL}/logout`);
+  return axios.get(`${API_URL}/logout`);
 }
