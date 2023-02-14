@@ -142,7 +142,7 @@ const RegisterPage = () => {
                 />
               </label>
             </div>
-            {checkedRadio === "Yes" ? (
+            {checkedRadio === "Yes" && (
               <input
                 className="registerGitHubInput"
                 type="text"
@@ -151,8 +151,6 @@ const RegisterPage = () => {
                 onChange={(e) => setGithubUsername(e.target.value)}
                 required
               />
-            ) : (
-              <></>
             )}
           </div>
         </section>
