@@ -9,14 +9,13 @@ const RegisterPage = () => {
   const [password, setPassword] = useState({ password: "" });
   const [repPassword, setRepPassword] = useState({ repPassword: "" });
   const [email, setEmail] = useState({ email: "" });
-  const [inputVal, setInputVal] = useState("");
   const [githubUsername, setGithubUsername] = useState({ githubUsername: "" });
   const [checkedRadio, setCheckedRadio] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
-  const navigateTo = useNavigate();
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     isRegistered === true ? navigateTo("/login") : null;
@@ -34,9 +33,6 @@ const RegisterPage = () => {
   const changeMail = (e) => {
     setEmail({ email: e.target.value });
   };
-  const changeGitHubUsername = (e) => {
-    setGithubUsername({ githubUsername: e.target.value });
-  };
 
   const registeredUser = {
     username: username.username,
@@ -45,19 +41,24 @@ const RegisterPage = () => {
     github_username: githubUsername.githubUsername,
   };
 
-  const isValidUserSyntax = (username) => {
+  const isValidUserSyntax = () => {
     let validUser = new RegExp(
       "^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
     );
-    return validUser.test(username) ? true : false;
+    return validUser.test(username.username) ? true : false;
   };
 
   const isValidPassword = () => {
     return password.password === repPassword.repPassword ? true : false;
   };
 
+  const isValidEmail = () => {
+    let validEmail = new RegExp(/[a-z]+@[a-z]+.(com|es|org|net)/); // CAMBIAR
+    return validEmail.test(email) ? true : false;
+  };
+
   const signUp = () => {
-    if ((isValidUserSyntax(username.username) && isValidPassword()) === true) {
+    if ((isValidUserSyntax() && isValidPassword() && isValidEmail()) === true) {
       userAPI
         .registerUser(registeredUser)
         .then(() => {
@@ -126,8 +127,8 @@ const RegisterPage = () => {
                   type="radio"
                   id="registerRadio"
                   name="regRad"
-                  value="Yes"
-                  onChange={(e) => setCheckedRadio(e.target.value)}
+                  value={checkedRadio}
+                  onChange={(e) => setCheckedRadio("Yes")}
                 />
               </label>
               <label className="registerRadio" htmlFor="registerRadio">
@@ -136,8 +137,8 @@ const RegisterPage = () => {
                   type="radio"
                   id="registerRadio"
                   name="regRad"
-                  value="No"
-                  onChange={() => setCheckedRadio("")}
+                  value={checkedRadio}
+                  onChange={() => setCheckedRadio("No")}
                 />
               </label>
             </div>
@@ -147,11 +148,11 @@ const RegisterPage = () => {
                 type="text"
                 placeholder="GitHub Username"
                 value={githubUsername.githubUsername}
-                onChange={(e) => changeGitHubUsername(e)}
+                onChange={(e) => setGithubUsername(e.target.value)}
                 required
               />
             ) : (
-              <input type="hidden" />
+              <></>
             )}
           </div>
         </section>
