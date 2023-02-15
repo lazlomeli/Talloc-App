@@ -33,12 +33,15 @@ const RegisterPage = () => {
   const changeMail = (e) => {
     setEmail({ email: e.target.value });
   };
+  const changeGitHubUsername = (e) => {
+    setGithubUsername({ githubUsername: e.target.value });
+  };
 
   const registeredUser = {
-    username: username.username,
-    email: email.email,
-    password: password.password,
-    github_username: githubUsername.githubUsername,
+    username: username.username.toLowerCase(),
+    email: email.email.toLowerCase(),
+    password: password.password.toLowerCase(),
+    github_username: githubUsername.githubUsername.toLowerCase(),
   };
 
   const isValidUserSyntax = () => {
@@ -131,7 +134,7 @@ const RegisterPage = () => {
                   id="registerRadio"
                   name="regRad"
                   value={checkedRadio}
-                  onChange={(e) => setCheckedRadio("Yes")}
+                  onChange={() => setCheckedRadio("Yes")}
                 />
               </label>
               <label className="registerRadio" htmlFor="registerRadio">
@@ -151,7 +154,7 @@ const RegisterPage = () => {
                 type="text"
                 placeholder="GitHub Username"
                 value={githubUsername.githubUsername}
-                onChange={(e) => setGithubUsername(e.target.value)}
+                onChange={(e) => changeGitHubUsername(e)}
                 required
               />
             )}

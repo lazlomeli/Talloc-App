@@ -36,8 +36,8 @@ export function LoginPage() {
   }, [isLogged]);
 
   const submitData = () => {
-    let u = username.username;
-    let p = password.password;
+    let u = username.username.toLowerCase();
+    let p = password.password.toLowerCase();
 
     const user = {
       username: u,
