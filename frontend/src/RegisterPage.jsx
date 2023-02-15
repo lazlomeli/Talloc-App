@@ -43,7 +43,7 @@ const RegisterPage = () => {
 
   const isValidUserSyntax = () => {
     let validUser = new RegExp(
-      "^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+      "^(?=.{3,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
     );
     return validUser.test(username.username) ? true : false;
   };
@@ -53,11 +53,14 @@ const RegisterPage = () => {
   };
 
   const isValidEmail = () => {
-    let validEmail = new RegExp(/[a-z]+@[a-z]+.(com|es|org|net)/); // CAMBIAR
-    return validEmail.test(email) ? true : false;
+    let validEmail = new RegExp(
+      "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+    );
+    return validEmail.test(email.email) ? true : false;
   };
 
   const signUp = () => {
+    console.log(isValidUserSyntax(), isValidPassword(), isValidEmail());
     if ((isValidUserSyntax() && isValidPassword() && isValidEmail()) === true) {
       userAPI
         .registerUser(registeredUser)
@@ -93,7 +96,7 @@ const RegisterPage = () => {
         <h1 className="registerTitles">Mail</h1>
         <input
           className="registerInputs"
-          type="email"
+          type="text"
           placeholder="Type your email"
           value={email.email}
           onChange={(e) => changeMail(e)}
