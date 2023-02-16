@@ -6,6 +6,7 @@ import * as taskAPI from "./services/taskService";
 const Tasks = ({ userSession }) => {
   const [openModal, setOpenModal] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [filterStatus, setFilterStatus] = useState("");
 
   useEffect(() => {
     taskAPI.getUserTasks(userSession).then((resp) => {
@@ -52,100 +53,134 @@ const Tasks = ({ userSession }) => {
     }
   }
 
+  function filterTasks(status) {
+    setFilterStatus(status);
+  }
+
   return (
-    <div className="dashboardTasks">
-      {tasks.map((task) => (
-        <div key={task.id} className="task">
-          {task.title.length <= 30 ? (
-            <h1 title={task.title} className="taskTitle">
-              {task.title}
-            </h1>
-          ) : (
-            <h1 title={task.title} className="taskTitle">
-              {task.title.substring(0, 30)}...
-            </h1>
-          )}
-          <div className="taskLine"></div>
-          {task.programming_language === "C#" ? (
-            <div className="taskLangContainer">
-              <img className="taskLangLogo" src={`../static/CSharp.png`} />
-              <p className="taskLang">{task.programming_language}</p>
-            </div>
-          ) : (
-            <div className="taskLangContainer">
-              <img
-                className="taskLangLogo"
-                src={`../static/${task.programming_language}.png`}
-              />
-              <p className="taskLang">{task.programming_language}</p>
-            </div>
-          )}
-          <p className="taskDate">Started at: {task.start_date}</p>
-          {task.repository_name === "None" ? (
-            <p className="githubRepo">
-              GitHub Repo:{" "}
-              <span style={{ color: "#adb5bd" }}>{task.repository_name}</span>
-            </p>
-          ) : (
-            <p
-              className="githubRepo"
-              onClick={() => goToRepos(task.repository_name)}
-            >
-              GitHub Repo:{" "}
-              <span className="repoName">{task.repository_name}</span>
-            </p>
-          )}
-          {task.status != "COMPLETED" ? (
-            <section className="taskButtonsSection">
-              <p className="taskStatus">
-                Status:
-                <span className="taskStatus-onGoing">{task.status}</span>
-              </p>
-              <button
-                className="taskComplete"
-                onClick={() => completeTask(task)}
-              >
-                Complete
-              </button>
-              <button
-                className="taskDelete"
-                onClick={() => deleteTask(task.id)}
-              >
-                Delete
-              </button>
-            </section>
-          ) : (
-            <section className="taskButtonsSection-completed">
-              <p className="taskStatus">
-                Status:
-                <span className="taskStatus-completed">{task.status}</span>
-              </p>
-              <p className="taskDate">Ended at: {task.end_date}</p>
-              <button
-                className="taskDelete-completed"
-                onClick={() => deleteTask(task.id)}
-              >
-                Delete
-              </button>
-            </section>
-          )}
-        </div>
-      ))}
-      <div className="createTask">
-        <h1 className="createTaskTitle">Create a new task</h1>
-        <button className="createTaskButton" onClick={() => setOpenModal(true)}>
-          +
+    <section className="dashboard">
+      <div className="dashboardFilter">
+        <p className="dashboardFilterInfo">Filter tasks by... </p>
+        <button
+          className="dashboardFilterOnGoing"
+          onClick={() => filterTasks("ON GOING")}
+        >
+          ON GOING
+        </button>
+        <button
+          className="dashboardFilterCompleted"
+          onClick={() => filterTasks("COMPLETED")}
+        >
+          COMPLETED
         </button>
       </div>
-      <CreateTask
-        tasks={tasks}
-        setTasks={setTasks}
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        session_u={userSession}
-        repositories={repositories}
-      />
-    </div>
+      <div className="dashboardTasks">
+        {tasks.map(
+          (task) =>
+            task.status === filterStatus && (
+              <div key={task.id} className="task">
+                {task.title.length <= 30 ? (
+                  <h1 title={task.title} className="taskTitle">
+                    {task.title}
+                  </h1>
+                ) : (
+                  <h1 title={task.title} className="taskTitle">
+                    {task.title.substring(0, 30)}...
+                  </h1>
+                )}
+                <div className="taskLine" />
+                {task.programming_language === "C#" ? (
+                  <div className="taskLangContainer">
+                    <img
+                      className="taskLangLogo"
+                      src={`../static/CSharp.png`}
+                    />
+                    <p className="taskLang">{task.programming_language}</p>
+                  </div>
+                ) : (
+                  <div className="taskLangContainer">
+                    <img
+                      className="taskLangLogo"
+                      src={`../static/${task.programming_language}.png`}
+                    />
+                    <p className="taskLang">{task.programming_language}</p>
+                  </div>
+                )}
+                <p className="taskDate">Started at: {task.start_date}</p>
+                {task.repository_name === "None" ? (
+                  <p className="githubRepo">
+                    GitHub Repo:{" "}
+                    <span style={{ color: "#adb5bd" }}>
+                      {task.repository_name}
+                    </span>
+                  </p>
+                ) : (
+                  <p
+                    className="githubRepo"
+                    onClick={() => goToRepos(task.repository_name)}
+                  >
+                    GitHub Repo:{" "}
+                    <span className="repoName">{task.repository_name}</span>
+                  </p>
+                )}
+                {task.status != "COMPLETED" ? (
+                  <section className="taskButtonsSection">
+                    <p className="taskStatus">
+                      Status:
+                      <span className="taskStatus-onGoing">{task.status}</span>
+                    </p>
+                    <button
+                      className="taskComplete"
+                      onClick={() => completeTask(task)}
+                    >
+                      Complete
+                    </button>
+                    <button
+                      className="taskDelete"
+                      onClick={() => deleteTask(task.id)}
+                    >
+                      Delete
+                    </button>
+                  </section>
+                ) : (
+                  <section className="taskButtonsSection-completed">
+                    <p className="taskStatus">
+                      Status:
+                      <span className="taskStatus-completed">
+                        {task.status}
+                      </span>
+                    </p>
+                    <p className="taskDate">Ended at: {task.end_date}</p>
+                    <button
+                      className="taskDelete-completed"
+                      onClick={() => deleteTask(task.id)}
+                    >
+                      Delete
+                    </button>
+                  </section>
+                )}
+              </div>
+            )
+        )}
+        <div className="createTask">
+          <h1 className="createTaskTitle">Create a new task</h1>
+          <button
+            className="createTaskButton"
+            onClick={() => setOpenModal(true)}
+          >
+            +
+          </button>
+        </div>
+        <CreateTask
+          tasks={tasks}
+          setTasks={setTasks}
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          session_u={userSession}
+          repositories={repositories}
+        />
+      </div>
+    </section>
   );
 };
 
