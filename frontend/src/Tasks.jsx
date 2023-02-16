@@ -6,7 +6,7 @@ import * as taskAPI from "./services/taskService";
 const Tasks = ({ userSession }) => {
   const [openModal, setOpenModal] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const [filterStatus, setFilterStatus] = useState("");
+  const [filterStatus, setFilterStatus] = useState("ON GOING");
 
   useEffect(() => {
     taskAPI.getUserTasks(userSession).then((resp) => {
