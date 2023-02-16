@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import * as taskAPI from "./services/taskService";
 import Moment from "moment";
+import { TaskMoreInfo } from "./TaskMoreInfo";
 
 export const Task = ({ userSession, tasks, setTasks, filterStatus }) => {
+  const [openMoreModal, setOpenMoreModal] = useState(false);
+
   function completeTask(task) {
     const newTask = {
       id: task.id,
@@ -45,7 +48,13 @@ export const Task = ({ userSession, tasks, setTasks, filterStatus }) => {
       {tasks.map(
         (task) =>
           task.status === filterStatus && (
-            <div key={task.id} className="task" onClick={() => {}}>
+            <div
+              key={task.id}
+              className="task"
+              onClick={() => {
+                setOpenMoreModal(true);
+              }}
+            >
               {task.title.length <= 30 ? (
                 <h1 title={task.title} className="taskTitle">
                   {task.title}
@@ -124,6 +133,10 @@ export const Task = ({ userSession, tasks, setTasks, filterStatus }) => {
             </div>
           )
       )}
+      <TaskMoreInfo
+        openMoreModal={openMoreModal}
+        closeMoreModal={() => setOpenMoreModal(false)}
+      />
     </>
   );
 };

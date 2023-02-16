@@ -617,6 +617,12 @@ body {
 .taskStatus-completed {
   font-weight: bold;
 }
+.taskMoreInfoModal {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  background-color: red;
+}
 .createTask {
   border: dashed 2px;
   border-color: #30363d;
