@@ -12,16 +12,26 @@ const CreateTask = ({
   onClose,
   tasks,
   setTasks,
+  taskID,
+  taskTitle,
+  setTaskTitle,
+  taskLang,
+  setTaskLang,
+  startDate,
+  setStartDate,
+  endDate,
+  taskStatus,
+  setTaskStatus,
+  repositoryName,
+  setRepositoryName,
+  taskDescription,
+  setTaskDescription,
+  timeSpent,
+  setTimeSpent,
+  setFilterStatus,
   session_u,
   repositories,
 }) => {
-  const [taskID, setTaskID] = useState("");
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskLang, setTaskLang] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate] = useState("");
-  const [taskStatus, setTaskStatus] = useState("");
-  const [repositoryName, setRepositoryName] = useState("");
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
@@ -30,11 +40,13 @@ const CreateTask = ({
     id: taskID,
     title: taskTitle,
     programming_language: taskLang,
+    description: taskDescription,
     start_date: startDate,
     end_date: endDate,
     status: taskStatus,
     created_by: session_u,
     repository_name: repositoryName,
+    time_spent: timeSpent,
   };
 
   useEffect(() => {
@@ -66,6 +78,8 @@ const CreateTask = ({
           setTaskTitle("");
           setTaskLang("Select the language");
           setRepositoryName("Select your repository");
+          setTaskDescription("");
+          setFilterStatus("ON GOING");
           onClose();
         })
         .catch((err) => console.log(err));
@@ -121,6 +135,15 @@ const CreateTask = ({
                   ))}
                 </select>
               </label>
+              <label className="modalLabel">
+                <p className="modalLabelName">Description:</p>
+              </label>
+              <textarea
+                className="modalDescription"
+                placeholder="Task description is optional"
+                value={taskDescription}
+                onChange={(e) => setTaskDescription(e.target.value)}
+              />
             </form>
             <label className="modalLabel_submit">
               <input

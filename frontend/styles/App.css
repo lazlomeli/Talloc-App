@@ -325,14 +325,14 @@ body {
   z-index: 2;
 }
 .modalContainer {
-  top: 25%;
-  height: 250px;
+  top: 15%;
+  height: 470px;
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
   justify-content: center;
   font-family: "Alliance No.1";
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   position: fixed;
   left: 650px;
@@ -427,6 +427,16 @@ body {
 .modalSelect:hover {
   cursor: pointer;
 }
+.modalDescription {
+  width: 450px;
+  height: 150px;
+  margin-top: 30px;
+  background-color: #0d1017;
+  color: rgb(203, 203, 203);
+  font-family: "Alliance No.1";
+  font-size: 15px;
+  resize: unset;
+}
 .modalClose {
   position: absolute;
   top: 8px;
@@ -457,6 +467,7 @@ body {
   width: 350px;
   margin: 10px;
   padding: 10px;
+  cursor: pointer;
 }
 .taskLine {
   z-index: 1;
@@ -646,6 +657,7 @@ body {
 .submitCreateTask {
   font-family: "Alliance No.1";
   border-radius: 5px;
+  margin-top: 30px;
   width: 150px;
   height: 30px;
   padding: 5px;

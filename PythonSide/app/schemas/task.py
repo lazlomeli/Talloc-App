@@ -6,11 +6,13 @@ def taskEntity(item) -> dict:
         "id": str(item["_id"]),
         "title": item["title"],
         "programming_language": item["programming_language"],
+        "description": item["description"],
         "start_date": item["start_date"],
         "end_date": item["end_date"],
         "status": item["status"],
         "created_by": item["created_by"],
-        "repository_name": item["repository_name"]
+        "repository_name": item["repository_name"],
+        "time_spent": item["time_spent"]
     }
 
 def tasksEntity(entity) -> list:
