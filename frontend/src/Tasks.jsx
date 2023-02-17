@@ -54,6 +54,12 @@ const Tasks = ({ userSession }) => {
           tasks={tasks}
           setTasks={setTasks}
           filterStatus={filterStatus}
+          taskTitle={taskTitle}
+          setTaskTitle={setTaskTitle}
+          taskDescription={taskDescription}
+          setTaskDescription={setTaskDescription}
+          timeSpent={timeSpent}
+          setTimeSpent={setTimeSpent}
         />
         <div className="createTask">
           <h1 className="createTaskTitle">Create a new task</h1>

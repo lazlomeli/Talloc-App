@@ -3,8 +3,20 @@ import * as taskAPI from "./services/taskService";
 import Moment from "moment";
 import { TaskMoreInfo } from "./TaskMoreInfo";
 
-export const Task = ({ userSession, tasks, setTasks, filterStatus }) => {
+export const Task = ({
+  userSession,
+  tasks,
+  setTasks,
+  filterStatus,
+  taskTitle,
+  setTaskTitle,
+  taskDescription,
+  setTaskDescription,
+  timeSpent,
+  setTimeSpent,
+}) => {
   const [openMoreModal, setOpenMoreModal] = useState(false);
+  const [persistedTask, setPersistedTask] = useState({});
 
   function completeTask(task) {
     const newTask = {
@@ -53,6 +65,7 @@ export const Task = ({ userSession, tasks, setTasks, filterStatus }) => {
               className="task"
               onClick={() => {
                 setOpenMoreModal(true);
+                setPersistedTask(task);
               }}
             >
               {task.title.length <= 30 ? (
@@ -136,6 +149,14 @@ export const Task = ({ userSession, tasks, setTasks, filterStatus }) => {
       <TaskMoreInfo
         openMoreModal={openMoreModal}
         closeMoreModal={() => setOpenMoreModal(false)}
+        persistedTask={persistedTask}
+        tasks={tasks}
+        taskTitle={taskTitle}
+        setTaskTitle={setTaskTitle}
+        taskDescription={taskDescription}
+        setTaskDescription={setTaskDescription}
+        timeSpent={timeSpent}
+        setTimeSpent={setTimeSpent}
       />
     </>
   );
