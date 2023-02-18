@@ -61,14 +61,7 @@ export const Task = ({
       {tasks.map(
         (task) =>
           task.status === filterStatus && (
-            <div
-              key={task.id}
-              className="task"
-              // onClick={() => {
-              //   setOpenMoreModal(true);
-              //   setPersistedTask(task);
-              // }}
-            >
+            <div key={task.id} className="task">
               <ViewMoreIcon
                 color={"#78808a"}
                 w={"25"}

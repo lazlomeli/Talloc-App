@@ -5,6 +5,7 @@ import DashboardTopBar from "./DashboardTopBar";
 import DashboardSideBar from "./DashboardSideBar";
 import EmptyInsights from "./EmptyInsights";
 import CrossIcon from "./icon_components/CrossIcon";
+import { TaskMoreInfo } from "./TaskMoreInfo";
 
 function getLanguages(tasks) {
   let languages = [];
@@ -37,6 +38,11 @@ const Insights = () => {
   const [langs, setLangs] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedLang, setSelectedLang] = useState("");
+  const [openMoreModal, setOpenMoreModal] = useState(false);
+  const [persistedTask, setPersistedTask] = useState({});
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [timeSpent, setTimeSpent] = useState("");
 
   useEffect(() => {
     taskAPI.getUserTasks(userSession).then((resp) => {
@@ -114,7 +120,15 @@ const Insights = () => {
               {tasks
                 .filter((task) => task.programming_language === selectedLang)
                 .map((filteredTask) => (
-                  <section className="mainPanelTaskInfo" key={filteredTask.id}>
+                  <section
+                    className="mainPanelTaskInfo"
+                    key={filteredTask.id}
+                    onClick={() => {
+                      setModal(false);
+                      setOpenMoreModal(true);
+                      setPersistedTask(filteredTask);
+                    }}
+                  >
                     <h1 className="mainPanelTaskInfoTitle">
                       Title:{" "}
                       <span className="mainPanelTaskInfoTitle-task">
@@ -142,6 +156,18 @@ const Insights = () => {
           </div>
         </div>
       )}
+      <TaskMoreInfo
+        openMoreModal={openMoreModal}
+        closeMoreModal={() => setOpenMoreModal(false)}
+        persistedTask={persistedTask}
+        tasks={tasks}
+        taskTitle={taskTitle}
+        setTaskTitle={setTaskTitle}
+        taskDescription={taskDescription}
+        setTaskDescription={setTaskDescription}
+        timeSpent={timeSpent}
+        setTimeSpent={setTimeSpent}
+      />
     </section>
   );
 };

@@ -637,6 +637,7 @@ body {
   outline-width: 1px;
   border-radius: 5px;
   left: 29%;
+  top: 15%;
 }
 .taskMoreInfoTop {
   display: flex;
@@ -1232,6 +1233,10 @@ body {
   border-radius: 5px;
   width: 530px;
   margin-bottom: 10px;
+}
+.mainPanelTaskInfo:hover {
+  background-color: #1a1e25;
+  cursor: pointer;
 }
 .mainPanelTaskInfoTitle {
   font-weight: lighter;
