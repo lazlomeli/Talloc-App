@@ -585,7 +585,6 @@ body {
   border-color: rgb(10, 10, 10);
   border-width: 1px;
   cursor: pointer;
-  margin-left: 100px;
   margin-top: 10px;
   margin-bottom: 15px;
 }
@@ -612,13 +611,21 @@ body {
   background: #006452;
   color: rgb(211, 255, 248);
 }
-.taskStatus {
+.taskHours {
   font-family: "Alliance No.1";
-  flex-basis: 100%;
+  float: right;
   color: #78808a;
   margin: 0px;
-  margin-left: 8px;
-  margin-bottom: 15px;
+  flex-basis: 40%;
+  max-height: 30px;
+}
+.taskStatus {
+  font-family: "Alliance No.1";
+  flex-basis: 50%;
+  color: #78808a;
+  margin: 0px;
+  margin-right: 20px;
+  max-height: 30px;
 }
 .taskStatus-onGoing {
   margin-top: 5px;

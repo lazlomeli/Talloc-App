@@ -117,6 +117,7 @@ export const Task = ({
                     Status:
                     <span className="taskStatus-onGoing">{task.status}</span>
                   </p>
+                  <p className="taskHours">Hours:</p>
                   <button
                     className="taskComplete"
                     onClick={() => completeTask(task)}
@@ -131,11 +132,12 @@ export const Task = ({
                   </button>
                 </section>
               ) : (
-                <section className="taskButtonsSection-completed">
+                <section className="taskButtonsSection">
                   <p className="taskStatus">
                     Status:
                     <span className="taskStatus-completed">{task.status}</span>
                   </p>
+                  <p className="taskHours">Hours: {task.time_spent}</p>
                   <p className="taskDate">Ended at: {task.end_date}</p>
                   <button
                     className="taskDelete-completed"
