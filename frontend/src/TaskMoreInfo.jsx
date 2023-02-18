@@ -129,7 +129,7 @@ export const TaskMoreInfo = ({
                 maxLength="2"
                 title="Add more hours"
               />
-              <PlusIcon color={"#67717c"} w={"35"} h={"35"} />
+              <PlusIcon color={"#67717c"} w={"25"} h={"25"} />
             </div>
             <div className="moreInfoRightButtonContainer">
               <button

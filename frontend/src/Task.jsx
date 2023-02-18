@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as taskAPI from "./services/taskService";
 import Moment from "moment";
 import { TaskMoreInfo } from "./TaskMoreInfo";
+import { ViewMoreIcon } from "./icon_components/ViewMoreIcon";
 
 export const Task = ({
   userSession,
@@ -63,11 +64,19 @@ export const Task = ({
             <div
               key={task.id}
               className="task"
-              onClick={() => {
-                setOpenMoreModal(true);
-                setPersistedTask(task);
-              }}
+              // onClick={() => {
+              //   setOpenMoreModal(true);
+              //   setPersistedTask(task);
+              // }}
             >
+              <ViewMoreIcon
+                color={"#78808a"}
+                w={"25"}
+                h={"25"}
+                task={task}
+                setOpenMoreModal={setOpenMoreModal}
+                setPersistedTask={setPersistedTask}
+              />
               {task.title.length <= 30 ? (
                 <h1 title={task.title} className="taskTitle">
                   {task.title}
