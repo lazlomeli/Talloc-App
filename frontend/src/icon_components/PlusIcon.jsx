@@ -1,6 +1,19 @@
 import React from "react";
 
-export const PlusIcon = ({ color, w, h }) => {
+export const PlusIcon = ({
+  color,
+  w,
+  h,
+  timeSpent,
+  setTimeSpent,
+  addHours,
+}) => {
+  const hoursHandler = () => {
+    let totalHours = +addHours + +timeSpent;
+    console.log(totalHours);
+    setTimeSpent(totalHours);
+  };
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,6 +26,7 @@ export const PlusIcon = ({ color, w, h }) => {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
+      onClick={() => hoursHandler()}
     >
       <title>Add hours</title>
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

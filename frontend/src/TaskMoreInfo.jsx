@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GitLogoIcon } from "./icon_components/GitHubLogoIcon";
 import CrossIcon from "./icon_components/CrossIcon";
 import { PlusIcon } from "./icon_components/PlusIcon";
+import * as taskAPI from "./services/taskService";
 
 export const TaskMoreInfo = ({
   openMoreModal,
   closeMoreModal,
   persistedTask,
-  tasks,
   taskTitle,
   setTaskTitle,
   taskDescription,
@@ -15,6 +15,31 @@ export const TaskMoreInfo = ({
   timeSpent,
   setTimeSpent,
 }) => {
+  const [addHours, setAddHours] = useState(0);
+
+  useEffect(() => {
+    setTaskTitle(persistedTask.title);
+    setTaskDescription(persistedTask.description);
+    setTimeSpent(persistedTask.time_spent);
+  }, [openMoreModal]);
+
+  const taskToUpdate = {
+    id: persistedTask.id,
+    title: taskTitle,
+    programming_language: persistedTask.programming_language,
+    description: taskDescription,
+    start_date: persistedTask.start_date,
+    end_date: persistedTask.end_date,
+    status: persistedTask.status,
+    created_by: persistedTask.created_by,
+    repository_name: persistedTask.repository_name,
+    time_spent: timeSpent,
+  };
+
+  const updateTask = (task) => {
+    taskAPI.updateTask(task.id, task);
+  };
+
   if (!openMoreModal) return null;
   return (
     <>
@@ -23,10 +48,14 @@ export const TaskMoreInfo = ({
         <CrossIcon toggleModal={closeMoreModal} />
         <div className="taskMoreInfoTop">
           <div className="taskMoreInfoTopLeft">
-            <img
-              className="moreInfoLogo"
-              src={`../static/${persistedTask.programming_language}.png`}
-            ></img>
+            {persistedTask.programming_language === "C#" ? (
+              <img className="moreInfoLogo" src={`../static/csharp.png`}></img>
+            ) : (
+              <img
+                className="moreInfoLogo"
+                src={`../static/${persistedTask.programming_language}.png`}
+              ></img>
+            )}
             <h1 className="moreInfoTitle">
               {persistedTask.programming_language} Task
             </h1>
@@ -53,8 +82,9 @@ export const TaskMoreInfo = ({
               <input
                 className="moreInfoMidLeftTitleInp"
                 type="text"
-                defaultValue={persistedTask.title}
+                value={taskTitle || ""}
                 spellCheck="false"
+                onChange={(e) => setTaskTitle(e.target.value)}
               />
             </label>
             <label className="moreInfoMidLeftDesc">
@@ -62,7 +92,8 @@ export const TaskMoreInfo = ({
               <textarea
                 className="moreInfoMidLeftText"
                 spellCheck="false"
-                defaultValue={persistedTask.description}
+                value={taskDescription || ""}
+                onChange={(e) => setTaskDescription(e.target.value)}
               />
             </label>
             <p className="moreInfoMidLeftRepo">Repository:</p>
@@ -114,9 +145,7 @@ export const TaskMoreInfo = ({
                   {persistedTask.time_spent === "" ? (
                     <label className="totalHours">0 hours</label>
                   ) : (
-                    <label className="totalHours">
-                      {persistedTask.time_spent} hours
-                    </label>
+                    <label className="totalHours">{timeSpent} hours</label>
                   )}
                 </div>
               </div>
@@ -128,13 +157,24 @@ export const TaskMoreInfo = ({
                 placeholder="  0"
                 maxLength="2"
                 title="Add more hours"
+                value={addHours}
+                onChange={(e) => setAddHours(e.target.value)}
               />
-              <PlusIcon color={"#67717c"} w={"25"} h={"25"} />
+              <PlusIcon
+                color={"#67717c"}
+                w={"25"}
+                h={"25"}
+                timeSpent={timeSpent}
+                setTimeSpent={setTimeSpent}
+                addHours={addHours}
+              />
             </div>
             <div className="moreInfoRightButtonContainer">
               <button
                 className="taskMoreInfoRightUpdateButton"
-                onClick={() => console.log("Hola")}
+                onClick={() => {
+                  console.log({ taskToUpdate });
+                }}
               >
                 Update task
               </button>

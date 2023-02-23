@@ -10,4 +10,4 @@ class Task(BaseModel):
     status: str
     created_by: str
     repository_name: str
-    time_spent: str
+    time_spent: int

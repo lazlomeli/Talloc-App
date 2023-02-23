@@ -46,7 +46,7 @@ const CreateTask = ({
     status: taskStatus,
     created_by: session_u,
     repository_name: repositoryName,
-    time_spent: timeSpent,
+    time_spent: "0",
   };
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const CreateTask = ({
                   type="text"
                   placeholder="Enter the task title"
                   className="modalInput"
-                  value={taskTitle}
+                  value={taskTitle || ""}
                   onChange={(e) => setTaskTitle(e.target.value)}
                   required
                 />

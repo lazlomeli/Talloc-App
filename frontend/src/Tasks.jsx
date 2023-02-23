@@ -14,7 +14,7 @@ const Tasks = ({ userSession }) => {
   const [taskStatus, setTaskStatus] = useState("");
   const [repositoryName, setRepositoryName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
-  const [timeSpent, setTimeSpent] = useState("");
+  const [timeSpent, setTimeSpent] = useState(0);
   const [filterStatus, setFilterStatus] = useState("ON GOING");
 
   useEffect(() => {
