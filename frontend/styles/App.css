@@ -724,12 +724,11 @@ body {
   display: flex;
   height: 160px;
   width: 200px;
-  justify-content: center;
+  margin-top: 5px;
 }
 .taskMoreInfoRightUpdateButton {
   font-family: "Alliance No.1";
   align-self: flex-end;
-  margin-top: 20px;
   width: 150px;
   height: 30px;
   background-color: #00a586;
@@ -951,14 +950,36 @@ body {
   display: flex;
   height: 40px;
   align-items: center;
-  padding-top: 10px;
+  justify-content: space-between;
+  padding: 7px;
+  top: 10px;
+  left: 10px;
+  width: 1585px;
+  margin-bottom: 20px;
+  outline: solid;
+  outline-width: 1px;
+  border-radius: 5px;
+  background-color: #0c0e10;
+  outline-color: #31373e;
+}
+.dashboardFilterLeft {
+  flex-basis: 50%;
+  display: flex;
+  align-items: center;
+}
+.caretUp {
+  padding-right: 10px;
+}
+.caretUp:hover {
+  stroke: #75808d;
+  cursor: pointer;
 }
 .dashboardFilterInfo {
   font-family: "Alliance No.1";
   margin: 0px;
   margin-left: 20px;
   margin-right: 10px;
-  color: #565d6b;
+  color: #4a535c;
 }
 .dashboardFilterOnGoing {
   margin-left: 10px;
@@ -1272,7 +1293,8 @@ body {
   color: #00a586;
 }
 /* Error Modal */
-.errorModal {
+.errorModal,
+.infoModal {
   position: fixed;
   display: flex;
   align-items: center;
@@ -1286,8 +1308,20 @@ body {
   outline-width: 1px;
   outline-color: rgb(184, 52, 52);
   z-index: 2;
+  cursor: pointer;
 }
-.errorModalMessage {
+.errorModal {
+  background-color: rgb(85, 19, 19);
+  outline-color: rgb(184, 52, 52);
+}
+.infoModal {
+  background-color: #074b3e;
+  outline-color: #00a586;
+  left: 800px;
+  top: 50px;
+}
+.errorModalMessage,
+.infoModalMessage {
   font-family: "Alliance No.1";
   font-weight: lighter;
   color: #ffffff;
