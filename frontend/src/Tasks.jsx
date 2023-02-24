@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreateTask from "./CreateTask";
+import { CaretDownIcon } from "./icon_components/CaretDownIcon";
 import { CaretUpIcon } from "./icon_components/CaretUpIcon";
 import { InfoModal } from "./InfoModal";
 import * as taskAPI from "./services/taskService";
@@ -9,6 +10,7 @@ const Tasks = ({ userSession }) => {
   const [openModal, setOpenModal] = useState(false);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [filterModalMessage, setFilterModalMessage] = useState("");
+  const [showFilterBar, setShowFilterBar] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [taskID] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
@@ -31,10 +33,6 @@ const Tasks = ({ userSession }) => {
   repositories.unshift("None");
   repositories.unshift("Select your repository");
 
-  function filterTasks(status) {
-    setFilterStatus(status);
-  }
-
   function infoModalHandler(message) {
     setOpenFilterModal(true);
     setFilterModalMessage(message);
@@ -45,30 +43,38 @@ const Tasks = ({ userSession }) => {
 
   return (
     <section className="dashboard">
-      <div className="dashboardFilter">
-        <div className="dashboardFilterLeft">
-          <p className="dashboardFilterInfo">Filter tasks: </p>
-          <button
-            className="dashboardFilterOnGoing"
-            onClick={() => {
-              filterTasks("ON GOING");
-              infoModalHandler("Showing on going tasks");
-            }}
-          >
-            ON GOING
-          </button>
-          <button
-            className="dashboardFilterCompleted"
-            onClick={() => {
-              filterTasks("COMPLETED");
-              infoModalHandler("Showing completed tasks");
-            }}
-          >
-            COMPLETED
-          </button>
+      {showFilterBar === true ? (
+        <div className="dashboardFilter">
+          <div className="dashboardFilterLeft">
+            <p className="dashboardFilterInfo">Filter tasks: </p>
+            <button
+              className="dashboardFilterOnGoing"
+              onClick={() => {
+                setFilterStatus("ON GOING");
+                infoModalHandler("Showing on going tasks");
+              }}
+            >
+              ON GOING
+            </button>
+            <button
+              className="dashboardFilterCompleted"
+              onClick={() => {
+                setFilterStatus("COMPLETED");
+                infoModalHandler("Showing completed tasks");
+              }}
+            >
+              COMPLETED
+            </button>
+          </div>
+          <CaretUpIcon closeModal={() => setShowFilterBar(false)} />
         </div>
-        <CaretUpIcon />
-      </div>
+      ) : (
+        <div className="dashboardFilter-closed">
+          <p className="dashboardFilterInfo-closed">Filter</p>
+          <CaretDownIcon closeModal={() => setShowFilterBar(true)} />
+        </div>
+      )}
+
       <InfoModal
         message={filterModalMessage}
         openModal={openFilterModal}

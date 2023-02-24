@@ -945,22 +945,29 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
 }
-.dashboardFilter {
-  position: relative;
+.dashboardFilter,
+.dashboardFilter-closed {
   display: flex;
-  height: 40px;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   padding: 7px;
   top: 10px;
   left: 10px;
-  width: 1585px;
   margin-bottom: 20px;
   outline: solid;
   outline-width: 1px;
   border-radius: 5px;
   background-color: #0c0e10;
   outline-color: #31373e;
+}
+.dashboardFilter {
+  width: 1585px;
+  height: 40px;
+}
+.dashboardFilter-closed {
+  width: 80px;
+  height: 15px;
 }
 .dashboardFilterLeft {
   flex-basis: 50%;
@@ -970,16 +977,23 @@ body {
 .caretUp {
   padding-right: 10px;
 }
-.caretUp:hover {
+.caretUp:hover,
+.caretDown:hover {
   stroke: #75808d;
   cursor: pointer;
 }
-.dashboardFilterInfo {
+.dashboardFilterInfo,
+.dashboardFilterInfo-closed {
   font-family: "Alliance No.1";
   margin: 0px;
+  color: #4a535c;
+}
+.dashboardFilterInfo {
   margin-left: 20px;
   margin-right: 10px;
-  color: #4a535c;
+}
+.dashboardFilterInfo-closed {
+  padding-bottom: 2px;
 }
 .dashboardFilterOnGoing {
   margin-left: 10px;
@@ -1286,7 +1300,7 @@ body {
   font-weight: bold;
   color: #00a586;
 }
-/* Error Modal */
+/* Modals */
 .errorModal,
 .infoModal {
   position: fixed;
