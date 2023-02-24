@@ -129,27 +129,33 @@ const Insights = () => {
                       setPersistedTask(filteredTask);
                     }}
                   >
-                    <h1 className="mainPanelTaskInfoTitle">
+                    <p className="mainPanelTaskInfoTitles">
                       Title:{" "}
                       <span className="mainPanelTaskInfoTitle-task">
                         {filteredTask.title}
                       </span>
-                    </h1>
+                    </p>
                     {filteredTask.status === "ON GOING" ? (
-                      <p className="mainPanelTaskInfoStatus">
+                      <p className="mainPanelTaskInfoTitles">
                         Status:{" "}
                         <span className="status-ong">
                           {filteredTask.status}
                         </span>
                       </p>
                     ) : (
-                      <p className="mainPanelTaskInfoStatus">
+                      <p className="mainPanelTaskInfoTitles">
                         Status:{" "}
                         <span className="status-com">
                           {filteredTask.status}
                         </span>
                       </p>
                     )}
+                    <p className="mainPanelTaskInfoTitles">
+                      Time spent:{" "}
+                      <span className="mainPanelTaskInfoTitle-task">
+                        {filteredTask.time_spent} hours
+                      </span>
+                    </p>
                   </section>
                 ))}
             </div>

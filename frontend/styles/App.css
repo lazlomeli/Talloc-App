@@ -1269,7 +1269,7 @@ body {
   background-color: #1a1e25;
   cursor: pointer;
 }
-.mainPanelTaskInfoTitle {
+.mainPanelTaskInfoTitles {
   font-weight: lighter;
   color: #697486;
   margin: 0px;
@@ -1277,12 +1277,6 @@ body {
 }
 .mainPanelTaskInfoTitle-task {
   color: rgb(233, 233, 233);
-}
-.mainPanelTaskInfoStatus {
-  font-weight: lighter;
-  color: #697486;
-  margin: 0px;
-  margin: 5px;
 }
 .status-ong {
   font-weight: bold;
