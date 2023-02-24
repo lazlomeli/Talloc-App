@@ -5,9 +5,12 @@ import { PlusIcon } from "./icon_components/PlusIcon";
 import * as taskAPI from "./services/taskService";
 
 export const TaskMoreInfo = ({
+  userSession,
   openMoreModal,
   closeMoreModal,
   persistedTask,
+  tasks,
+  setTasks,
   taskTitle,
   setTaskTitle,
   taskDescription,
@@ -36,8 +39,14 @@ export const TaskMoreInfo = ({
     time_spent: timeSpent,
   };
 
-  const updateTask = (task) => {
-    taskAPI.updateTask(task.id, task);
+  const updateTask = (task, id) => {
+    taskAPI.updateTask(task.id, task).then((resp) => {
+      setTasks([
+        ...tasks.filter((task) => (task.id === id ? false : true)),
+        resp.data,
+      ]);
+    });
+    closeMoreModal();
   };
 
   if (!openMoreModal) return null;
@@ -173,7 +182,7 @@ export const TaskMoreInfo = ({
               <button
                 className="taskMoreInfoRightUpdateButton"
                 onClick={() => {
-                  console.log({ taskToUpdate });
+                  updateTask(taskToUpdate, persistedTask.id);
                 }}
               >
                 Update task

@@ -151,10 +151,12 @@ export const Task = ({
           )
       )}
       <TaskMoreInfo
+        userSession={userSession}
         openMoreModal={openMoreModal}
         closeMoreModal={() => setOpenMoreModal(false)}
         persistedTask={persistedTask}
         tasks={tasks}
+        setTasks={setTasks}
         taskTitle={taskTitle}
         setTaskTitle={setTaskTitle}
         taskDescription={taskDescription}
