@@ -808,11 +808,13 @@ body {
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
+  align-content: flex-start;
   width: 250px;
 }
 .taskMoreInfoRightDates {
   display: flex;
+  align-content: flex-start;
   flex-wrap: wrap;
   width: 200px;
   margin-right: 27px;
@@ -854,6 +856,7 @@ body {
   border-color: #30363d;
   border-radius: 3px;
   margin-right: 10px;
+  margin-left: 15px;
   width: 35px;
   height: 30px;
   color: #fff;

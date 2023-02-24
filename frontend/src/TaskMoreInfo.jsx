@@ -88,22 +88,41 @@ export const TaskMoreInfo = ({
           <div className="taskMoreInfoMidLeft">
             <label className="moreInfoMidTitle">
               Task Title:
-              <input
-                className="moreInfoMidLeftTitleInp"
-                type="text"
-                value={taskTitle || ""}
-                spellCheck="false"
-                onChange={(e) => setTaskTitle(e.target.value)}
-              />
+              {persistedTask.status === "COMPLETED" ? (
+                <input
+                  className="moreInfoMidLeftTitleInp"
+                  type="text"
+                  value={taskTitle || ""}
+                  spellCheck="false"
+                  readOnly
+                />
+              ) : (
+                <input
+                  className="moreInfoMidLeftTitleInp"
+                  type="text"
+                  value={taskTitle || ""}
+                  spellCheck="false"
+                  onChange={(e) => setTaskTitle(e.target.value)}
+                />
+              )}
             </label>
             <label className="moreInfoMidLeftDesc">
               Task Description:
-              <textarea
-                className="moreInfoMidLeftText"
-                spellCheck="false"
-                value={taskDescription || ""}
-                onChange={(e) => setTaskDescription(e.target.value)}
-              />
+              {persistedTask.status === "COMPLETED" ? (
+                <textarea
+                  className="moreInfoMidLeftText"
+                  spellCheck="false"
+                  value={taskDescription || ""}
+                  readOnly
+                />
+              ) : (
+                <textarea
+                  className="moreInfoMidLeftText"
+                  spellCheck="false"
+                  value={taskDescription || ""}
+                  onChange={(e) => setTaskDescription(e.target.value)}
+                />
+              )}
             </label>
             <p className="moreInfoMidLeftRepo">Repository:</p>
             <div className="moreInfoMidLeftGit">
@@ -121,7 +140,6 @@ export const TaskMoreInfo = ({
                   className="moreInfoMidTitleValue"
                   style={{ color: "#c2c6ca" }}
                 >
-                  {" "}
                   {persistedTask.start_date}
                 </span>
               </label>
@@ -140,7 +158,7 @@ export const TaskMoreInfo = ({
                   End Date:
                   <span
                     className="moreInfoMidTitleValue"
-                    style={{ color: "rgb(139, 139, 139)" }}
+                    style={{ color: "#c2c6ca" }}
                   >
                     {persistedTask.end_date}
                   </span>
@@ -159,35 +177,39 @@ export const TaskMoreInfo = ({
                 </div>
               </div>
             </label>
-            <div className="hoursSpentContainerRight">
-              <input
-                className="hoursSpentInput"
-                type="text"
-                placeholder="  0"
-                maxLength="2"
-                title="Add more hours"
-                value={addHours}
-                onChange={(e) => setAddHours(e.target.value)}
-              />
-              <PlusIcon
-                color={"#67717c"}
-                w={"25"}
-                h={"25"}
-                timeSpent={timeSpent}
-                setTimeSpent={setTimeSpent}
-                addHours={addHours}
-              />
-            </div>
-            <div className="moreInfoRightButtonContainer">
-              <button
-                className="taskMoreInfoRightUpdateButton"
-                onClick={() => {
-                  updateTask(taskToUpdate, persistedTask.id);
-                }}
-              >
-                Update task
-              </button>
-            </div>
+            {persistedTask.status === "ON GOING" && (
+              <div className="hoursSpentContainerRight">
+                <input
+                  className="hoursSpentInput"
+                  type="text"
+                  placeholder="  0"
+                  maxLength="2"
+                  title="Add more hours"
+                  value={addHours}
+                  onChange={(e) => setAddHours(e.target.value)}
+                />
+                <PlusIcon
+                  color={"#67717c"}
+                  w={"25"}
+                  h={"25"}
+                  timeSpent={timeSpent}
+                  setTimeSpent={setTimeSpent}
+                  addHours={addHours}
+                />
+              </div>
+            )}
+            {persistedTask.status === "ON GOING" && (
+              <div className="moreInfoRightButtonContainer">
+                <button
+                  className="taskMoreInfoRightUpdateButton"
+                  onClick={() => {
+                    updateTask(taskToUpdate, persistedTask.id);
+                  }}
+                >
+                  Update task
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
