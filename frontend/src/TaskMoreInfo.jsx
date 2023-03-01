@@ -3,6 +3,7 @@ import { GitLogoIcon } from "./icon_components/GitHubLogoIcon";
 import CrossIcon from "./icon_components/CrossIcon";
 import { PlusIcon } from "./icon_components/PlusIcon";
 import * as taskAPI from "./services/taskService";
+import { Oval } from "react-loader-spinner";
 
 export const TaskMoreInfo = ({
   setOpenInsightsModal,
@@ -19,6 +20,7 @@ export const TaskMoreInfo = ({
   setTimeSpent,
 }) => {
   const [addHours, setAddHours] = useState(0);
+  const [loadingVisibility, setLoadingVisibility] = useState(false);
 
   useEffect(() => {
     setTaskTitle(persistedTask.title);
@@ -212,7 +214,11 @@ export const TaskMoreInfo = ({
                 <button
                   className="taskMoreInfoRightUpdateButton"
                   onClick={() => {
-                    updateTask(taskToUpdate, persistedTask.id);
+                    setLoadingVisibility(true);
+                    setTimeout(() => {
+                      updateTask(taskToUpdate, persistedTask.id);
+                      setLoadingVisibility(false);
+                    }, 500);
                   }}
                 >
                   Update task
@@ -222,6 +228,19 @@ export const TaskMoreInfo = ({
           </div>
         </div>
       </div>
+      <Oval
+        height={80}
+        width={80}
+        color="#00a586"
+        wrapperStyle={{}}
+        wrapperClass="loadingSpinner"
+        visible={loadingVisibility}
+        ariaLabel="oval-loading"
+        secondaryColor="#074b3e"
+        strokeWidth={2}
+        strokeWidthSecondary={2}
+      />
+      {loadingVisibility && <div className="overlay" style={{ zIndex: 2 }} />}
     </>
   );
 };
