@@ -164,6 +164,7 @@ const Insights = () => {
       )}
       <TaskMoreInfo
         openMoreModal={openMoreModal}
+        setOpenInsightsModal={setModal}
         closeMoreModal={() => setOpenMoreModal(false)}
         persistedTask={persistedTask}
         tasks={tasks}

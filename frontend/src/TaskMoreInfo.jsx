@@ -5,7 +5,7 @@ import { PlusIcon } from "./icon_components/PlusIcon";
 import * as taskAPI from "./services/taskService";
 
 export const TaskMoreInfo = ({
-  userSession,
+  setOpenInsightsModal,
   openMoreModal,
   closeMoreModal,
   persistedTask,
@@ -52,9 +52,18 @@ export const TaskMoreInfo = ({
   if (!openMoreModal) return null;
   return (
     <>
-      <div onClick={() => closeMoreModal()} className="overlay" />
+      <div
+        onClick={() => {
+          closeMoreModal();
+          setOpenInsightsModal(true);
+        }}
+        className="overlay"
+      />
       <div className="taskMoreInfoModal">
-        <CrossIcon toggleModal={closeMoreModal} />
+        <CrossIcon
+          toggleModal={closeMoreModal}
+          setOpenInsightsModal={setOpenInsightsModal}
+        />
         <div className="taskMoreInfoTop">
           <div className="taskMoreInfoTopLeft">
             {persistedTask.programming_language === "C#" ? (

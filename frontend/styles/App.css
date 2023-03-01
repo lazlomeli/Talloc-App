@@ -434,6 +434,7 @@ body {
   width: 450px;
   height: 150px;
   margin-top: 30px;
+  margin-bottom: 25px;
   background-color: #0d1017;
   color: rgb(203, 203, 203);
   font-family: "Alliance No.1";
@@ -918,7 +919,6 @@ body {
 .submitCreateTask {
   font-family: "Alliance No.1";
   border-radius: 5px;
-  margin-top: 30px;
   width: 150px;
   height: 30px;
   padding: 5px;
@@ -1154,6 +1154,11 @@ body {
 }
 .logout:hover {
   background-color: rgb(219, 85, 114);
+  transform: scale(1.1);
+  transition: all 500ms;
+}
+.logout:not(:hover) {
+  transition: all 500ms;
 }
 .logout:hover > * {
   stroke: #000;
@@ -1162,6 +1167,8 @@ body {
   width: 30px;
   height: 30px;
   padding-left: 5px;
+  transform: scale(1.1);
+  transition: all 500ms;
 }
 .logoutDesc {
   font-family: "Alliance No.1";
