@@ -312,7 +312,7 @@ body {
 }
 .insightsModal {
   font-family: "Alliance No.1";
-  width: 550px;
+  width: 570px;
   height: 510px;
   top: 17%;
   position: fixed;
@@ -328,7 +328,7 @@ body {
   z-index: 2;
 }
 .modalContainer {
-  top: 15%;
+  top: 20%;
   height: 470px;
   display: flex;
   flex-wrap: wrap;
@@ -348,6 +348,12 @@ body {
   border-radius: 5px;
   padding: 2rem;
   z-index: 2;
+}
+.loadingSpinner {
+  position: relative;
+  z-index: 3;
+  bottom: 5%;
+  left: 10px;
 }
 .modalClose {
   width: 25px;

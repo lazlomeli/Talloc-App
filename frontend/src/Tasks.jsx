@@ -25,7 +25,7 @@ const Tasks = ({ userSession }) => {
 
   useEffect(() => {
     taskAPI.getUserTasks(userSession).then((resp) => {
-      setTasks(resp.data);
+      setTasks(resp.data.reverse());
     });
   }, []);
 

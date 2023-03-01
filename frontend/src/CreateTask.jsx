@@ -6,6 +6,7 @@ import Moment from "moment";
 import * as taskAPI from "./services/taskService";
 import languages from "../langs.json";
 import CrossIcon from "./icon_components/CrossIcon";
+import { Oval } from "react-loader-spinner";
 
 const CreateTask = ({
   open,
@@ -32,6 +33,7 @@ const CreateTask = ({
   session_u,
   repositories,
 }) => {
+  const [loadingVisibility, setLoadingVisibility] = useState(false);
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
@@ -74,13 +76,17 @@ const CreateTask = ({
       taskAPI
         .postTask(newTask)
         .then((resp) => {
-          setTasks([...tasks, resp.data]);
-          setTaskTitle("");
-          setTaskLang("Select the language");
-          setRepositoryName("Select your repository");
-          setTaskDescription("");
-          setFilterStatus("ON GOING");
-          onClose();
+          setLoadingVisibility(true);
+          setTimeout(() => {
+            setTasks([resp.data].concat([...tasks]));
+            setTaskTitle("");
+            setTaskLang("Select the language");
+            setRepositoryName("Select your repository");
+            setTaskDescription("");
+            setFilterStatus("ON GOING");
+            setLoadingVisibility(false);
+            onClose();
+          }, 500);
         })
         .catch((err) => console.log(err));
     }
@@ -159,6 +165,21 @@ const CreateTask = ({
               closeModal={() => setOpenErrorModal(false)}
             />
           </div>
+          <Oval
+            height={80}
+            width={80}
+            color="#00a586"
+            wrapperStyle={{}}
+            wrapperClass="loadingSpinner"
+            visible={loadingVisibility}
+            ariaLabel="oval-loading"
+            secondaryColor="#074b3e"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+          {loadingVisibility && (
+            <div className="overlay" style={{ zIndex: 2 }} />
+          )}
         </div>
       </div>
     </>
