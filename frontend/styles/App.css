@@ -1034,7 +1034,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   width: 1600px;
-  height: 840px;
+  height: 810px;
   margin-left: 10px;
   align-content: flex-start;
   overflow-y: auto;
@@ -1188,6 +1188,7 @@ body {
 .insightsBackground {
   background-color: #0d1117;
   width: 1620px;
+  height: 870px;
   z-index: -1;
   overflow-y: auto;
 }
@@ -1202,7 +1203,7 @@ body {
   outline-width: 1px;
   color: #fff;
   margin: 10px;
-  height: 100px;
+  height: 80px;
   cursor: pointer;
   background-color: #161b22;
 }
