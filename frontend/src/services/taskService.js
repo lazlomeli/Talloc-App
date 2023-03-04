@@ -28,3 +28,24 @@ export function deleteTaskByID(id) {
 export function getGithubRepos(username) {
   return axios.post(`${API_URL}/github/${username}`);
 }
+
+export function getLanguages(tasks) {
+  let languages = [];
+  let uniqueLangs = [];
+
+  tasks.map((task) => {
+    languages.push(task.programming_language);
+  });
+  uniqueLangs = [...new Set(languages)];
+  return uniqueLangs;
+}
+
+export function countLanguageTasks(tasks, language) {
+  const count = tasks.filter((task) => {
+    if (task.programming_language === language) {
+      return true;
+    }
+    return false;
+  }).length;
+  return count;
+}

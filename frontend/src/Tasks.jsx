@@ -46,7 +46,7 @@ const Tasks = ({ userSession }) => {
       {showFilterBar === true ? (
         <div className="dashboardFilter">
           <div className="dashboardFilterLeft">
-            <p className="dashboardFilterInfo">Filter tasks: </p>
+            <p className="dashboardFilterInfo">Filter: </p>
             <button
               className="dashboardFilterOnGoing"
               onClick={() => {

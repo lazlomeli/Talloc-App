@@ -7,27 +7,6 @@ import EmptyInsights from "./EmptyInsights";
 import CrossIcon from "./icon_components/CrossIcon";
 import { TaskMoreInfo } from "./TaskMoreInfo";
 
-function getLanguages(tasks) {
-  let languages = [];
-  let uniqueLangs = [];
-
-  tasks.map((task) => {
-    languages.push(task.programming_language);
-  });
-  uniqueLangs = [...new Set(languages)];
-  return uniqueLangs;
-}
-
-function countLanguageTasks(tasks, language) {
-  const count = tasks.filter((task) => {
-    if (task.programming_language == language) {
-      return true;
-    }
-    return false;
-  }).length;
-  return count;
-}
-
 const calculatePercentage = (tasks, lang) => {
   let taskCounter = countLanguageTasks(tasks, lang);
   return Math.floor((taskCounter / tasks.length) * 100);
@@ -51,7 +30,7 @@ const Insights = () => {
   }, []);
 
   useEffect(() => {
-    setLangs(getLanguages(tasks));
+    setLangs(taskAPI.getLanguages(tasks));
   }, [tasks]);
 
   const userSession = localStorage.getItem("talloc_username");
@@ -92,7 +71,7 @@ const Insights = () => {
                 </div>
               )}
               <p className="insightsCounter">
-                {countLanguageTasks(tasks, lang)} task(s)
+                {taskAPI.countLanguageTasks(tasks, lang)} task(s)
               </p>
             </section>
           ))
