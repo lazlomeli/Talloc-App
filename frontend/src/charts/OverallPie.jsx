@@ -2,14 +2,22 @@ import React, { useState, useEffect } from "react";
 import * as taskAPI from "../services/taskService";
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import chartColors from "../../colors.json";
 
 ChartJS.register(ArcElement, Tooltip);
 
-export const OverallPie = () => {
+function changeOpacity(colors, opacity) {
+  chartColors.forEach((color) => {
+    let newColor = color.replace("opc", opacity);
+    colors.push(newColor);
+  });
+}
+
+export const OverallPie = ({ userSession }) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    taskAPI.getUserTasks("lazlomeli").then((resp) => setTasks(resp.data));
+    taskAPI.getUserTasks(userSession).then((resp) => setTasks(resp.data));
   }, []);
 
   const tasksMap = new Map();
@@ -24,6 +32,11 @@ export const OverallPie = () => {
 
   const programmingLanguages = Array.from(tasksMap.keys());
   const numberOfTasks = Array.from(tasksMap.values());
+  const backgroundColors = [];
+  const borderColors = [];
+
+  changeOpacity(backgroundColors, "0.2");
+  changeOpacity(borderColors, "1");
 
   return (
     <Doughnut
@@ -31,30 +44,10 @@ export const OverallPie = () => {
         labels: programmingLanguages,
         datasets: [
           {
-            label: "Created tasks",
+            label: ["Hi", "\nhi"],
             data: numberOfTasks,
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-              "rgba(43, 255, 213, 0.2)",
-              "rgba(222, 115, 255, 0.2)",
-              "rgba(73, 78, 242, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(43, 255, 213, 1)",
-              "rgba(222, 115, 255, 1)",
-              "rgba(73, 78, 242, 1)",
-            ],
+            backgroundColor: backgroundColors,
+            borderColor: borderColors,
             borderWidth: 1,
           },
         ],

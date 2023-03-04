@@ -8,7 +8,7 @@ import CrossIcon from "./icon_components/CrossIcon";
 import { TaskMoreInfo } from "./TaskMoreInfo";
 
 const calculatePercentage = (tasks, lang) => {
-  let taskCounter = countLanguageTasks(tasks, lang);
+  let taskCounter = taskAPI.countLanguageTasks(tasks, lang);
   return Math.floor((taskCounter / tasks.length) * 100);
 };
 

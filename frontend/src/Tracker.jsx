@@ -8,6 +8,8 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const Tracker = () => {
+  const userSession = localStorage.getItem("talloc_username");
+
   return (
     <section className="dashboardPage">
       <DashboardTopBar />
@@ -24,7 +26,7 @@ export const Tracker = () => {
             of created tasks within Talloc
           </p>
           <div className="overallChart">
-            <OverallPie />
+            <OverallPie userSession={userSession} />
           </div>
         </section>
       </section>
