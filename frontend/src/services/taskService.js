@@ -40,6 +40,17 @@ export function getLanguages(tasks) {
   return uniqueLangs;
 }
 
+export function getSameLanguageTasks(tasks, language) {
+  const sameLanguageTasks = [];
+  tasks.filter((task) => {
+    task.programming_language === language
+      ? sameLanguageTasks.push(task)
+      : null;
+  });
+
+  return sameLanguageTasks;
+}
+
 export function countLanguageTasks(tasks, language) {
   const count = tasks.filter((task) => {
     if (task.programming_language === language) {
@@ -48,4 +59,28 @@ export function countLanguageTasks(tasks, language) {
     return false;
   }).length;
   return count;
+}
+
+export function getHoursArrayOfEachTask(tasks, language) {
+  const arrayOfHours = [];
+  tasks.filter((task) => {
+    if (task.programming_language === language) {
+      arrayOfHours.push(task.time_spent);
+    }
+  });
+  return arrayOfHours;
+}
+
+export function getHighestHoursTask(tasks, language) {
+  const sameLanguageTasks = getSameLanguageTasks(tasks, language);
+  const hoursOfTasks = sameLanguageTasks.map((task) => task.time_spent);
+  hoursOfTasks.sort((a, b) => b - a);
+  return hoursOfTasks[0];
+}
+
+export function getLanguageTotalHours(tasks, language) {
+  const sameLanguageTasks = getSameLanguageTasks(tasks, language);
+  const arrayOfHours = sameLanguageTasks.map((task) => task.time_spent);
+
+  return arrayOfHours.reduce((partialSum, a) => partialSum + a, 0);
 }

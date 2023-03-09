@@ -13,13 +13,7 @@ function changeOpacity(colors, opacity) {
   });
 }
 
-export const OverallPie = ({ userSession }) => {
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    taskAPI.getUserTasks(userSession).then((resp) => setTasks(resp.data));
-  }, []);
-
+export const OverallPie = ({ userSession, tasks, setTasks }) => {
   const tasksMap = new Map();
 
   for (let i = 0; i < tasks.length; i++) {
@@ -44,7 +38,7 @@ export const OverallPie = ({ userSession }) => {
         labels: programmingLanguages,
         datasets: [
           {
-            label: ["Hi", "\nhi"],
+            label: "Created tasks",
             data: numberOfTasks,
             backgroundColor: backgroundColors,
             borderColor: borderColors,

@@ -1396,7 +1396,7 @@ body {
 .overallDesc {
   font-family: "Alliance No.1";
   font-size: 15px;
-  color: #4f5563;
+  color: #595d66;
   margin: 0px;
   margin-bottom: 35px;
   padding-left: 8px;
@@ -1409,11 +1409,104 @@ body {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.overallGraph {
-}
 .overallChart {
   width: 300px;
   height: 300px;
+}
+.trackerHours {
+  display: flex;
+  height: max-content;
+}
+.trackerHours_LangSelect {
+  color: #282e3b;
+  height: max-content;
+}
+.trackerHoursGraph {
+  width: 600px;
+  height: 350px;
+  background-color: #161b21;
+  border-radius: 5px;
+  outline: solid;
+  outline-width: 1px;
+  outline-color: #31363c;
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-left: 2px;
+}
+.trackerHours_Desc {
+  font-family: "Alliance No.1";
+  color: #595d66;
+  font-size: 15px;
+}
+.trackerHoursSelect {
+  font-family: "Alliance No.1";
+  width: 215px;
+  height: 30px;
+  margin-bottom: 20px;
+  background-color: #161b21;
+  color: #797f86;
+  border-radius: 5px;
+}
+.trackerHoursInfo {
+  background-color: #252a31;
+  align-self: end;
+  margin-left: 25px;
+  border-radius: 5px;
+  outline: solid;
+  outline-width: 1px;
+  outline-color: #505661;
+  height: 190px;
+  width: 400px;
+  margin-bottom: 80px;
+}
+.trackerHoursInfoHeader {
+  display: flex;
+  height: 45px;
+  align-items: center;
+}
+.trackerHoursTitle {
+  font-family: "Alliance No.1";
+  font-size: 20px;
+  font-weight: lighter;
+  color: #fff;
+  margin: 0px;
+}
+.trackerHoursLine {
+  position: inherit;
+  height: 1px;
+  width: 400px;
+  background-color: #505661;
+  margin-bottom: 20px;
+  top: 10px;
+}
+.trackerHoursMoreInfoLbl {
+  font-family: "Alliance No.1";
+  font-size: 15px;
+  color: #c2c2c2;
+  margin: 0px;
+  height: 35px;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+.trackerHoursViewDetails {
+  display: flex;
+  flex-direction: column;
+}
+.trackerViewDetails {
+  display: flex;
+}
+.viewDetailsButton {
+  height: 30px;
+  margin-left: 10px;
+  background-color: #00a585;
+  border-radius: 5px;
+  border-width: 0px;
+  font-family: "Alliance No.1";
+}
+.viewDetailsButton:hover {
+  cursor: pointer;
+  background-color: #2d43c0;
+  color: white;
 }
 
 /* Webkit Customization */
