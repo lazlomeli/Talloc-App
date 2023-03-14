@@ -1,5 +1,5 @@
 import React from "react";
-import * as taskAPI from "../src/services/taskService";
+import * as taskAPI from "../services/taskService";
 import {
   Chart,
   LineController,
@@ -21,7 +21,7 @@ Chart.register(
   CategoryScale
 );
 
-export const TaskHours = ({
+export const TaskHoursGraph = ({
   userSession,
   tasks,
   setTasks,

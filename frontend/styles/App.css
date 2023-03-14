@@ -781,6 +781,7 @@ body {
 .moreInfoMidLeftGit {
   margin-top: 20px;
   margin-left: 1px;
+  margin-bottom: 30px;
   background-color: #0d1017;
   display: flex;
   outline: solid;
@@ -1361,9 +1362,15 @@ body {
   display: flex;
   width: 84%;
 }
+.trackerLine {
+  background-color: #34383d;
+  height: 1px;
+  width: 1040px;
+}
 .trackerOverall,
 .mainTracker {
   display: flex;
+  flex-direction: column;
   outline: solid;
   outline-width: 1px;
   outline-color: #2b2e33;
@@ -1391,7 +1398,7 @@ body {
   font-size: 30px;
   color: #fff;
   margin: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .overallDesc {
   font-family: "Alliance No.1";
@@ -1404,9 +1411,8 @@ body {
 }
 .overallLine {
   height: 1px;
-  background-color: #44484e;
+  background-color: #34383d;
   width: 460px;
-  margin-top: 20px;
   margin-bottom: 20px;
 }
 .overallChart {
@@ -1416,6 +1422,13 @@ body {
 .trackerHours {
   display: flex;
   height: max-content;
+}
+.trackerHoursTitle {
+  display: flex;
+}
+.hexagon3D {
+  align-self: center;
+  margin-right: 5px;
 }
 .trackerHours_LangSelect {
   color: #282e3b;
@@ -1435,8 +1448,8 @@ body {
 }
 .trackerHours_Desc {
   font-family: "Alliance No.1";
-  color: #595d66;
-  font-size: 15px;
+  color: #747983;
+  font-size: 20px;
 }
 .trackerHoursSelect {
   font-family: "Alliance No.1";
@@ -1450,7 +1463,7 @@ body {
 .trackerHoursInfo {
   background-color: #252a31;
   align-self: end;
-  margin-left: 25px;
+  margin-left: 20px;
   border-radius: 5px;
   outline: solid;
   outline-width: 1px;
@@ -1458,6 +1471,8 @@ body {
   height: 190px;
   width: 400px;
   margin-bottom: 80px;
+  opacity: 0;
+  animation: showTrackerInfo 0.5s ease-out forwards;
 }
 .trackerHoursInfoHeader {
   display: flex;
@@ -1482,11 +1497,14 @@ body {
 .trackerHoursMoreInfoLbl {
   font-family: "Alliance No.1";
   font-size: 15px;
-  color: #c2c2c2;
+  color: #949ca5;
   margin: 0px;
   height: 35px;
   margin-left: 10px;
   margin-top: 5px;
+}
+.trackerHoursLbl2 {
+  color: #e2e2e2;
 }
 .trackerHoursViewDetails {
   display: flex;
@@ -1507,6 +1525,82 @@ body {
   cursor: pointer;
   background-color: #2d43c0;
   color: white;
+}
+.statusGraph {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.statusBarChart {
+  width: 400px;
+  height: 220px;
+  background-color: #161b21;
+  border-radius: 5px;
+  outline: solid;
+  outline-width: 1px;
+  outline-color: #31363c;
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-left: 2px;
+}
+.statusGraphDesc {
+  font-size: 20px;
+  color: #6b6e75;
+  font-family: "Alliance No.1";
+  align-self: center;
+}
+.trackerRepo {
+  outline: solid;
+  width: 400px;
+  outline-width: 1px;
+  border-radius: 5px;
+  outline-color: #343a42;
+  background-color: #161b21;
+  padding: 20px;
+}
+.trackerRepoMost {
+  color: #fff;
+  font-family: "Alliance No.1";
+  font-size: 18px;
+  margin: 0px;
+  margin-bottom: 30px;
+}
+.trackerRepoInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+.trackerRepoInfoDesc {
+  color: #fff;
+  font-family: "Alliance No.1";
+  font-size: 16px;
+  margin: 0px;
+  margin-left: 10px;
+}
+.trackerRepoLine {
+  background-color: #444a52;
+  height: 1px;
+  width: 400px;
+  margin-top: 30px;
+}
+.trackerRepoOtherTitle {
+  color: #fff;
+  font-family: "Alliance No.1";
+  font-size: 16px;
+}
+.trackerRepoErr {
+  display: flex;
+}
+.trackerRepoErrMsg {
+  font-family: "Alliance No.1";
+  color: #818181;
+  font-size: 15px;
+}
+
+@keyframes showTrackerInfo {
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Webkit Customization */

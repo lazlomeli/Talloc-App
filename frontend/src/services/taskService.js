@@ -73,14 +73,73 @@ export function getHoursArrayOfEachTask(tasks, language) {
 
 export function getHighestHoursTask(tasks, language) {
   const sameLanguageTasks = getSameLanguageTasks(tasks, language);
-  const hoursOfTasks = sameLanguageTasks.map((task) => task.time_spent);
-  hoursOfTasks.sort((a, b) => b - a);
-  return hoursOfTasks[0];
+  sameLanguageTasks.sort((a, b) => (a.time_spent > b.time_spent ? -1 : 1));
+  return sameLanguageTasks[0];
 }
 
 export function getLanguageTotalHours(tasks, language) {
   const sameLanguageTasks = getSameLanguageTasks(tasks, language);
   const arrayOfHours = sameLanguageTasks.map((task) => task.time_spent);
-
   return arrayOfHours.reduce((partialSum, a) => partialSum + a, 0);
+}
+
+export function getAllHours(tasks) {
+  const arr = [];
+  tasks.forEach((task) => {
+    arr.push(task.time_spent);
+  });
+  return arr;
+}
+
+export function getTasksByStatus(tasks, status) {
+  const arr = tasks.filter((task) => {
+    if (task.status === status) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return arr;
+}
+
+export function getRepoWithMostTasks(tasks) {
+  const repoNames = tasks.map((task) => task.repository_name);
+  let i = 0;
+
+  while (i < repoNames.length) {
+    if (repoNames[i] === "None") {
+      repoNames.splice(i, 1);
+    } else {
+      ++i;
+    }
+  }
+
+  return repoNames
+    .sort(
+      (a, b) =>
+        repoNames.filter((v) => v === a).length -
+        repoNames.filter((v) => v === b).length
+    )
+    .pop();
+}
+
+export function getRepoTasks(tasks, repoName) {
+  const arr = tasks.filter((task) => {
+    if (task.repository_name === repoName) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return arr;
+}
+
+export function getUsedRepos(tasks) {
+  const arr = [];
+  tasks.map((task) => {
+    if (task.repository_name !== "None") {
+      arr.push(task.repository_name);
+    }
+  });
+  return arr;
 }

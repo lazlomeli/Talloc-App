@@ -4,6 +4,7 @@ import CrossIcon from "./icon_components/CrossIcon";
 import { PlusIcon } from "./icon_components/PlusIcon";
 import * as taskAPI from "./services/taskService";
 import { Oval } from "react-loader-spinner";
+import { GitRepoShield } from "./GitRepoShield";
 
 export const TaskMoreInfo = ({
   setOpenInsightsModal,
@@ -47,6 +48,9 @@ export const TaskMoreInfo = ({
         ...tasks.filter((task) => (task.id === id ? false : true)),
         resp.data,
       ]);
+      setTaskTitle("");
+      setTaskDescription("");
+      setTimeSpent(0);
     });
     closeMoreModal();
   };
@@ -136,12 +140,7 @@ export const TaskMoreInfo = ({
               )}
             </label>
             <p className="moreInfoMidLeftRepo">Repository:</p>
-            <div className="moreInfoMidLeftGit">
-              <GitLogoIcon color={"#00c5a1"} w={"25"} h={"25"} />
-              <label className="midLeftGitName">
-                {persistedTask.repository_name}
-              </label>
-            </div>
+            <GitRepoShield repositoryName={persistedTask.repository_name} />
           </div>
           <div className="taskMoreInfoMidRight">
             <div className="taskMoreInfoRightDates">
