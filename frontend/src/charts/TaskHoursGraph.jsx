@@ -31,29 +31,35 @@ export const TaskHoursGraph = ({
   const hoursOfTasks = taskAPI.getHoursArrayOfEachTask(tasks, selectedLanguage);
   const arrayOfLangHours = [...Array(totalTasksOfLang).keys()];
 
+  console.log(selectedLanguage);
+
   return (
-    <div className="trackerHoursGraph">
-      {selectedLanguage !== "Select a language" && (
-        <Line
-          data={{
-            labels: arrayOfLangHours,
-            datasets: [
-              {
-                label: selectedLanguage,
-                data: hoursOfTasks,
-                fill: false,
-                borderColor: "#00a586",
-                tension: 0,
-              },
-            ],
-          }}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {},
-          }}
-        />
+    <>
+      {selectedLanguage !== "Select a language" ? (
+        <div className="trackerHoursGraph">
+          <Line
+            data={{
+              labels: arrayOfLangHours,
+              datasets: [
+                {
+                  label: selectedLanguage,
+                  data: hoursOfTasks,
+                  fill: false,
+                  borderColor: "#00a586",
+                  tension: 0,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {},
+            }}
+          />
+        </div>
+      ) : (
+        <div className="trackerHoursGraph-closed" />
       )}
-    </div>
+    </>
   );
 };

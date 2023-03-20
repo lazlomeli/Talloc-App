@@ -1445,6 +1445,11 @@ body {
   padding-right: 5px;
   padding-top: 5px;
   padding-left: 2px;
+  transition: all 500ms;
+  margin-bottom: 20px;
+}
+.trackerHoursGraph-closed {
+  height: 0px;
 }
 .trackerHours_Desc {
   font-family: "Alliance No.1";
@@ -1453,7 +1458,7 @@ body {
 }
 .trackerHoursSelect {
   font-family: "Alliance No.1";
-  width: 215px;
+  width: 150px;
   height: 30px;
   margin-bottom: 20px;
   background-color: #161b21;
@@ -1550,6 +1555,8 @@ body {
   align-self: center;
 }
 .trackerRepo {
+  display: flex;
+  flex-direction: column;
   outline: solid;
   width: 400px;
   outline-width: 1px;
@@ -1595,6 +1602,19 @@ body {
   font-family: "Alliance No.1";
   color: #818181;
   font-size: 15px;
+}
+.viewMostContributed {
+  font-family: "Alliance No.1";
+  height: 30px;
+  background-color: #00a586;
+  border-width: 1px;
+  border-color: #006452;
+  border-radius: 5px;
+}
+.viewMostContributed:hover {
+  background-color: #096958;
+  cursor: pointer;
+  color: #e0e0e0;
 }
 
 @keyframes showTrackerInfo {
