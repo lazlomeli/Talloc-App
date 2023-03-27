@@ -29,6 +29,11 @@ export function getGithubRepos(username) {
   return axios.post(`${API_URL}/github/${username}`);
 }
 
+export const calculatePercentage = (tasks, lang) => {
+  let taskCounter = countLanguageTasks(tasks, lang);
+  return Math.floor((taskCounter / tasks.length) * 100);
+};
+
 export function getLanguages(tasks) {
   let languages = [];
   let uniqueLangs = [];
@@ -143,3 +148,12 @@ export function getUsedRepos(tasks) {
   });
   return arr;
 }
+
+export const isMostUsedLanguage = (tasks, language) => {
+  const langs = tasks.map((task) => task.programming_language);
+  const muLang = langs.sort((a, b) => {
+    langs.filter((v) => v === b).length - langs.filter((v) => v === a).length;
+  })[0];
+
+  return muLang === language ? true : false;
+};

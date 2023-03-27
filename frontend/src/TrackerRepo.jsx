@@ -4,11 +4,11 @@ import { HexagonIcon } from "./icon_components/HexagonIcon";
 import { DiamondIcon } from "./icon_components/DiamondIcon";
 import * as taskAPI from "../src/services/taskService";
 
-export const TrackerRepo = ({ tasks }) => {
+export const TrackerRepo = ({ userSession, tasks }) => {
   const [selectedRepo, setSelectedRepo] = useState("");
   const repoWithMostTasks = taskAPI.getRepoWithMostTasks(tasks);
   const repoTasks = taskAPI.getRepoTasks(tasks, repoWithMostTasks).length;
-  const repoNames = taskAPI.getUsedRepos(tasks);
+  const repoNames = Array.from(new Set(taskAPI.getUsedRepos(tasks)));
 
   return (
     <section>
@@ -24,7 +24,10 @@ export const TrackerRepo = ({ tasks }) => {
             <h1 className="trackerRepoMost">
               Most task-contributed repository:
             </h1>
-            <GitRepoShield repositoryName={repoWithMostTasks} />
+            <GitRepoShield
+              userSession={userSession}
+              repositoryName={repoWithMostTasks}
+            />
             <div className="trackerRepoInfo">
               <DiamondIcon w={"12"} h={"12"} color={"#02c8a5"} />
               <p className="trackerRepoInfoDesc">
@@ -36,7 +39,10 @@ export const TrackerRepo = ({ tasks }) => {
         ) : (
           <>
             <h1 className="trackerRepoMost">{selectedRepo} repository info:</h1>
-            <GitRepoShield repositoryName={selectedRepo} />
+            <GitRepoShield
+              userSession={userSession}
+              repositoryName={selectedRepo}
+            />
             <div className="trackerRepoInfo">
               <DiamondIcon w={"12"} h={"12"} color={"#02c8a5"} />
               <p className="trackerRepoInfoDesc">
@@ -57,12 +63,17 @@ export const TrackerRepo = ({ tasks }) => {
               setSelectedRepo(e.target.value);
             }}
           >
-            {repoNames.map((repo) => (
-              <option key={repo}>{repo}</option>
+            {repoNames.map((repo, i) => (
+              <option key={i}>{repo}</option>
             ))}
           </select>
         </div>
-        <button className="viewMostContributed">View most contributed</button>
+        <button
+          className="viewMostContributed"
+          onClick={() => setSelectedRepo("")}
+        >
+          View most contributed
+        </button>
       </div>
     </section>
   );

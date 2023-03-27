@@ -1292,6 +1292,7 @@ body {
   height: 340px;
   border-radius: 5px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .mainPanelTaskInfo {
   outline: solid;
@@ -1366,6 +1367,7 @@ body {
   background-color: #34383d;
   height: 1px;
   width: 1040px;
+  overflow: auto;
 }
 .trackerOverall,
 .mainTracker {
@@ -1381,7 +1383,13 @@ body {
   flex-basis: 70%;
   overflow-y: auto;
   margin: 20px;
-  height: 830px;
+  max-height: 790px;
+  overflow-x: hidden;
+}
+.mainTrackerBottom {
+  display: flex;
+  width: 900px;
+  justify-content: space-between;
 }
 .trackerOverall {
   flex-direction: column;
@@ -1389,8 +1397,9 @@ body {
   flex-basis: 30%;
   margin-top: 20px;
   margin-right: 10px;
-  width: 400px;
-  height: 790px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 790px;
   z-index: 3;
 }
 .statsTitle {
@@ -1412,7 +1421,7 @@ body {
 .overallLine {
   height: 1px;
   background-color: #34383d;
-  width: 460px;
+  width: 450px;
   margin-bottom: 20px;
 }
 .overallChart {
@@ -1473,9 +1482,9 @@ body {
   outline: solid;
   outline-width: 1px;
   outline-color: #505661;
-  height: 190px;
+  height: 355px;
   width: 400px;
-  margin-bottom: 80px;
+  margin-bottom: 20px;
   opacity: 0;
   animation: showTrackerInfo 0.5s ease-out forwards;
 }
@@ -1499,6 +1508,12 @@ body {
   margin-bottom: 20px;
   top: 10px;
 }
+.trackerHoursGreenGT {
+  color: #00c5a1;
+}
+.trackerHoursMoreInfoContainer {
+  display: flex;
+}
 .trackerHoursMoreInfoLbl {
   font-family: "Alliance No.1";
   font-size: 15px;
@@ -1518,7 +1533,8 @@ body {
 .trackerViewDetails {
   display: flex;
 }
-.viewDetailsButton {
+.viewDetailsButton,
+.exportToPDF {
   height: 30px;
   margin-left: 10px;
   background-color: #00a585;
@@ -1526,19 +1542,25 @@ body {
   border-width: 0px;
   font-family: "Alliance No.1";
 }
-.viewDetailsButton:hover {
+.viewDetailsButton:hover,
+.exportToPDF:hover {
   cursor: pointer;
   background-color: #2d43c0;
   color: white;
 }
+.trackerHoursExport {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 70px;
+}
 .statusGraph {
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
 }
 .statusBarChart {
   width: 400px;
-  height: 220px;
+  height: 210px;
   background-color: #161b21;
   border-radius: 5px;
   outline: solid;

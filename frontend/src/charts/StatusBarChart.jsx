@@ -19,18 +19,29 @@ export const StatusBarChart = ({ tasks, setTasks }) => {
   return (
     <Bar
       data={{
-        labels: ["Completed", "On Going"],
+        labels: ["Completed & On Going tasks"],
         datasets: [
           {
-            label: ["Tasks"],
-            data: [completedTasksArr.length, onGoingTasksArr.length],
-            backgroundColor: ["#00a585", "rgb(219, 85, 114)"],
+            label: ["Completed"],
+            data: [completedTasksArr.length],
+            backgroundColor: ["#00a585"],
+          },
+          {
+            label: ["On Going"],
+            data: [onGoingTasksArr.length],
+            backgroundColor: ["rgb(219, 85, 114)"],
           },
         ],
       }}
       width={500}
       height={250}
-      options={{}}
+      options={{
+        plugins: {
+          legend: {
+            display: true,
+          },
+        },
+      }}
     />
   );
 };

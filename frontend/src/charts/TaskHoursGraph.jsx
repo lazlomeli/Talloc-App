@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as taskAPI from "../services/taskService";
 import {
   Chart,
@@ -21,17 +21,11 @@ Chart.register(
   CategoryScale
 );
 
-export const TaskHoursGraph = ({
-  userSession,
-  tasks,
-  setTasks,
-  selectedLanguage,
-}) => {
+export const TaskHoursGraph = ({ tasks, selectedLanguage }) => {
   const totalTasksOfLang = taskAPI.countLanguageTasks(tasks, selectedLanguage);
   const hoursOfTasks = taskAPI.getHoursArrayOfEachTask(tasks, selectedLanguage);
   const arrayOfLangHours = [...Array(totalTasksOfLang).keys()];
-
-  console.log(selectedLanguage);
+  const [hoveredItem, setHoveredItem] = useState("");
 
   return (
     <>
@@ -53,7 +47,34 @@ export const TaskHoursGraph = ({
             options={{
               responsive: true,
               maintainAspectRatio: false,
-              plugins: {},
+              elements: {
+                point: {
+                  pointRadius: 5,
+                },
+              },
+              plugins: {
+                tooltip: {
+                  callbacks: {
+                    title: () => {
+                      return `${selectedLanguage} tasks:`;
+                    },
+                    afterTitle: () => {
+                      return "________________";
+                    },
+                    beforeBody: () => {
+                      return " ";
+                    },
+                    label: () => {
+                      return `Time spent: ${hoveredItem}h`;
+                    },
+                  },
+                },
+              },
+              onHover: (event, item) => {
+                if (item.length) {
+                  setHoveredItem(item[0].element.$context.raw);
+                }
+              },
             }}
           />
         </div>

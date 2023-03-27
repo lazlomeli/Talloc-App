@@ -7,11 +7,6 @@ import EmptyInsights from "./EmptyInsights";
 import CrossIcon from "./icon_components/CrossIcon";
 import { TaskMoreInfo } from "./TaskMoreInfo";
 
-const calculatePercentage = (tasks, lang) => {
-  let taskCounter = taskAPI.countLanguageTasks(tasks, lang);
-  return Math.floor((taskCounter / tasks.length) * 100);
-};
-
 const Insights = () => {
   const [tasks, setTasks] = useState([]);
   const [langs, setLangs] = useState([]);
@@ -90,7 +85,7 @@ const Insights = () => {
               Your {selectedLang} tasks make up the
               <span style={{ color: "#00a586", fontWeight: "bold" }}>
                 {" "}
-                {calculatePercentage(tasks, selectedLang)}%{" "}
+                {taskAPI.calculatePercentage(tasks, selectedLang)}%{" "}
               </span>
               of your total tasks
             </p>

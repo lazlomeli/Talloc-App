@@ -66,7 +66,8 @@ export const HoursLineGraph = ({ userSession, tasks, setTasks }) => {
           <div className="trackerHoursViewDetails">
             <div className="trackerViewDetails">
               <p className="trackerHoursMoreInfoLbl">
-                Task with more hours:{" "}
+                <span className="trackerHoursGreenGT">{"> "}</span>Task with
+                more hours:{" "}
                 <span className="trackerHoursLbl2">
                   {
                     taskAPI.getHighestHoursTask(tasks, selectedLanguage)
@@ -83,20 +84,46 @@ export const HoursLineGraph = ({ userSession, tasks, setTasks }) => {
               </button>
             </div>
             <p className="trackerHoursMoreInfoLbl">
-              Number of tasks:{"  "}
+              <span className="trackerHoursGreenGT">{"> "}</span>Number of
+              tasks:{"  "}
               <span className="trackerHoursLbl2">
                 {taskAPI.countLanguageTasks(tasks, selectedLanguage)}
               </span>
             </p>
             <p className="trackerHoursMoreInfoLbl">
-              Total hours spent in {selectedLanguage}:{"  "}
+              <span className="trackerHoursGreenGT">{"> "}</span>Total hours
+              spent in {selectedLanguage}:{"  "}
               <span className="trackerHoursLbl2">
                 {taskAPI.getLanguageTotalHours(tasks, selectedLanguage)}
                 {"  "}
                 hours
               </span>
             </p>
+            <p className="trackerHoursMoreInfoLbl">
+              <span className="trackerHoursGreenGT">{"> "}</span>
+              {selectedLanguage} tasks ratio percentage:{" "}
+              <span className="trackerHoursLbl2">
+                {taskAPI.calculatePercentage(tasks, selectedLanguage)}% of the
+                tasks
+              </span>
+            </p>
+            {taskAPI.isMostUsedLanguage(tasks, selectedLanguage) === true ? (
+              <p className="trackerHoursMoreInfoLbl">
+                <span className="trackerHoursGreenGT">{"> "}</span>Most used
+                language: <span className="trackerHoursLbl2">Yes</span>
+              </p>
+            ) : (
+              <p className="trackerHoursMoreInfoLbl">
+                <span className="trackerHoursGreenGT">{"> "}</span>Most used
+                language: <span className="trackerHoursLbl2">No</span>
+              </p>
+            )}
           </div>
+          <section className="trackerHoursExport">
+            <button className="exportToPDF">
+              Export graph and data to PDF
+            </button>
+          </section>
         </section>
       )}
       <TaskMoreInfo

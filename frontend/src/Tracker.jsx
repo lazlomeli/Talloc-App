@@ -6,6 +6,7 @@ import * as taskAPI from "../src/services/taskService";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { HoursLineGraph } from "./charts/HoursLineGraph";
 import { StatusChart } from "./charts/StatusChart";
+import { OverallRadar } from "./charts/OverallRadar";
 import { TrackerRepo } from "./TrackerRepo";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -32,7 +33,14 @@ export const Tracker = () => {
             tasks={tasks}
             setTasks={setTasks}
           />
-          <TrackerRepo tasks={tasks} />
+          <section className="mainTrackerBottom">
+            <TrackerRepo userSession={userSession} tasks={tasks} />
+            <StatusChart
+              userSession={userSession}
+              tasks={tasks}
+              setTasks={setTasks}
+            />
+          </section>
         </section>
         <section className="trackerOverall">
           <h1 className="statsTitle">Overall Statistics</h1>
@@ -48,11 +56,8 @@ export const Tracker = () => {
               setTasks={setTasks}
             />
           </div>
-          <StatusChart
-            userSession={userSession}
-            tasks={tasks}
-            setTasks={setTasks}
-          />
+          <div className="overallLine" />
+          <OverallRadar tasks={tasks} />
         </section>
       </section>
     </section>

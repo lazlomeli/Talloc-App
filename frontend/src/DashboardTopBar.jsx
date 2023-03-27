@@ -1,7 +1,7 @@
 import React from "react";
 
 function learnMore() {
-  window.location.href = "https://github.com/lazlomeli";
+  window.open("https://github.com/lazlomeli");
 }
 
 const DashboardTopBar = () => {

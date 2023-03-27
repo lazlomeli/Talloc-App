@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { GitLogoIcon } from "./icon_components/GitHubLogoIcon";
 import CrossIcon from "./icon_components/CrossIcon";
 import { PlusIcon } from "./icon_components/PlusIcon";
 import * as taskAPI from "./services/taskService";
@@ -7,6 +6,7 @@ import { Oval } from "react-loader-spinner";
 import { GitRepoShield } from "./GitRepoShield";
 
 export const TaskMoreInfo = ({
+  userSession,
   setOpenInsightsModal,
   openMoreModal,
   closeMoreModal,
@@ -140,7 +140,10 @@ export const TaskMoreInfo = ({
               )}
             </label>
             <p className="moreInfoMidLeftRepo">Repository:</p>
-            <GitRepoShield repositoryName={persistedTask.repository_name} />
+            <GitRepoShield
+              userSession={userSession}
+              repositoryName={persistedTask.repository_name}
+            />
           </div>
           <div className="taskMoreInfoMidRight">
             <div className="taskMoreInfoRightDates">

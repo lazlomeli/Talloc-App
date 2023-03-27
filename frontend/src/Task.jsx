@@ -50,7 +50,7 @@ export const Task = ({
 
   function goToRepos(repository) {
     try {
-      window.location.href = `https://github.com/${userSession}/${repository}`;
+      window.open(`https://github.com/${userSession}/${repository}`);
     } catch (error) {
       errorModalHandler("Something went wrong. Please try again");
     }

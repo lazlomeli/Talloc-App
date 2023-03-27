@@ -5,9 +5,12 @@ import { StatusBarChart } from "./StatusBarChart";
 export const StatusChart = ({ userSession, tasks, setTasks }) => {
   return (
     <section className="statusGraph">
-      <p className="statusGraphDesc">
-        <strong>Completed</strong> vs <strong>On Going</strong> tasks
-      </p>
+      <div className="trackerHoursTitle">
+        <HexagonIcon />
+        <p className="trackerHours_Desc">
+          <strong>Completed</strong> and <strong>Uncompleted</strong> tasks:
+        </p>
+      </div>
       <div className="statusBarChart">
         <StatusBarChart tasks={tasks} setTasks={setTasks} />
       </div>
