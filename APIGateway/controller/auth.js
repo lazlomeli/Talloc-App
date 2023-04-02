@@ -21,10 +21,6 @@ const authenticateToken = (req, res, next) => {
 
 const clearCookieToken = (req, res, next) => {
   let ck = req.cookies.talloc_user_cookie_token;
-  console.log(
-    "I will lear this cookie: ",
-    req.cookies.talloc_user_cookie_token
-  );
   res.clearCookie(ck);
   next();
 };

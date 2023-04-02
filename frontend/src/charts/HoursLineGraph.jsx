@@ -4,6 +4,7 @@ import { HexagonIcon } from "../icon_components/HexagonIcon";
 import { TaskMoreInfo } from "../TaskMoreInfo";
 import * as taskAPI from "../../src/services/taskService";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import * as chartService from "../services/chartService";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -120,7 +121,10 @@ export const HoursLineGraph = ({ userSession, tasks, setTasks }) => {
             )}
           </div>
           <section className="trackerHoursExport">
-            <button className="exportToPDF">
+            <button
+              className="exportToPDF"
+              onClick={() => chartService.generateChartPDF(data)}
+            >
               Export graph and data to PDF
             </button>
           </section>

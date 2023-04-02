@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const userRouter = require("./APIs/userAPI");
-const taskRouter = require("./APIs/taskAPI");
+const userRouter = require("./apis/userAPI");
+const taskRouter = require("./apis/taskAPI");
 const PORT = 8002;
 
 const whiteList = ["http://localhost:5173"];
