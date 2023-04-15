@@ -4,11 +4,12 @@ const usersRouter = require("./routers/user");
 const cookieParser = require("cookie-parser");
 const db = require("./config/db");
 const app = express();
-const PORT = 3000;
 
-const whiteList = ["http://localhost:8002"];
+const PORT = 3000;
+const GATEWAY_API_APP = "http://gateway_api:8002"
+
 const corsOptions = {
-  origin: [{ whiteList }],
+  origin: GATEWAY_API_APP,
   credentials: true,
   exposedHeaders: ["set-cookie"],
 };

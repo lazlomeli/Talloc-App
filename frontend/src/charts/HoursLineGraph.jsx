@@ -56,7 +56,7 @@ export const HoursLineGraph = ({ userSession, tasks, setTasks }) => {
           <div className="trackerHoursInfoHeader">
             <img
               className="taskLangLogo"
-              src={`../static/${selectedLanguage}.png`}
+              src={`../static/${selectedLanguage}.png`.toLowerCase()}
               style={{ marginLeft: 10, marginRight: 10 }}
             />
             <h1 className="trackerHoursTitle">

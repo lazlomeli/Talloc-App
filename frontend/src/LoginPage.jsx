@@ -26,11 +26,11 @@ export function LoginPage() {
           navigateTo("/dashboard");
         })
         .catch((err) => {
-          if (err.response.status == 404) {
+          // if (err.response.status == 404) {
             let repositories = [];
             localStorage.setItem("repositories", JSON.stringify(repositories));
             navigateTo("/dashboard");
-          }
+          // }
         });
     }
   }, [isLogged]);

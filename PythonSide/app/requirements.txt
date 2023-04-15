@@ -1,4 +1,5 @@
 fastapi
+# fastapi-cors
 typing
 pydantic
 pathlib

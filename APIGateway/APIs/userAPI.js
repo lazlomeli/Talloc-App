@@ -5,9 +5,9 @@ const axios = require("axios");
 const auth = require("../controller/auth");
 const cookie = require("cookie");
 const router = express.Router();
-const userAPI = "http://localhost:3000";
 
-// 🚀 API Gateway ~ Users
+// const userAPI = "http://localhost:3000";
+const userAPI = "http://backend_node:3000";
 
 router.get("/users/:username", auth.authenticateToken, (req, res) => {
   axios
@@ -21,6 +21,7 @@ router.get("/users/:username", auth.authenticateToken, (req, res) => {
 });
 
 router.get("/users", auth.authenticateToken, (req, res) => {
+  console.log("Working...");
   axios
     .get(userAPI + req.path)
     .then((resp) => {
@@ -99,7 +100,7 @@ router.post("/register", (req, res) => {
       res.status(200).send(resp.data);
     })
     .catch(() => {
-      res.sendStatus(403);
+      res.status(403).send("Something went wrong!");
     });
 });
 

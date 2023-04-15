@@ -2,6 +2,8 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8002";
 const TASK_API_URL = "http://localhost:8002/tasks";
+// const API_URL = "http://gateway_api:8002";
+// const TASK_API_URL = "http://gateway_api:8002/tasks";
 
 axios.defaults.withCredentials = true;
 

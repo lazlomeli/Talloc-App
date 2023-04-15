@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const bcrypt = require("bcrypt");
-const cookieParser = require("cookie-parser");
 const router = express.Router();
 const User = require("../models/user");
 
@@ -121,7 +120,6 @@ router.post("/login", async (req, res) => {
     if (user == null) return res.status(400).send("Cannot find user");
 
     let valid = await bcrypt.compare(req.body.password, user.password);
-    console.log(valid);
 
     if (valid === false) {
       res.sendStatus(403);

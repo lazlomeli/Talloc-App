@@ -70,7 +70,8 @@ const RegisterPage = () => {
         .then(() => {
           setIsRegistered(true);
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
           errorModalHandler("E-mail already exists. Choose a different one");
         });
     } else {

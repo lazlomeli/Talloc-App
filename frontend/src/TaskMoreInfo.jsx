@@ -77,7 +77,7 @@ export const TaskMoreInfo = ({
             ) : (
               <img
                 className="moreInfoLogo"
-                src={`../static/${persistedTask.programming_language}.png`}
+                src={`../static/${persistedTask.programming_language}.png`.toLowerCase()}
               ></img>
             )}
             <h1 className="moreInfoTitle">

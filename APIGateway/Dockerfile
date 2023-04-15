@@ -2,6 +2,8 @@
 
 FROM node:17-alpine
 
+WORKDIR /APIGateway
+
 COPY package.json .
 
 RUN npm install

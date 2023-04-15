@@ -1,0 +1,88 @@
+version: "3.7"
+
+services:
+  backend_node:
+    build:
+      context: ./NodeSide
+      dockerfile: ./Dockerfile
+    image: backend_node_img
+    container_name: backend_node
+    volumes:
+      - node_backend_vol:/NodeBackend/
+      - /NodeBackend/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    networks:
+      - talloc_network
+  backend_fastapi:
+    build:
+      context: ./PythonSide/app
+      dockerfile: ./Dockerfile
+    image: backend_fastapi_img
+    container_name: backend_fastapi
+    volumes:
+      - fastapi_backend_vol:/PythonBackend/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    networks:
+      - talloc_network
+  gateway_api:
+    build:
+      context: ./APIGateway
+      dockerfile: ./Dockerfile
+    image: gateway_api_img
+    container_name: gateway_api
+    volumes:
+      - gateway_api_vol:/APIGateway/
+      - /APIGateway/node_modules
+    depends_on:
+      - backend_node
+      - backend_fastapi
+    env_file:
+      - ./APIGateway/.env
+    ports:
+      - "8002:8002"
+    networks:
+      - talloc_network
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - db_vol:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - talloc_network
+  frontend:
+    build:
+      context: ./frontend
+    image: frontend_img
+    container_name: frontend
+    volumes:
+      - frontend_vol:/ReactFrontend/
+      - /ReactFrontend/node_modules
+    depends_on:
+      - gateway_api
+    ports:
+      - "5173:5173"
+    networks:
+      - talloc_network
+    tty: true
+    stdin_open: true
+
+networks:
+  talloc_network:
+    name: talloc_network
+    driver: bridge
+
+volumes:
+  node_backend_vol:
+  db_vol:
+  fastapi_backend_vol:
+  gateway_api_vol:
+  frontend_vol:
+    driver: local

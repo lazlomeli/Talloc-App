@@ -60,7 +60,7 @@ const Insights = () => {
                 <div className="insightsPhotoAndLang">
                   <img
                     className="insightsLangLogo"
-                    src={`../static/${lang}.png`}
+                    src={`../static/${lang}.png`.toLowerCase()}
                   />
                   <h2 className="insightsLang">{lang}</h2>
                 </div>

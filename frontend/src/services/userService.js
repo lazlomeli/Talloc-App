@@ -1,7 +1,12 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8002";
+// const API_URL = "http://localhost:8002";
+// const USER_API = "http://localhost:8002/users";
+// const API_URL = "http://gateway_api:8002";
 const USER_API = "http://localhost:8002/users";
+
+axios.defaults.baseURL = 'http://localhost:8002'
+axios.defaults.withCredentials = true
 
 export async function getUser(user) {
   try {
@@ -14,13 +19,13 @@ export async function getUser(user) {
 }
 
 export function logIn(user) {
-  return axios.post(`${API_URL}/login`, user, { withCredentials: true });
+  return axios.post('/login', user);
 }
 
 export function registerUser(user) {
-  return axios.post(`${API_URL}/register`, user);
+  return axios.post('/register', user);
 }
 
 export function clearCookieToken() {
-  return axios.get(`${API_URL}/logout`);
+  return axios.get('/logout');
 }

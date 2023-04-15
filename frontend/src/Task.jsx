@@ -89,7 +89,7 @@ export const Task = ({
                 <div className="taskLangContainer">
                   <img
                     className="taskLangLogo"
-                    src={`../static/${task.programming_language}.png`}
+                    src={`../static/${task.programming_language}.png`.toLowerCase()}
                   />
                   <p className="taskLang">{task.programming_language}</p>
                 </div>
