@@ -14,6 +14,8 @@ services:
       - "3000:3000"
     depends_on:
       - mongo
+    env_file:
+      - ./NodeSide/.env
     networks:
       - talloc_network
   backend_fastapi:
@@ -28,6 +30,8 @@ services:
       - "8000:8000"
     depends_on:
       - mongo
+    env_file:
+      - './PythonSide/app/.env'
     networks:
       - talloc_network
   gateway_api:

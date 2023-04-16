@@ -1,8 +1,8 @@
 fastapi
-# fastapi-cors
 typing
 pydantic
 pathlib
 starlette
 pymongo
 uvicorn
+python-dotenv

@@ -1,14 +1,12 @@
+require('dotenv').config({path: '../../.env'})
 const mongoose = require("mongoose");
 mongoose.set('strictQuery', false)
 
 const connectToDB = () => {
-  // const dbName = "mongodb://127.0.0.1:27017/pstudioDB";
-  const dbName = "mongodb://mongo:27017/tallocDB";
-
-  mongoose.connect(dbName, { useNewUrlParser: true });
+  mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
   db = mongoose.connection;
-  db.on("error", (error) => console.error(error));
+  db.on("error", (err) => console.error(err));
   db.once("open", () => console.log("Connected to Database"));
 };
 

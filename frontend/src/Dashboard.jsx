@@ -7,10 +7,16 @@ export const Dashboard = () => {
   const userSession = localStorage.getItem("talloc_username");
 
   return (
-    <section className="dashboardPage">
+    <>
+    {userSession === null ? (
+      <div></div>
+    ) : (
+      <section className="dashboardPage">
       <DashboardTopBar />
       <DashboardSideBar />
       <Tasks userSession={userSession} />
     </section>
+    )}
+    </>
   );
 };

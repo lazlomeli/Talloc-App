@@ -4,15 +4,14 @@ from fastapi.responses import HTMLResponse
 from pathlib import Path
 from routes.task import task
 from fastapi.middleware.cors import CORSMiddleware
-
+from core.config import settings
 
 app = FastAPI(
-    title="Programmer Studio API",
-    description="REST API with MongoDB",
+    title="Talloc App - Task API",
     version="1.0"
     )
 
-origins = ["http://gateway_api:8002"]
+origins = [settings.GATEWAY_API_URL]
 
 app.add_middleware(
     CORSMiddleware,

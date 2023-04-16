@@ -63,7 +63,6 @@ const RegisterPage = () => {
   };
 
   const signUp = () => {
-    console.log(isValidUserSyntax(), isValidPassword(), isValidEmail());
     if ((isValidUserSyntax() && isValidPassword() && isValidEmail()) === true) {
       userAPI
         .registerUser(registeredUser)

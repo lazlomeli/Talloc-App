@@ -1,4 +1,4 @@
 from pymongo import MongoClient
+from core.config import settings
 
-# conn = MongoClient('mongodb://localhost:27017/pstudioDB')
-conn = MongoClient('mongodb://mongo:27017/tallocDB')
+conn = MongoClient(settings.MONGO_DB_URL)

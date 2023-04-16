@@ -1,34 +1,30 @@
 import axios from "axios";
-
-const API_URL = "http://localhost:8002";
-const TASK_API_URL = "http://localhost:8002/tasks";
-// const API_URL = "http://gateway_api:8002";
-// const TASK_API_URL = "http://gateway_api:8002/tasks";
+import * as env from './environment.js'
 
 axios.defaults.withCredentials = true;
 
 export function getAllTasks() {
-  return axios.get(TASK_API_URL);
+  return axios.get(env.TASK_API_URL);
 }
 
 export function getUserTasks(username) {
-  return axios.get(`${TASK_API_URL}/${username}`);
+  return axios.get(`${env.TASK_API_URL}/${username}`);
 }
 
 export function postTask(task) {
-  return axios.post(`${TASK_API_URL}`, task);
+  return axios.post(`${env.TASK_API_URL}`, task);
 }
 
 export function updateTask(id, task) {
-  return axios.put(`${TASK_API_URL}/${id}`, task);
+  return axios.put(`${env.TASK_API_URL}/${id}`, task);
 }
 
 export function deleteTaskByID(id) {
-  return axios.delete(`${TASK_API_URL}/${id}`);
+  return axios.delete(`${env.TASK_API_URL}/${id}`);
 }
 
 export function getGithubRepos(username) {
-  return axios.post(`${API_URL}/github/${username}`);
+  return axios.post(`${env.GATEWAY_API_URL}/github/${username}`);
 }
 
 export const calculatePercentage = (tasks, lang) => {

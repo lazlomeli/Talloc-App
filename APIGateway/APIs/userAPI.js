@@ -6,8 +6,8 @@ const auth = require("../controller/auth");
 const cookie = require("cookie");
 const router = express.Router();
 
-// const userAPI = "http://localhost:3000";
-const userAPI = "http://backend_node:3000";
+const userAPI = "http://localhost:3000";
+// const userAPI = "http://backend_node:3000";
 
 router.get("/users/:username", auth.authenticateToken, (req, res) => {
   axios
@@ -21,7 +21,6 @@ router.get("/users/:username", auth.authenticateToken, (req, res) => {
 });
 
 router.get("/users", auth.authenticateToken, (req, res) => {
-  console.log("Working...");
   axios
     .get(userAPI + req.path)
     .then((resp) => {

@@ -1,16 +1,12 @@
 import axios from "axios";
+import * as env from './environment.js'
 
-// const API_URL = "http://localhost:8002";
-// const USER_API = "http://localhost:8002/users";
-// const API_URL = "http://gateway_api:8002";
-const USER_API = "http://localhost:8002/users";
-
-axios.defaults.baseURL = 'http://localhost:8002'
+axios.defaults.baseURL = env.GATEWAY_API_URL
 axios.defaults.withCredentials = true
 
 export async function getUser(user) {
   try {
-    const response = await fetch(`${USER_API}/${user}`);
+    const response = await fetch(`${env.USER_API_URL}/${user}`);
     const data = await response.json();
     return data;
   } catch (error) {
