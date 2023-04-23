@@ -23,6 +23,8 @@ export const TaskMoreInfo = ({
   const [addHours, setAddHours] = useState(0);
   const [loadingVisibility, setLoadingVisibility] = useState(false);
 
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+
   useEffect(() => {
     setTaskTitle(persistedTask.title);
     setTaskDescription(persistedTask.description);
@@ -43,7 +45,7 @@ export const TaskMoreInfo = ({
   };
 
   const updateTask = (task, id) => {
-    taskAPI.updateTask(task.id, task).then((resp) => {
+    taskAPI.updateTask(task.id, task, TASK_API_URL).then((resp) => {
       setTasks([
         ...tasks.filter((task) => (task.id === id ? false : true)),
         resp.data,

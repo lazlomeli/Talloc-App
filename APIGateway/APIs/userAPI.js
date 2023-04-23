@@ -1,13 +1,13 @@
-require("dotenv").config();
+require("dotenv").config({path: '../.env'});
 
 const express = require("express");
 const axios = require("axios");
 const auth = require("../controller/auth");
-const cookie = require("cookie");
 const router = express.Router();
+const jwt = require('jsonwebtoken')
 
-const userAPI = "http://localhost:3000";
-// const userAPI = "http://backend_node:3000";
+// const userAPI = process.env.USER_API_URL_DOCKER
+const userAPI = process.env.USER_API_URL
 
 router.get("/users/:username", auth.authenticateToken, (req, res) => {
   axios
@@ -112,5 +112,25 @@ router.get("/logout", (req, res) => {
     })
     .catch((err) => console.log(err, "\nGW: Error deleting cookie"));
 });
+
+router.post('/encrypt', (req, res) => {
+  axios.post(userAPI + req.path, req.body)
+  .then((resp) => {
+    res.status(200).send(resp.data)
+  })
+  .catch((err) => {
+    res.status(500).send(err)
+  })
+})
+
+router.post('/decrypt', (req, res) => {
+  axios.post(userAPI + req.path, req.body)
+  .then((resp) => {
+    res.status(200).send(resp.data)
+  })
+  .catch((err) => {
+    res.status(500).send(err)
+  })
+})
 
 module.exports = router;

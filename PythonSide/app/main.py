@@ -11,6 +11,7 @@ app = FastAPI(
     version="1.0"
     )
 
+# origins = [settings.GATEWAY_API_URL_DOCKER]
 origins = [settings.GATEWAY_API_URL]
 
 app.add_middleware(

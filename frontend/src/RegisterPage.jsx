@@ -17,6 +17,8 @@ const RegisterPage = () => {
   const { errorModalHandler } = useContext(ErrorContext);
   const navigateTo = useNavigate();
 
+  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL
+
   useEffect(() => {
     isRegistered === true ? navigateTo("/login") : null;
   }, [isRegistered]);
@@ -65,7 +67,7 @@ const RegisterPage = () => {
   const signUp = () => {
     if ((isValidUserSyntax() && isValidPassword() && isValidEmail()) === true) {
       userAPI
-        .registerUser(registeredUser)
+        .registerUser(registeredUser, GATEWAY_API_URL)
         .then(() => {
           setIsRegistered(true);
         })

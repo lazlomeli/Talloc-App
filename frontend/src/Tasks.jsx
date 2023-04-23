@@ -23,8 +23,10 @@ const Tasks = ({ userSession }) => {
   const [timeSpent, setTimeSpent] = useState(0);
   const [filterStatus, setFilterStatus] = useState("ON GOING");
 
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+
   useEffect(() => {
-    taskAPI.getUserTasks(userSession).then((resp) => {
+    taskAPI.getUserTasks(userSession, TASK_API_URL).then((resp) => {
       setTasks(resp.data.reverse());
     });
   }, []);

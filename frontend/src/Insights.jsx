@@ -6,6 +6,8 @@ import DashboardSideBar from "./DashboardSideBar";
 import EmptyInsights from "./EmptyInsights";
 import CrossIcon from "./icon_components/CrossIcon";
 import { TaskMoreInfo } from "./TaskMoreInfo";
+import { Forbidden } from "./Forbidden";
+import * as userAPI from './services/userService'
 
 const Insights = () => {
   const [tasks, setTasks] = useState([]);
@@ -17,9 +19,22 @@ const Insights = () => {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [timeSpent, setTimeSpent] = useState("");
+  const [userSession, setUserSession] = useState('')
+
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL
 
   useEffect(() => {
-    taskAPI.getUserTasks(userSession).then((resp) => {
+    const tokenizedUsername = localStorage.getItem("talloc_username")
+    userAPI.decryptSession({ username: tokenizedUsername }, GATEWAY_API_URL)
+    .then((resp) => {
+      setUserSession(resp.data)
+    })
+    .catch((err) => console.log("ERROR: ", err))
+  }, [])
+
+  useEffect(() => {
+    taskAPI.getUserTasks(userSession, TASK_API_URL).then((resp) => {
       setTasks(resp.data);
     });
   }, []);
@@ -28,7 +43,6 @@ const Insights = () => {
     setLangs(taskAPI.getLanguages(tasks));
   }, [tasks]);
 
-  const userSession = localStorage.getItem("talloc_username");
 
   const toggleInsightsModal = (lang) => {
     setModal(!modal);
@@ -36,6 +50,10 @@ const Insights = () => {
   };
 
   return (
+    <>
+    {userSession === null ? (
+      <Forbidden />
+    ) : (
     <section className="dashboardPage">
       <DashboardTopBar />
       <DashboardSideBar />
@@ -150,6 +168,8 @@ const Insights = () => {
         setTimeSpent={setTimeSpent}
       />
     </section>
+    )}
+    </>
   );
 };
 

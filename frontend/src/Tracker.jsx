@@ -8,19 +8,37 @@ import { HoursLineGraph } from "./charts/HoursLineGraph";
 import { StatusChart } from "./charts/StatusChart";
 import { OverallRadar } from "./charts/OverallRadar";
 import { TrackerRepo } from "./TrackerRepo";
+import { Forbidden } from "./Forbidden";
+import * as userAPI from './services/userService'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const Tracker = () => {
   const [tasks, setTasks] = useState([]);
+  const [userSession, setUserSession] = useState('')
+
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL
 
   useEffect(() => {
-    taskAPI.getUserTasks(userSession).then((resp) => setTasks(resp.data));
+    const tokenizedUsername = localStorage.getItem("talloc_username")
+    userAPI.decryptSession({ username: tokenizedUsername }, GATEWAY_API_URL)
+    .then((resp) => {
+      setUserSession(resp.data)
+    })
+    .catch((err) => console.log("ERROR: ", err))
+  }, [])
+
+  useEffect(() => {
+    taskAPI.getUserTasks(userSession, TASK_API_URL).then((resp) => setTasks(resp.data));
   }, []);
 
-  const userSession = localStorage.getItem("talloc_username");
 
   return (
+    <>
+    {userSession === null ? (
+      <Forbidden />
+    ) : (
     <section className="dashboardPage">
       <DashboardTopBar />
       <DashboardSideBar />
@@ -61,5 +79,7 @@ export const Tracker = () => {
         </section>
       </section>
     </section>
+    )}
+    </>
   );
 };

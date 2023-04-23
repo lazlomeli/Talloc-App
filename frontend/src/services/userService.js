@@ -1,12 +1,11 @@
-import axios from "axios";
-import * as env from './environment.js'
 
-axios.defaults.baseURL = env.GATEWAY_API_URL
+import axios from "axios";
+
 axios.defaults.withCredentials = true
 
-export async function getUser(user) {
+export const getUser = async (user, url) => {
   try {
-    const response = await fetch(`${env.USER_API_URL}/${user}`);
+    const response = await fetch(`${url}/${user}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -14,14 +13,23 @@ export async function getUser(user) {
   }
 }
 
-export function logIn(user) {
-  return axios.post('/login', user);
+export const logIn = (user, url) => {
+  return axios.post(`${url}/login`, user);
 }
 
-export function registerUser(user) {
-  return axios.post('/register', user);
+export const registerUser = (user, url) => {
+  return axios.post(`${url}/register`, user);
 }
 
-export function clearCookieToken() {
-  return axios.get('/logout');
+export const clearCookieToken = (url) => {
+  return axios.get(`${url}/logout`);
 }
+
+export const encryptSession = (username, url) => {
+  return axios.post(`${url}/encrypt`, username)
+}
+
+export const decryptSession = (username, url) => {
+  return axios.post(`${url}/decrypt`, username)
+}
+ 

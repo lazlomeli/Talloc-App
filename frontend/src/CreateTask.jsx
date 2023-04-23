@@ -38,6 +38,8 @@ const CreateTask = ({
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
 
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+
   const newTask = {
     id: taskID,
     title: taskTitle,
@@ -74,7 +76,7 @@ const CreateTask = ({
       errorModalHandler("Choose valid data");
     } else {
       taskAPI
-        .postTask(newTask)
+        .postTask(newTask, TASK_API_URL)
         .then((resp) => {
           setLoadingVisibility(true);
           setTimeout(() => {

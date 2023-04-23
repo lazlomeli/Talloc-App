@@ -4,9 +4,8 @@ const axios = require("axios");
 const router = express.Router();
 const auth = require("../controller/auth");
 
-const GH_API = "https://api.github.com";
-const taskAPI = "http://127.0.0.1:8000";
-// const taskAPI = "http://backend_fastapi:8000";
+// const taskAPI = process.env.TASK_API_URL_DOCKER
+const taskAPI = process.env.TASK_API_URL
 
 router.get("/tasks", auth.authenticateToken, (req, res) => {
   axios
@@ -83,7 +82,7 @@ router.post("/github/:username", (req, res) => {
     },
   };
   axios
-    .get(`${GH_API}/users/${req.params.username}/repos`, config)
+    .get(`${process.env.GITHUB_API_URL}/users/${req.params.username}/repos`, config)
     .then((resp) => {
       res.send(resp.data);
     });

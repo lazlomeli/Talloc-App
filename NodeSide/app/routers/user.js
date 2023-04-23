@@ -1,9 +1,10 @@
-require("dotenv").config();
-
+require("dotenv").config({path: '../.env'});
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const User = require("../models/user");
+const jwt = require('jsonwebtoken')
+
 
 async function getUser(req, res, next) {
   let user;
@@ -167,5 +168,19 @@ router.get("/logout", (req, res) => {
     res.sendStatus(500);
   }
 });
+
+router.post('/encrypt', (req, res) => {
+    const username = req.body.username;
+    const tokenizedUsername = jwt.sign(username, process.env.SESSION_ENCRYPT_TOKEN)
+    res.send(tokenizedUsername)
+})
+
+router.post('/decrypt', (req, res) => {
+  const tokenizedUsername = req.body.username
+  if (!tokenizedUsername) res.status(500).send("Decryption failed: Token is null or invalid")
+
+  const decodedUsername = jwt.verify(tokenizedUsername, process.env.SESSION_ENCRYPT_TOKEN)
+  res.send(decodedUsername)
+})
 
 module.exports = router;

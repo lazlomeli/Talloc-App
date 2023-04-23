@@ -13,11 +13,13 @@ export function LoginPage() {
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
+  
+  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL
 
   useEffect(() => {
     if (isLogged === true) {
       taskAPI
-        .getGithubRepos(localStorage.getItem("talloc_github_username"))
+        .getGithubRepos(localStorage.getItem("talloc_github_username"), GATEWAY_API_URL)
         .then((resp) => {
           let data = resp.data;
           let repositories = [];
@@ -49,18 +51,21 @@ export function LoginPage() {
     }
 
     userAPI
-      .logIn(user)
+      .logIn(user, GATEWAY_API_URL)
       .then((resp) => {
-        setIsLogged(true);
-        localStorage.setItem(
-          "talloc_github_username",
-          resp.data.github_username
-        );
-        localStorage.setItem("talloc_username", user.username);
+        localStorage.setItem("talloc_github_username", resp.data.github_username);
+        // localStorage.setItem("talloc_username", user.username);
       })
       .catch(() => {
         errorModalHandler("The provided user credentials are wrong. Try again");
       });
+
+      userAPI.encryptSession({ username: user.username }, GATEWAY_API_URL)
+        .then((resp) => {
+          localStorage.setItem("talloc_username", resp.data)
+          setIsLogged(true);
+        })
+        .catch((err) => console.log(err));
   };
 
   const changeUsername = (e) => {

@@ -1638,6 +1638,23 @@ body {
   cursor: pointer;
   color: #e0e0e0;
 }
+.forbiddenTitle {
+  font-family: "Alliance No.1";
+  color: #ebebeb;
+}
+.forbiddenDesc {
+  font-family: "Alliance No.1";
+  color: #838c9b;
+}
+.forbiddenGoBack {
+  font-family: "Alliance No.1";
+  color: #00c5a1;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.forbiddenGoBack:hover {
+  color: #09856e;
+}
 
 @keyframes showTrackerInfo {
   100% {

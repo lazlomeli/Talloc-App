@@ -19,7 +19,9 @@ export const Task = ({
   const [openMoreModal, setOpenMoreModal] = useState(false);
   const [persistedTask, setPersistedTask] = useState({});
 
-  function completeTask(task) {
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+
+  const completeTask = (task) => {
     const newTask = {
       id: task.id,
       title: task.title,
@@ -33,7 +35,7 @@ export const Task = ({
       time_spent: task.time_spent,
     };
 
-    taskAPI.updateTask(task.id, newTask).then(() => {
+    taskAPI.updateTask(task.id, newTask, TASK_API_URL).then(() => {
       let updatedTasks = tasks.filter((t) =>
         t.id === newTask.id ? false : true
       );
@@ -42,8 +44,8 @@ export const Task = ({
     });
   }
 
-  function deleteTask(id) {
-    taskAPI.deleteTaskByID(id).then(() => {
+  const deleteTask = (id) => {
+    taskAPI.deleteTaskByID(id, TASK_API_URL).then(() => {
       setTasks([...tasks.filter((task) => (task.id === id ? false : true))]);
     });
   }

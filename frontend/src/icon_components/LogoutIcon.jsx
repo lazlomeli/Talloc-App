@@ -5,8 +5,10 @@ import * as userAPI from "../services/userService";
 const LogoutIcon = () => {
   const navigateTo = useNavigate();
 
+  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
+
   function logout() {
-    userAPI.clearCookieToken();
+    userAPI.clearCookieToken(GATEWAY_API_URL);
     localStorage.removeItem("talloc_username");
     localStorage.removeItem("repositories");
     localStorage.removeItem("talloc_github_username");
