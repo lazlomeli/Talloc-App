@@ -7,6 +7,8 @@ import { Dashboard } from "./Dashboard";
 import Insights from "./Insights";
 import { ErrorContext } from "./services/ErrorContext";
 import { Tracker } from "./Tracker";
+import { MessagesContext } from "./services/MessagesContext";
+import messages from "../messages.json";
 
 export const App = () => {
   const [openErrorModal, setOpenErrorModal] = useState(false);
@@ -21,23 +23,25 @@ export const App = () => {
   };
 
   return (
-    <ErrorContext.Provider
-      value={{
-        errorModalHandler,
-        openErrorModal,
-        setOpenErrorModal,
-        errorMessage,
-        setErrorMessage,
-      }}
-    >
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/insights" element={<Insights />} />
-        <Route path="/tracker" element={<Tracker />} />
-      </Routes>
-    </ErrorContext.Provider>
+    <MessagesContext.Provider value={messages}>
+      <ErrorContext.Provider
+        value={{
+          errorModalHandler,
+          openErrorModal,
+          setOpenErrorModal,
+          errorMessage,
+          setErrorMessage,
+        }}
+      >
+        <Routes>
+          <Route path={messages.ENDPOINT.ROOT} element={<MainPage />} />
+          <Route path={messages.ENDPOINT.REGISTER} element={<RegisterPage />} />
+          <Route path={messages.ENDPOINT.LOGIN} element={<LoginPage />} />
+          <Route path={messages.ENDPOINT.DASHBOARD} element={<Dashboard />} />
+          <Route path={messages.ENDPOINT.INSIGHTS} element={<Insights />} />
+          <Route path={messages.ENDPOINT.TRACKER} element={<Tracker />} />
+        </Routes>
+      </ErrorContext.Provider>
+    </MessagesContext.Provider>
   );
 };

@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  github_pat: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);

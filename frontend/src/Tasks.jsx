@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CreateTask from "./CreateTask";
 import { CaretDownIcon } from "./icon_components/CaretDownIcon";
 import { CaretUpIcon } from "./icon_components/CaretUpIcon";
 import { InfoModal } from "./InfoModal";
 import * as taskAPI from "./services/taskService";
 import { Task } from "./Task";
+import { MessagesContext } from "./services/MessagesContext";
 
 const Tasks = ({ userSession }) => {
+  const messages = useContext(MessagesContext);
   const [openModal, setOpenModal] = useState(false);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [filterModalMessage, setFilterModalMessage] = useState("");
@@ -21,19 +23,24 @@ const Tasks = ({ userSession }) => {
   const [repositoryName, setRepositoryName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [timeSpent, setTimeSpent] = useState(0);
-  const [filterStatus, setFilterStatus] = useState("ON GOING");
+  const [filterStatus, setFilterStatus] = useState(
+    messages.TASK_INFO.STATUS.ON_GOING
+  );
 
-  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL;
 
   useEffect(() => {
+    console.log(userSession);
     taskAPI.getUserTasks(userSession, TASK_API_URL).then((resp) => {
       setTasks(resp.data.reverse());
     });
   }, []);
 
-  let repositories = JSON.parse(localStorage.getItem("repositories"));
-  repositories.unshift("None");
-  repositories.unshift("Select your repository");
+  let repositories = JSON.parse(
+    localStorage.getItem(messages.LOCAL_STORAGE.REPOS)
+  );
+  repositories.unshift(messages.UX.NONE);
+  repositories.unshift(messages.UX.SELECT_REPOSITORY);
 
   function infoModalHandler(message) {
     setOpenFilterModal(true);
@@ -52,8 +59,8 @@ const Tasks = ({ userSession }) => {
             <button
               className="dashboardFilterOnGoing"
               onClick={() => {
-                setFilterStatus("ON GOING");
-                infoModalHandler("Showing on going tasks");
+                setFilterStatus(messages.TASK_INFO.STATUS.ON_GOING);
+                infoModalHandler(messages.TASK_INFO.ON_GOING);
               }}
             >
               ON GOING
@@ -61,8 +68,8 @@ const Tasks = ({ userSession }) => {
             <button
               className="dashboardFilterCompleted"
               onClick={() => {
-                setFilterStatus("COMPLETED");
-                infoModalHandler("Showing completed tasks");
+                setFilterStatus(messages.TASK_INFO.STATUS.COMPLETED);
+                infoModalHandler(messages.TASK_INFO.COMPLETED);
               }}
             >
               COMPLETED

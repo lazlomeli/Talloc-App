@@ -1,1 +1,23 @@
-["Select the language", "Python", "Java", "JavaScript", "TypeScript", "React", "NodeJS", "C", "C++", "C#", "HTML", "CSS", "PHP", "Ruby", "R", "Perl", "Bash", "Kotlin", "Swift", "SQL", "Rust"]
+[
+  "Select a language",
+  "Python",
+  "Java",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "NodeJS",
+  "C",
+  "C++",
+  "C#",
+  "HTML",
+  "CSS",
+  "PHP",
+  "Ruby",
+  "R",
+  "Perl",
+  "Bash",
+  "Kotlin",
+  "Swift",
+  "SQL",
+  "Rust"
+]

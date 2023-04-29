@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TaskHoursGraph } from "./TaskHoursGraph";
 import { HexagonIcon } from "../icon_components/HexagonIcon";
 import { TaskMoreInfo } from "../TaskMoreInfo";
 import * as taskAPI from "../../src/services/taskService";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import * as chartService from "../services/chartService";
+import { MessagesContext } from "../services/MessagesContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const HoursLineGraph = ({ userSession, tasks, setTasks }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState("Select a language");
+  const messages = useContext(MessagesContext);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    messages.UX.SELECT_LANGUAGE
+  );
   const [highestTask, setHighestTask] = useState({});
   const [openMoreModal, setOpenMoreModal] = useState(false);
   const [openInightsModal, setOpenInsightsModal] = useState(false);
@@ -18,7 +22,7 @@ export const HoursLineGraph = ({ userSession, tasks, setTasks }) => {
   const [timeSpent, setTimeSpent] = useState(0);
 
   const selectionArray = tasks.map((task) => task.programming_language);
-  selectionArray.unshift("Select a language");
+  selectionArray.unshift(messages.UX.SELECT_LANGUAGE);
   const uniqueLangs = new Set(selectionArray);
 
   return (
@@ -32,7 +36,7 @@ export const HoursLineGraph = ({ userSession, tasks, setTasks }) => {
           value={selectedLanguage}
           className="trackerHoursSelect"
           onChange={(e) => {
-            if (e.target.value !== "Select a language") {
+            if (e.target.value !== messages.UX.SELECT_LANGUAGE) {
               setSelectedLanguage(e.target.value);
               setHighestTask(
                 taskAPI.getHighestHoursTask(tasks, e.target.value)
@@ -51,7 +55,7 @@ export const HoursLineGraph = ({ userSession, tasks, setTasks }) => {
           selectedLanguage={selectedLanguage}
         />
       </section>
-      {selectedLanguage !== "Select a language" && (
+      {selectedLanguage !== messages.UX.SELECT_LANGUAGE && (
         <section className="trackerHoursInfo">
           <div className="trackerHoursInfoHeader">
             <img

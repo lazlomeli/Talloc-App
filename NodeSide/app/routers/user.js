@@ -1,10 +1,9 @@
-require("dotenv").config({path: '../.env'});
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const User = require("../models/user");
-const jwt = require('jsonwebtoken')
-
+const jwt = require("jsonwebtoken");
 
 async function getUser(req, res, next) {
   let user;
@@ -55,9 +54,11 @@ router.get("/users/:username", async (req, res) => {
   let user;
   try {
     user = await User.findOne({ username: req.params.username });
-    res.status(200).json(user, { message: `Showing user: ${req.params.id}` });
-  } catch (error) {
-    res.status(404).json({ message: "Error getting the user" });
+    res.status(200).json(user);
+  } catch (err) {
+    // res.status(404).json({ message: "Error getting the user" });
+    console.log(err);
+    res.status(404);
   }
 });
 
@@ -123,13 +124,12 @@ router.post("/login", async (req, res) => {
     let valid = await bcrypt.compare(req.body.password, user.password);
 
     if (valid === false) {
-      res.sendStatus(403);
-      console.log("asdasdads");
+      res.status(403);
     } else {
       res.status(200).send(user);
     }
   } catch (error) {
-    res.sendStatus(400);
+    res.status(400);
   }
 });
 
@@ -142,6 +142,7 @@ router.post("/register", async (req, res) => {
     email: req.body.email,
     password: hashedPassword,
     github_username: req.body.github_username,
+    github_pat: req.body.github_pat,
   });
 
   try {
@@ -169,18 +170,25 @@ router.get("/logout", (req, res) => {
   }
 });
 
-router.post('/encrypt', (req, res) => {
-    const username = req.body.username;
-    const tokenizedUsername = jwt.sign(username, process.env.SESSION_ENCRYPT_TOKEN)
-    res.send(tokenizedUsername)
-})
+router.post("/encrypt", (req, res) => {
+  const username = req.body.username;
+  const tokenizedUsername = jwt.sign(
+    username,
+    process.env.SESSION_ENCRYPT_TOKEN
+  );
+  res.send(tokenizedUsername);
+});
 
-router.post('/decrypt', (req, res) => {
-  const tokenizedUsername = req.body.username
-  if (!tokenizedUsername) res.status(500).send("Decryption failed: Token is null or invalid")
+router.post("/decrypt", (req, res) => {
+  const tokenizedUsername = req.body.username;
+  if (!tokenizedUsername)
+    res.status(500).send("Decryption failed: Token is null or invalid");
 
-  const decodedUsername = jwt.verify(tokenizedUsername, process.env.SESSION_ENCRYPT_TOKEN)
-  res.send(decodedUsername)
-})
+  const decodedUsername = jwt.verify(
+    tokenizedUsername,
+    process.env.SESSION_ENCRYPT_TOKEN
+  );
+  res.send(decodedUsername);
+});
 
 module.exports = router;

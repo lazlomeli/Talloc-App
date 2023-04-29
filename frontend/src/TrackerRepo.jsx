@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { GitRepoShield } from "./GitRepoShield";
 import { HexagonIcon } from "./icon_components/HexagonIcon";
 import { DiamondIcon } from "./icon_components/DiamondIcon";
 import * as taskAPI from "../src/services/taskService";
+import { MessagesContext } from "./services/MessagesContext";
 
 export const TrackerRepo = ({ userSession, tasks }) => {
   const [selectedRepo, setSelectedRepo] = useState("");
   const repoWithMostTasks = taskAPI.getRepoWithMostTasks(tasks);
   const repoTasks = taskAPI.getRepoTasks(tasks, repoWithMostTasks).length;
   const repoNames = Array.from(new Set(taskAPI.getUsedRepos(tasks)));
+  const messages = useContext(MessagesContext);
 
   return (
     <section>
@@ -19,7 +21,7 @@ export const TrackerRepo = ({ userSession, tasks }) => {
         </p>
       </div>
       <div className="trackerRepo">
-        {selectedRepo === "" ? (
+        {selectedRepo === messages.UX.EMPTY_STRING ? (
           <>
             <h1 className="trackerRepoMost">
               Most task-contributed repository:

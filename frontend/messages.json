@@ -1,0 +1,46 @@
+{
+  "ENDPOINT": {
+    "ROOT": "/",
+    "REGISTER": "/register",
+    "LOGIN": "/login",
+    "DASHBOARD": "/dashboard",
+    "INSIGHTS": "/insights",
+    "TRACKER": "/tracker"
+  },
+  "UX": {
+    "SELECT_LANGUAGE": "Select a language",
+    "SELECT_REPOSITORY": "Select your repository",
+    "NONE": "None",
+    "EMPTY_STRING": "",
+    "CSHARP": "C#",
+    "YES": "Yes",
+    "NO": "No"
+  },
+  "TASK_INFO": {
+    "STATUS": {
+      "ON_GOING": "ON GOING",
+      "COMPLETED": "COMPLETED"
+    },
+    "ON_GOING": "Showing on going tasks",
+    "COMPLETED": "Showing on completed tasks"
+  },
+  "DATE_FORMAT": {
+    "ISO": "MMM Do YYYY"
+  },
+  "ERRORS": {
+    "INVALID_DATA": "Choose valid data",
+    "WRONG_CREDENTIALS_1": "The provided user credentials are wrong. Try again",
+    "WRONG_CREDENTIALS_2": "Incorrect username or password. Try again",
+    "EMAIL_EXISTS": "E-mail already exists. Choose a different one",
+    "GENERIC": "Something went wrong. Please try again"
+  },
+  "LOCAL_STORAGE": {
+    "TALLOC_USERNAME": "talloc_username",
+    "GITHUB_USERNAME": "talloc_github_username",
+    "REPOS": "repositories"
+  },
+  "REGEXP": {
+    "VALID_USERNAME": "^(?=.{3,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$",
+    "VALID_EMAIL": "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+  }
+}

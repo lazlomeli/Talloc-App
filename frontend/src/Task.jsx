@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import * as taskAPI from "./services/taskService";
 import Moment from "moment";
 import { TaskMoreInfo } from "./TaskMoreInfo";
 import { ViewMoreIcon } from "./icon_components/ViewMoreIcon";
+import { MessagesContext } from "./services/MessagesContext";
 
 export const Task = ({
   userSession,
@@ -18,8 +19,9 @@ export const Task = ({
 }) => {
   const [openMoreModal, setOpenMoreModal] = useState(false);
   const [persistedTask, setPersistedTask] = useState({});
+  const messages = useContext(MessagesContext);
 
-  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL;
 
   const completeTask = (task) => {
     const newTask = {
@@ -28,8 +30,8 @@ export const Task = ({
       programming_language: task.programming_language,
       description: task.description,
       start_date: task.start_date,
-      end_date: Moment().format("MMM Do YYYY"),
-      status: "COMPLETED",
+      end_date: Moment().format(messages.DATE_FORMAT.ISO),
+      status: messages.TASK_INFO.STATUS.COMPLETED,
       created_by: userSession,
       repository_name: task.repository_name,
       time_spent: task.time_spent,
@@ -42,19 +44,19 @@ export const Task = ({
       updatedTasks.push(newTask);
       setTasks(updatedTasks);
     });
-  }
+  };
 
   const deleteTask = (id) => {
     taskAPI.deleteTaskByID(id, TASK_API_URL).then(() => {
       setTasks([...tasks.filter((task) => (task.id === id ? false : true))]);
     });
-  }
+  };
 
   function goToRepos(repository) {
     try {
       window.open(`https://github.com/${userSession}/${repository}`);
     } catch (error) {
-      errorModalHandler("Something went wrong. Please try again");
+      errorModalHandler(messages.ERRORS.GENERIC);
     }
   }
 
@@ -82,7 +84,7 @@ export const Task = ({
                 </h1>
               )}
               <div className="taskLine" />
-              {task.programming_language === "C#" ? (
+              {task.programming_language === messages.UX.CSHARP ? (
                 <div className="taskLangContainer">
                   <img className="taskLangLogo" src={`../static/CSharp.png`} />
                   <p className="taskLang">{task.programming_language}</p>
@@ -113,7 +115,7 @@ export const Task = ({
                   <span className="repoName">{task.repository_name}</span>
                 </p>
               )}
-              {task.status != "COMPLETED" ? (
+              {task.status != messages.TASK_INFO.STATUS.COMPLETED ? (
                 <section className="taskButtonsSection">
                   <p className="taskStatus">
                     Status:

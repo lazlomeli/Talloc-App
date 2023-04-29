@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CrossIcon from "./icon_components/CrossIcon";
 import { PlusIcon } from "./icon_components/PlusIcon";
 import * as taskAPI from "./services/taskService";
 import { Oval } from "react-loader-spinner";
 import { GitRepoShield } from "./GitRepoShield";
+import { MessagesContext } from "./services/MessagesContext";
 
 export const TaskMoreInfo = ({
   userSession,
@@ -22,8 +23,9 @@ export const TaskMoreInfo = ({
 }) => {
   const [addHours, setAddHours] = useState(0);
   const [loadingVisibility, setLoadingVisibility] = useState(false);
+  const messages = useContext(MessagesContext);
 
-  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL;
 
   useEffect(() => {
     setTaskTitle(persistedTask.title);
@@ -50,8 +52,8 @@ export const TaskMoreInfo = ({
         ...tasks.filter((task) => (task.id === id ? false : true)),
         resp.data,
       ]);
-      setTaskTitle("");
-      setTaskDescription("");
+      setTaskTitle(messages.UX.EMPTY_STRING);
+      setTaskDescription(messages.UX.EMPTY_STRING);
       setTimeSpent(0);
     });
     closeMoreModal();
@@ -74,7 +76,7 @@ export const TaskMoreInfo = ({
         />
         <div className="taskMoreInfoTop">
           <div className="taskMoreInfoTopLeft">
-            {persistedTask.programming_language === "C#" ? (
+            {persistedTask.programming_language === messages.UX.CSHARP ? (
               <img className="moreInfoLogo" src={`../static/csharp.png`}></img>
             ) : (
               <img
@@ -89,7 +91,7 @@ export const TaskMoreInfo = ({
           </div>
           <div className="taskMoreInfoTopRight">
             <p className="moreInfoDesc">This task is currently:</p>
-            {persistedTask.status === "COMPLETED" ? (
+            {persistedTask.status === messages.TASK_INFO.STATUS.COMPLETED ? (
               <p className="moreInfoStatus" style={{ color: "#00c5a1" }}>
                 {persistedTask.status}
               </p>
@@ -105,7 +107,7 @@ export const TaskMoreInfo = ({
           <div className="taskMoreInfoMidLeft">
             <label className="moreInfoMidTitle">
               Task Title:
-              {persistedTask.status === "COMPLETED" ? (
+              {persistedTask.status === messages.TASK_INFO.STATUS.COMPLETED ? (
                 <input
                   className="moreInfoMidLeftTitleInp"
                   type="text"
@@ -125,7 +127,7 @@ export const TaskMoreInfo = ({
             </label>
             <label className="moreInfoMidLeftDesc">
               Task Description:
-              {persistedTask.status === "COMPLETED" ? (
+              {persistedTask.status === messages.TASK_INFO.STATUS.COMPLETED ? (
                 <textarea
                   className="moreInfoMidLeftText"
                   spellCheck="false"
@@ -158,7 +160,7 @@ export const TaskMoreInfo = ({
                   {persistedTask.start_date}
                 </span>
               </label>
-              {persistedTask.end_date === "" ? (
+              {persistedTask.end_date === messages.UX.EMPTY_STRING ? (
                 <label className="moreInfoMidTitleRight">
                   End Date:
                   <span
@@ -184,7 +186,7 @@ export const TaskMoreInfo = ({
               Hours spent:
               <div className="hoursSpentContainer">
                 <div className="hoursSpentContainerLeft">
-                  {persistedTask.time_spent === "" ? (
+                  {persistedTask.time_spent === messages.UX.EMPTY_STRING ? (
                     <label className="totalHours">0 hours</label>
                   ) : (
                     <label className="totalHours">{timeSpent} hours</label>
@@ -192,7 +194,7 @@ export const TaskMoreInfo = ({
                 </div>
               </div>
             </label>
-            {persistedTask.status === "ON GOING" && (
+            {persistedTask.status === messages.TASK_INFO.STATUS.ON_GOING && (
               <div className="hoursSpentContainerRight">
                 <input
                   className="hoursSpentInput"
@@ -213,7 +215,7 @@ export const TaskMoreInfo = ({
                 />
               </div>
             )}
-            {persistedTask.status === "ON GOING" && (
+            {persistedTask.status === messages.TASK_INFO.STATUS.ON_GOING && (
               <div className="moreInfoRightButtonContainer">
                 <button
                   className="taskMoreInfoRightUpdateButton"

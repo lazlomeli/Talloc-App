@@ -7,6 +7,7 @@ import * as taskAPI from "./services/taskService";
 import languages from "../langs.json";
 import CrossIcon from "./icon_components/CrossIcon";
 import { Oval } from "react-loader-spinner";
+import { MessagesContext } from "./services/MessagesContext";
 
 const CreateTask = ({
   open,
@@ -37,8 +38,9 @@ const CreateTask = ({
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
+  const messages = useContext(MessagesContext);
 
-  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL
+  const TASK_API_URL = import.meta.env.VITE_TASK_API_URL;
 
   const newTask = {
     id: taskID,
@@ -54,9 +56,9 @@ const CreateTask = ({
   };
 
   useEffect(() => {
-    const formatDate = Moment().format("MMM Do YYYY");
+    const formatDate = Moment().format(messages.DATE_FORMAT.ISO);
     setStartDate(formatDate);
-    setTaskStatus("ON GOING");
+    setTaskStatus(messages.TASK_INFO.STATUS.ON_GOING);
   }, [newTask]);
 
   function createTask() {
@@ -67,13 +69,13 @@ const CreateTask = ({
 
     if (
       t === undefined ||
-      pl === "Select the language" ||
-      rn === "Select your repository" ||
+      pl === messages.UX.SELECT_LANGUAGE ||
+      rn === messages.UX.SELECT_REPOSITORY ||
       isEmpty(newTask.title) ||
       isEmpty(newTask.programming_language) ||
       isEmpty(newTask.repository_name)
     ) {
-      errorModalHandler("Choose valid data");
+      errorModalHandler(messages.ERRORS.INVALID_DATA);
     } else {
       taskAPI
         .postTask(newTask, TASK_API_URL)
@@ -81,11 +83,11 @@ const CreateTask = ({
           setLoadingVisibility(true);
           setTimeout(() => {
             setTasks([resp.data].concat([...tasks]));
-            setTaskTitle("");
-            setTaskLang("Select the language");
-            setRepositoryName("Select your repository");
-            setTaskDescription("");
-            setFilterStatus("ON GOING");
+            setTaskTitle(messages.UX.EMPTY_STRING);
+            setTaskLang(messages.UX.SELECT_LANGUAGE);
+            setRepositoryName(messages.UX.SELECT_REPOSITORY);
+            setTaskDescription(messages.UX.EMPTY_STRING);
+            setFilterStatus(messages.TASK_INFO.STATUS.ON_GOING);
             setLoadingVisibility(false);
             onClose();
           }, 500);
@@ -96,7 +98,7 @@ const CreateTask = ({
 
   function closeModal() {
     onClose();
-    setRepositoryName("Select your repository");
+    setRepositoryName(messages.UX.SELECT_REPOSITORY);
   }
 
   if (!open) return null;

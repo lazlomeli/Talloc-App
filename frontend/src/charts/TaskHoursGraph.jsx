@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import * as taskAPI from "../services/taskService";
 import {
   Chart,
@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { MessagesContext } from "../services/MessagesContext";
 
 Chart.register(
   LineController,
@@ -26,10 +27,11 @@ export const TaskHoursGraph = ({ tasks, selectedLanguage }) => {
   const hoursOfTasks = taskAPI.getHoursArrayOfEachTask(tasks, selectedLanguage);
   const arrayOfLangHours = [...Array(totalTasksOfLang).keys()];
   const [hoveredItem, setHoveredItem] = useState("");
+  const messages = useContext(MessagesContext);
 
   return (
     <>
-      {selectedLanguage !== "Select a language" ? (
+      {selectedLanguage !== messages.UX.SELECT_LANGUAGE ? (
         <div className="trackerHoursGraph">
           <Line
             data={{

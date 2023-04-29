@@ -192,7 +192,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 400px;
-  height: 400px;
+  height: 500px;
   margin-bottom: 100px;
 }
 .registerTitles {
@@ -209,7 +209,12 @@ body {
   flex-basis: 100%;
   flex-direction: column;
 }
-.registerQuestion {
+.gitHubPATSection {
+  display: flex;
+  flex-direction: column;
+}
+.registerQuestion,
+.registerQuestionPAT {
   font-family: "Alliance No.1 Light";
   font-weight: normal;
   font-size: 12px;
@@ -217,6 +222,13 @@ body {
   flex-basis: 50%;
   margin: 10px;
   margin-left: 10px;
+}
+.registerQuestionPAT {
+  text-decoration: underline;
+}
+.registerQuestionPAT:hover {
+  color: #4259db;
+  cursor: pointer;
 }
 .registerQuestionContainer {
   display: flex;
@@ -233,7 +245,8 @@ body {
   color: rgb(148, 148, 148);
   padding: 5px;
 }
-.registerInputs {
+.registerInputs,
+.registerInputPAT {
   font-family: "Alliance No.1";
   background: #010409;
   text-align: center;
@@ -249,6 +262,9 @@ body {
   margin: 10px;
   padding: 5px;
   height: 20px;
+}
+.registerInputPAT {
+  margin: 0px;
 }
 .registerGitHubInput {
   font-family: "Alliance No.1";

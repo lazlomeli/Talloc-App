@@ -5,7 +5,7 @@ const router = express.Router();
 const auth = require("../controller/auth");
 
 // const taskAPI = process.env.TASK_API_URL_DOCKER
-const taskAPI = process.env.TASK_API_URL
+const taskAPI = process.env.TASK_API_URL;
 
 router.get("/tasks", auth.authenticateToken, (req, res) => {
   axios
@@ -74,18 +74,18 @@ router.delete("/tasks/:id", auth.authenticateToken, (req, res) => {
     });
 });
 
-router.post("/github/:username", (req, res) => {
-  config = {
-    headers: {
-      Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${process.env.GITHUB_PERSONAL_TOKEN}`,
-    },
-  };
-  axios
-    .get(`${process.env.GITHUB_API_URL}/users/${req.params.username}/repos`, config)
-    .then((resp) => {
-      res.send(resp.data);
-    });
-});
+// router.get("/github/:username", (req, res) => {
+// config = {
+//   headers: {
+//     Accept: "application/vnd.github+json",
+//     Authorization: `Bearer ${process.env.GITHUB_PERSONAL_TOKEN}`,
+//   },
+// };
+// axios
+//   .get(`${process.env.GITHUB_API_URL}/users/${req.params.username}/repos`, config)
+//   .then((resp) => {
+//     res.send(resp.data);
+//   });
+// });
 
 module.exports = router;

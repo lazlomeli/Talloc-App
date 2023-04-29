@@ -2,38 +2,52 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorModal } from "./ErrorModal";
 import { ErrorContext } from "./services/ErrorContext";
-import * as taskAPI from "./services/taskService";
 import * as userAPI from "./services/userService";
+import { MessagesContext } from "./services/MessagesContext";
 
 export function LoginPage() {
   const [username, setUsername] = useState({ username: "" });
   const [password, setPassword] = useState({ password: "" });
+  const [gitHubUsername, setGitHubUsername] = useState("");
   const [isLogged, setIsLogged] = useState(false);
   const navigateTo = useNavigate();
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
-  
-  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL
+  const messages = useContext(MessagesContext);
+
+  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
+
+  useEffect(() => {
+    setGitHubUsername(
+      localStorage.getItem(messages.LOCAL_STORAGE.GITHUB_USERNAME)
+    );
+  }, [isLogged]);
 
   useEffect(() => {
     if (isLogged === true) {
-      taskAPI
-        .getGithubRepos(localStorage.getItem("talloc_github_username"), GATEWAY_API_URL)
+      userAPI
+        .getGithubRepos(gitHubUsername, GATEWAY_API_URL)
         .then((resp) => {
           let data = resp.data;
           let repositories = [];
           data.map((repo) => repositories.push(repo.name));
-          localStorage.setItem("repositories", JSON.stringify(repositories));
-          navigateTo("/dashboard");
+          localStorage.setItem(
+            messages.LOCAL_STORAGE.REPOS,
+            JSON.stringify(repositories)
+          );
+          navigateTo(messages.ENDPOINT.DASHBOARD);
         })
         .catch((err) => {
           let repositories = [];
-          localStorage.setItem("repositories", JSON.stringify(repositories));
-          navigateTo("/dashboard");
+          localStorage.setItem(
+            messages.LOCAL_STORAGE.REPOS,
+            JSON.stringify(repositories)
+          );
+          navigateTo(messages.ENDPOINT.DASHBOARD);
         });
     }
-  }, [isLogged]);
+  }, [gitHubUsername]);
 
   const submitData = () => {
     let u = username.username.toLowerCase();
@@ -47,25 +61,31 @@ export function LoginPage() {
     const isEmpty = (str) => !str.trim().length;
 
     if (isEmpty(u) || isEmpty(p)) {
-      errorModalHandler("The provided user credentials are wrong. Try again");
+      errorModalHandler(messages.ERRORS.WRONG_CREDENTIALS_1);
     }
 
     userAPI
       .logIn(user, GATEWAY_API_URL)
       .then((resp) => {
-        localStorage.setItem("talloc_github_username", resp.data.github_username);
+        localStorage.setItem(
+          messages.LOCAL_STORAGE.GITHUB_USERNAME,
+          resp.data.github_username
+        );
+        setGitHubUsername(resp.data.github_username);
         // localStorage.setItem("talloc_username", user.username);
       })
-      .catch(() => {
-        errorModalHandler("The provided user credentials are wrong. Try again");
+      .catch((err) => {
+        console.log(err);
+        errorModalHandler(messages.ERRORS.WRONG_CREDENTIALS_1);
       });
 
-      userAPI.encryptSession({ username: user.username }, GATEWAY_API_URL)
-        .then((resp) => {
-          localStorage.setItem("talloc_username", resp.data)
-          setIsLogged(true);
-        })
-        .catch((err) => console.log(err));
+    userAPI
+      .encryptSession({ username: user.username }, GATEWAY_API_URL)
+      .then((resp) => {
+        localStorage.setItem(messages.LOCAL_STORAGE.TALLOC_USERNAME, resp.data);
+        setIsLogged(true);
+      })
+      .catch((err) => console.log(err));
   };
 
   const changeUsername = (e) => {

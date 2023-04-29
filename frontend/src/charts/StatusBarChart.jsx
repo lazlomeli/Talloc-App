@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as taskAPI from "../services/taskService";
 import {
   Chart as ChartJS,
@@ -9,12 +9,20 @@ import {
   CategoryScale,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { MessagesContext } from "../services/MessagesContext";
 
 ChartJS.register(BarElement, BarController, CategoryScale, Tooltip, Legend);
 
 export const StatusBarChart = ({ tasks, setTasks }) => {
-  const completedTasksArr = taskAPI.getTasksByStatus(tasks, "COMPLETED");
-  const onGoingTasksArr = taskAPI.getTasksByStatus(tasks, "ON GOING");
+  const messages = useContext(MessagesContext);
+  const completedTasksArr = taskAPI.getTasksByStatus(
+    tasks,
+    messages.TASK_INFO.STATUS.COMPLETED
+  );
+  const onGoingTasksArr = taskAPI.getTasksByStatus(
+    tasks,
+    messages.TASK_INFO.STATUS.ON_GOING
+  );
 
   return (
     <Bar

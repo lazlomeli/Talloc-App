@@ -22,9 +22,9 @@ export function deleteTaskByID(id, url) {
   return axios.delete(`${url}/${id}`);
 }
 
-export function getGithubRepos(username, url) {
-  return axios.post(`${url}/github/${username}`);
-}
+// export function getGithubRepos(username, url) {
+//   return axios.get(`${url}/github/${username}`);
+// }
 
 export const calculatePercentage = (tasks, lang) => {
   let taskCounter = countLanguageTasks(tasks, lang);

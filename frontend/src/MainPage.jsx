@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { MessagesContext } from "./services/MessagesContext";
 
 export const MainPage = () => {
+  const messages = useContext(MessagesContext);
+
   return (
     <div className="mainPage">
       <div className="mainPage_Logo">
@@ -26,14 +29,14 @@ export const MainPage = () => {
           <div className="menuLine" />
           <p className="logReg">
             Already have an account?
-            <Link className="logReg_ref" to="/login">
+            <Link className="logReg_ref" to={messages.ENDPOINT.LOGIN}>
               {" "}
               Log in
             </Link>
           </p>
           <p className="logReg">
             New to Talloc?
-            <Link className="logReg_ref" to="/register">
+            <Link className="logReg_ref" to={messages.ENDPOINT.REGISTER}>
               {" "}
               Register now
             </Link>

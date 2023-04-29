@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ErrorModal } from "./ErrorModal";
 import { ErrorContext } from "./services/ErrorContext";
 import * as userAPI from "./services/userService";
+import { MessagesContext } from "./services/MessagesContext";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState({ username: "" });
@@ -10,17 +11,19 @@ const RegisterPage = () => {
   const [repPassword, setRepPassword] = useState({ repPassword: "" });
   const [email, setEmail] = useState({ email: "" });
   const [githubUsername, setGithubUsername] = useState({ githubUsername: "" });
+  const [githubPAT, setGithubPAT] = useState({ githubPAT: "" });
   const [checkedRadio, setCheckedRadio] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
   const navigateTo = useNavigate();
+  const messages = useContext(MessagesContext);
 
-  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL
+  const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
 
   useEffect(() => {
-    isRegistered === true ? navigateTo("/login") : null;
+    isRegistered === true ? navigateTo(messages.ENDPOINT.LOGIN) : null;
   }, [isRegistered]);
 
   const changeUsername = (e) => {
@@ -38,18 +41,20 @@ const RegisterPage = () => {
   const changeGitHubUsername = (e) => {
     setGithubUsername({ githubUsername: e.target.value });
   };
+  const changeGitHubPAT = (e) => {
+    setGithubPAT({ githubPAT: e.target.value });
+  };
 
   const registeredUser = {
     username: username.username.toLowerCase(),
     email: email.email.toLowerCase(),
     password: password.password.toLowerCase(),
     github_username: githubUsername.githubUsername.toLowerCase(),
+    github_pat: githubPAT.githubPAT,
   };
 
   const isValidUserSyntax = () => {
-    let validUser = new RegExp(
-      "^(?=.{3,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
-    );
+    let validUser = new RegExp(messages.REGEXP.VALID_USERNAME);
     return validUser.test(username.username) ? true : false;
   };
 
@@ -58,9 +63,7 @@ const RegisterPage = () => {
   };
 
   const isValidEmail = () => {
-    let validEmail = new RegExp(
-      "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-    );
+    let validEmail = new RegExp(messages.REGEXP.VALID_EMAIL);
     return validEmail.test(email.email) ? true : false;
   };
 
@@ -73,10 +76,10 @@ const RegisterPage = () => {
         })
         .catch((err) => {
           console.log(err);
-          errorModalHandler("E-mail already exists. Choose a different one");
+          errorModalHandler(messages.ERRORS.EMAIL_EXISTS);
         });
     } else {
-      errorModalHandler("Incorrect username or password. Try again");
+      errorModalHandler(messages.ERRORS.WRONG_CREDENTIALS_2);
     }
   };
 
@@ -136,7 +139,7 @@ const RegisterPage = () => {
                   id="registerRadio"
                   name="regRad"
                   value={checkedRadio}
-                  onChange={() => setCheckedRadio("Yes")}
+                  onChange={() => setCheckedRadio(messages.UX.YES)}
                 />
               </label>
               <label className="registerRadio" htmlFor="registerRadio">
@@ -146,11 +149,11 @@ const RegisterPage = () => {
                   id="registerRadio"
                   name="regRad"
                   value={checkedRadio}
-                  onChange={() => setCheckedRadio("No")}
+                  onChange={() => setCheckedRadio(messages.UX.NO)}
                 />
               </label>
             </div>
-            {checkedRadio === "Yes" && (
+            {checkedRadio === messages.UX.YES && (
               <input
                 className="registerGitHubInput"
                 type="text"
@@ -162,7 +165,24 @@ const RegisterPage = () => {
             )}
           </div>
         </section>
-        <div className="registerLine" />
+        <section>
+          {checkedRadio === messages.UX.YES && (
+            <div className="gitHubPATSection">
+              <h1 className="registerQuestionPAT">
+                Generate GitHub fine-grained PAT
+              </h1>
+              <input
+                className="registerInputPAT"
+                type="text"
+                placeholder="GitHub PAT"
+                value={githubPAT.githubPAT}
+                onChange={(e) => changeGitHubPAT(e)}
+                required
+              />
+            </div>
+          )}
+        </section>
+        {/* <div className="registerLine" /> */}
         <button className="log_regButton" onClick={signUp}>
           Sign up
         </button>
