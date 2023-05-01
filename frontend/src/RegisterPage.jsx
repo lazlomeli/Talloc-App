@@ -23,7 +23,7 @@ const RegisterPage = () => {
   const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
 
   useEffect(() => {
-    isRegistered === true ? navigateTo(messages.ENDPOINT.LOGIN) : null;
+    isRegistered === true ? navigateTo(`${messages.ENDPOINT.LOGIN}`) : null;
   }, [isRegistered]);
 
   const changeUsername = (e) => {
@@ -43,6 +43,12 @@ const RegisterPage = () => {
   };
   const changeGitHubPAT = (e) => {
     setGithubPAT({ githubPAT: e.target.value });
+  };
+
+  const showTokenTutorial = () => {
+    window.open(
+      `https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/`
+    );
   };
 
   const registeredUser = {
@@ -168,7 +174,10 @@ const RegisterPage = () => {
         <section>
           {checkedRadio === messages.UX.YES && (
             <div className="gitHubPATSection">
-              <h1 className="registerQuestionPAT">
+              <h1
+                className="registerQuestionPAT"
+                onClick={() => showTokenTutorial()}
+              >
                 Generate GitHub fine-grained PAT
               </h1>
               <input

@@ -36,7 +36,7 @@ export function LoginPage() {
             messages.LOCAL_STORAGE.REPOS,
             JSON.stringify(repositories)
           );
-          navigateTo(messages.ENDPOINT.DASHBOARD);
+          navigateTo(`${messages.ENDPOINT.DASHBOARD}`);
         })
         .catch((err) => {
           let repositories = [];
@@ -44,7 +44,7 @@ export function LoginPage() {
             messages.LOCAL_STORAGE.REPOS,
             JSON.stringify(repositories)
           );
-          navigateTo(messages.ENDPOINT.DASHBOARD);
+          navigateTo(`${messages.ENDPOINT.DASHBOARD}`);
         });
     }
   }, [gitHubUsername]);

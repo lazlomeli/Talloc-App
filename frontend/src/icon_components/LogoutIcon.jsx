@@ -14,7 +14,7 @@ const LogoutIcon = () => {
     localStorage.removeItem(messages.LOCAL_STORAGE.TALLOC_USERNAME);
     localStorage.removeItem(messages.LOCAL_STORAGE.REPOS);
     localStorage.removeItem(messages.LOCAL_STORAGE.GITHUB_USERNAME);
-    navigateTo(messages.ENDPOINT.ROOT);
+    navigateTo(`${messages.ENDPOINT.ROOT}`);
   }
   return (
     <section className="logout" title="Log out" onClick={() => logout()}>

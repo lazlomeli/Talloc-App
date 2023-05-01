@@ -10,6 +10,9 @@ const DashboardSideBar = () => {
   const messages = useContext(MessagesContext);
 
   const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
+  const githubUsername = localStorage.getItem(
+    messages.LOCAL_STORAGE.GITHUB_USERNAME
+  );
 
   useEffect(() => {
     const tokenizedUsername = localStorage.getItem(
@@ -29,22 +32,30 @@ const DashboardSideBar = () => {
       <p className="dashboardSideDesc">Click to navigate:</p>
       <section
         className="dashboardSideBox"
-        onClick={() => navigateTo(messages.ENDPOINT.DASHBOARD)}
+        onClick={() => navigateTo(`${messages.ENDPOINT.DASHBOARD}`)}
       >
         <p className="dashboardSideBoxOption">Dashboard</p>
       </section>
       <section
         className="dashboardSideBox"
-        onClick={() => navigateTo(messages.ENDPOINT.INSIGHTS)}
+        onClick={() => navigateTo(`${messages.ENDPOINT.INSIGHTS}`)}
       >
         <p className="dashboardSideBoxOption">Insights</p>
       </section>
       <section
         className="dashboardSideBox"
-        onClick={() => navigateTo(messages.ENDPOINT.TRACKER)}
+        onClick={() => navigateTo(`${messages.ENDPOINT.TRACKER}`)}
       >
         <p className="dashboardSideBoxOption">Tracker</p>
       </section>
+      {githubUsername && (
+        <section
+          className="dashboardSideBoxPAT"
+          onClick={() => navigateTo(`${messages.ENDPOINT.UPDATE_PAT}`)}
+        >
+          <p className="dashboardSideBoxOptionPAT">Update PAT</p>
+        </section>
+      )}
       <LogoutIcon />
     </div>
   );

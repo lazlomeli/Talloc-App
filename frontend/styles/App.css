@@ -139,7 +139,8 @@ body {
   height: 200px;
   margin-bottom: 100px;
 }
-.log_regInputs {
+.log_regInputs,
+.updatePATInput {
   font-family: "Alliance No.1";
   margin-bottom: 10px;
   background: #010409;
@@ -452,7 +453,8 @@ body {
 .modalSelect:hover {
   cursor: pointer;
 }
-.modalDescription {
+.modalDescription,
+.updatePATInputDescription {
   width: 450px;
   height: 150px;
   margin-top: 30px;
@@ -749,7 +751,8 @@ body {
   width: 200px;
   margin-top: 5px;
 }
-.taskMoreInfoRightUpdateButton {
+.taskMoreInfoRightUpdateButton,
+.updatePATbutton {
   font-family: "Alliance No.1";
   align-self: flex-end;
   width: 150px;
@@ -1138,7 +1141,8 @@ body {
   margin: 0px;
   margin-top: 20px;
 }
-.dashboardSideBox {
+.dashboardSideBox,
+.dashboardSideBoxPAT {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1151,21 +1155,36 @@ body {
   width: 120px;
   margin-top: 20px;
 }
+.dashboardSideBoxPAT {
+  outline-color: #005ba5;
+}
 .dashboardSideBox:hover {
   outline-color: #00a585;
   cursor: pointer;
+}
+.dashboardSideBoxPAT:hover {
+  cursor: pointer;
+  outline-color: #008cff;
 }
 .dashboardSideBox:hover > * {
   cursor: pointer;
   color: #505b68;
 }
-.dashboardSideBoxOption {
+.dashboardSideBoxPAT:hover > * {
+  cursor: pointer;
+  color: #115a96;
+}
+.dashboardSideBoxOption,
+.dashboardSideBoxOptionPAT {
   font-family: "Alliance No.1";
   font-weight: lighter;
   color: #838f9c;
   margin: 0px;
   margin: 5px;
   padding: 5px;
+}
+.dashboardSideBoxOptionPAT {
+  color: #0f79cf;
 }
 .logout {
   position: fixed;
@@ -1654,7 +1673,8 @@ body {
   cursor: pointer;
   color: #e0e0e0;
 }
-.forbiddenTitle {
+.forbiddenTitle,
+.updatePATtitle {
   font-family: "Alliance No.1";
   color: #ebebeb;
 }
@@ -1662,7 +1682,8 @@ body {
   font-family: "Alliance No.1";
   color: #838c9b;
 }
-.forbiddenGoBack {
+.forbiddenGoBack,
+.goBackPAT {
   font-family: "Alliance No.1";
   color: #00c5a1;
   text-decoration: underline;
@@ -1671,7 +1692,51 @@ body {
 .forbiddenGoBack:hover {
   color: #09856e;
 }
-
+.updatePAT {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  outline: solid;
+  border-radius: 5px;
+  outline-width: 1px;
+  outline-color: #2c323b;
+  margin-bottom: 15px;
+}
+.updatePATtitle {
+  font-size: 35px;
+}
+.updatePATInputDescription {
+  font-size: 12px;
+  margin: 0px;
+  height: max-content;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  color: #868e97;
+}
+.updatePATGenerate {
+  color: #566ef7;
+  text-decoration: underline;
+}
+.updatePATGenerate:hover {
+  color: #455acf;
+  cursor: pointer;
+}
+.updatePATInput {
+  width: 400px;
+  margin-right: 10px;
+}
+.updatePATbutton {
+  width: 80px;
+}
+.goBackPAT:hover {
+  color: #09856e;
+}
+.updatePATbutton:hover {
+  background-color: #4259db;
+  color: #fff;
+  border-color: #192772;
+}
 @keyframes showTrackerInfo {
   100% {
     opacity: 1;

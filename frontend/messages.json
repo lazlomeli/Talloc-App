@@ -5,7 +5,8 @@
     "LOGIN": "/login",
     "DASHBOARD": "/dashboard",
     "INSIGHTS": "/insights",
-    "TRACKER": "/tracker"
+    "TRACKER": "/tracker",
+    "UPDATE_PAT": "/update_pat"
   },
   "UX": {
     "SELECT_LANGUAGE": "Select a language",

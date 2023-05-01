@@ -15,7 +15,9 @@ const CrossIcon = ({ toggleModal, setOpenInsightsModal }) => {
       strokeLinejoin="round"
       onClick={() => {
         toggleModal();
-        setOpenInsightsModal(true);
+        try {
+          setOpenInsightsModal(true);
+        } catch (err) {}
       }}
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

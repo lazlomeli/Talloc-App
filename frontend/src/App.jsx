@@ -9,6 +9,7 @@ import { ErrorContext } from "./services/ErrorContext";
 import { Tracker } from "./Tracker";
 import { MessagesContext } from "./services/MessagesContext";
 import messages from "../messages.json";
+import { UpdatePAT } from "./UpdatePAT";
 
 export const App = () => {
   const [openErrorModal, setOpenErrorModal] = useState(false);
@@ -40,6 +41,7 @@ export const App = () => {
           <Route path={messages.ENDPOINT.DASHBOARD} element={<Dashboard />} />
           <Route path={messages.ENDPOINT.INSIGHTS} element={<Insights />} />
           <Route path={messages.ENDPOINT.TRACKER} element={<Tracker />} />
+          <Route path={messages.ENDPOINT.UPDATE_PAT} element={<UpdatePAT />} />
         </Routes>
       </ErrorContext.Provider>
     </MessagesContext.Provider>
