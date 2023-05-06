@@ -1697,10 +1697,6 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 30px;
-  outline: solid;
-  border-radius: 5px;
-  outline-width: 1px;
-  outline-color: #2c323b;
   margin-bottom: 15px;
 }
 .updatePATtitle {

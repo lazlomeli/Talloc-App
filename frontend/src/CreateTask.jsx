@@ -8,6 +8,7 @@ import languages from "../langs.json";
 import CrossIcon from "./icon_components/CrossIcon";
 import { Oval } from "react-loader-spinner";
 import { MessagesContext } from "./services/MessagesContext";
+import { LoadingContext } from "./services/LoadingContext";
 
 const CreateTask = ({
   open,
@@ -34,7 +35,8 @@ const CreateTask = ({
   session_u,
   repositories,
 }) => {
-  const [loadingVisibility, setLoadingVisibility] = useState(false);
+  const { loadingVisibility, setLoadingVisibility } =
+    useContext(LoadingContext);
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);

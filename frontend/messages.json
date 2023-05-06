@@ -33,7 +33,11 @@
     "WRONG_CREDENTIALS_1": "The provided user credentials are wrong. Try again",
     "WRONG_CREDENTIALS_2": "Incorrect username or password. Try again",
     "EMAIL_EXISTS": "E-mail already exists. Choose a different one",
-    "GENERIC": "Something went wrong. Please try again"
+    "GENERIC": "Something went wrong. Please try again",
+    "WRONG_PAT": "Invalid token. Enter a valid Github PAT"
+  },
+  "INFO": {
+    "UPDATE_PAT": "GitHub PAT updated succesfully"
   },
   "LOCAL_STORAGE": {
     "TALLOC_USERNAME": "talloc_username",

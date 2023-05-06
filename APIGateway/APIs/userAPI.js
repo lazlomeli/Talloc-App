@@ -54,14 +54,25 @@ router.post("/users", auth.authenticateToken, (req, res) => {
     });
 });
 
-router.patch("/users/:id", auth.authenticateToken, (req, res) => {
+// router.patch("/users/:id", auth.authenticateToken, (req, res) => {
+//   axios
+//     .patch(userAPI + req.path, req.body)
+//     .then((resp) => {
+//       res.send(resp.data);
+//     })
+//     .catch(() => {
+//       console.log("Update error");
+//     });
+// });
+
+router.patch("/users/:username", auth.authenticateToken, (req, res) => {
   axios
     .patch(userAPI + req.path, req.body)
     .then((resp) => {
       res.send(resp.data);
     })
-    .catch(() => {
-      console.log("Update error");
+    .catch((err) => {
+      console.log(err);
     });
 });
 

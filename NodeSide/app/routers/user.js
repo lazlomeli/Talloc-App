@@ -89,21 +89,36 @@ router.post("/users", async (req, res) => {
   }
 });
 
-router.patch("/users/:id", getUser, async (req, res) => {
-  if (req.body.username != null) {
-    res.user.username = req.body.username;
-  }
-  if (req.body.email != null) {
-    res.user.email = req.body.email;
-  }
-  if (req.body.password != null) {
-    res.user.password = req.body.password;
-  }
+// router.patch("/users/:id", getUser, async (req, res) => {
+//   if (req.body.username != null) {
+//     res.user.username = req.body.username;
+//   }
+//   if (req.body.email != null) {
+//     res.user.email = req.body.email;
+//   }
+//   if (req.body.password != null) {
+//     res.user.password = req.body.password;
+//   }
+//   try {
+//     const updatedUser = await res.user.save();
+//     res.json(updatedUser, { message: `Updated user ${req.params.id}` });
+//   } catch (error) {
+//     res.status(400).json({ message: "Error updating the user" });
+//   }
+// });
+
+router.patch("/users/:username", async (req, res) => {
+  const username = req.params.username;
+  const update = { $set: req.body.update_query };
   try {
-    const updatedUser = await res.user.save();
-    res.json(updatedUser, { message: `Updated user ${req.params.id}` });
+    const filter = { username: username };
+    const options = { returnOriginal: false };
+    const result = await User.findOneAndUpdate(filter, update, options);
+
+    res.status(200).json(result.value);
   } catch (error) {
-    res.status(400).json({ message: "Error updating the user" });
+    console.log(error);
+    res.status(500).json("Could not update the user: ", username);
   }
 });
 

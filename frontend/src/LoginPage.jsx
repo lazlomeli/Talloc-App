@@ -72,7 +72,6 @@ export function LoginPage() {
           resp.data.github_username
         );
         setGitHubUsername(resp.data.github_username);
-        // localStorage.setItem("talloc_username", user.username);
       })
       .catch((err) => {
         console.log(err);

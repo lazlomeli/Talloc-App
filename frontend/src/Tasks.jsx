@@ -6,6 +6,7 @@ import { InfoModal } from "./InfoModal";
 import * as taskAPI from "./services/taskService";
 import { Task } from "./Task";
 import { MessagesContext } from "./services/MessagesContext";
+import { InfoContext } from "./services/InfoContext";
 
 const Tasks = ({ userSession }) => {
   const messages = useContext(MessagesContext);
@@ -26,6 +27,9 @@ const Tasks = ({ userSession }) => {
   const [filterStatus, setFilterStatus] = useState(
     messages.TASK_INFO.STATUS.ON_GOING
   );
+  const { openInfoModal, setOpenInfoModal } = useContext(InfoContext);
+  const { infoMessage, setInfoMessage } = useContext(InfoContext);
+  const { infoModalHandler } = useContext(InfoContext);
 
   const TASK_API_URL = import.meta.env.VITE_TASK_API_URL;
 
@@ -41,14 +45,6 @@ const Tasks = ({ userSession }) => {
   );
   repositories.unshift(messages.UX.NONE);
   repositories.unshift(messages.UX.SELECT_REPOSITORY);
-
-  function infoModalHandler(message) {
-    setOpenFilterModal(true);
-    setFilterModalMessage(message);
-    setTimeout(() => {
-      setOpenFilterModal(false);
-    }, 3000);
-  }
 
   return (
     <section className="dashboard">
@@ -85,9 +81,9 @@ const Tasks = ({ userSession }) => {
       )}
 
       <InfoModal
-        message={filterModalMessage}
-        openModal={openFilterModal}
-        closeModal={() => setOpenFilterModal(false)}
+        message={infoMessage}
+        openModal={openInfoModal}
+        closeModal={() => setOpenInfoModal(false)}
       />
       <div className="dashboardTasks">
         <Task
