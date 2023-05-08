@@ -20,9 +20,10 @@ export const registerUser = (user, url) => {
   return axios.post(`${url}/register`, user);
 };
 
-export function getGithubRepos(username, url) {
-  return axios.get(`${url}/github/${username}`);
-}
+export const getGithubRepos = (tallocUsername, githubUsername, url) => {
+  console.log(githubUsername);
+  return axios.post(`${url}/github/${githubUsername}`, tallocUsername);
+};
 
 export const clearCookieToken = (url) => {
   return axios.get(`${url}/logout`);

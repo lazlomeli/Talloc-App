@@ -59,7 +59,7 @@ body {
   margin-bottom: 20px;
   padding: 20px;
   width: 300px;
-  height: 220px;
+  height: 240px;
 }
 .greenWord {
   color: #00a586;
@@ -226,6 +226,8 @@ body {
 }
 .registerQuestionPAT {
   text-decoration: underline;
+  margin: 0px;
+  margin-top: 5px;
 }
 .registerQuestionPAT:hover {
   color: #4259db;
@@ -265,7 +267,7 @@ body {
   height: 20px;
 }
 .registerInputPAT {
-  margin: 0px;
+  width: 150px;
 }
 .registerGitHubInput {
   font-family: "Alliance No.1";
@@ -281,7 +283,6 @@ body {
   border-radius: 3px;
   outline-width: 1px;
   margin: 10px;
-  margin-right: 21px;
   padding: 5px;
   height: 20px;
 }
@@ -290,6 +291,10 @@ body {
   color: #fff;
 }
 .registerInputs:focus {
+  background: #30363d;
+  color: #fff;
+}
+.registerInputPAT:focus {
   background: #30363d;
   color: #fff;
 }
@@ -1692,6 +1697,9 @@ body {
 .forbiddenGoBack:hover {
   color: #09856e;
 }
+.registerTitlesPAT {
+  margin-right: 31px;
+}
 .updatePAT {
   display: flex;
   flex-direction: column;
@@ -1721,6 +1729,10 @@ body {
 .updatePATInput {
   width: 400px;
   margin-right: 10px;
+}
+.updatePATInput:focus {
+  background: #30363d;
+  color: #fff;
 }
 .updatePATbutton {
   width: 80px;

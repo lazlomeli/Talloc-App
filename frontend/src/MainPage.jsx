@@ -16,7 +16,7 @@ export const MainPage = () => {
         <div className="mainPage_Info">
           <p>
             <span className="greenWord">Talloc</span> is a task management
-            application from developers for developers.
+            application that works with the GitHub developers API
           </p>
           <p>
             <span className="greenWord">Create Tasks</span> to manage your work

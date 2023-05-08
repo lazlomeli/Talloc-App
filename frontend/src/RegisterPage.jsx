@@ -134,64 +134,34 @@ const RegisterPage = () => {
           onChange={(e) => changeRepPassword(e)}
           required
         />
-        <section className="registerGitHub">
-          <h1 className="registerQuestion">Do you have a GitHub account?</h1>
-          <div className="registerQuestionContainer">
-            <div>
-              <label className="registerRadio" htmlFor="registerRadio">
-                Yes
-                <input
-                  type="radio"
-                  id="registerRadio"
-                  name="regRad"
-                  value={checkedRadio}
-                  onChange={() => setCheckedRadio(messages.UX.YES)}
-                />
-              </label>
-              <label className="registerRadio" htmlFor="registerRadio">
-                No
-                <input
-                  type="radio"
-                  id="registerRadio"
-                  name="regRad"
-                  value={checkedRadio}
-                  onChange={() => setCheckedRadio(messages.UX.NO)}
-                />
-              </label>
-            </div>
-            {checkedRadio === messages.UX.YES && (
-              <input
-                className="registerGitHubInput"
-                type="text"
-                placeholder="GitHub Username"
-                value={githubUsername.githubUsername}
-                onChange={(e) => changeGitHubUsername(e)}
-                required
-              />
-            )}
-          </div>
+        <h1 className="registerTitles">GitHub Username</h1>
+        <input
+          className="registerGitHubInput"
+          type="text"
+          placeholder="GitHub Username"
+          value={githubUsername.githubUsername}
+          onChange={(e) => changeGitHubUsername(e)}
+          required
+        />
+        <div className="registerTitlesPAT">
+          <h1 className="registerTitles">GitHub PAT</h1>
+          <h1
+            className="registerQuestionPAT"
+            onClick={() => showTokenTutorial()}
+          >
+            Generate a fine-grained token
+          </h1>
+        </div>
+        <section className="gitHubPATSection">
+          <input
+            className="registerInputPAT"
+            type="text"
+            placeholder="GitHub PAT"
+            value={githubPAT.githubPAT}
+            onChange={(e) => changeGitHubPAT(e)}
+            required
+          />
         </section>
-        <section>
-          {checkedRadio === messages.UX.YES && (
-            <div className="gitHubPATSection">
-              <h1
-                className="registerQuestionPAT"
-                onClick={() => showTokenTutorial()}
-              >
-                Generate GitHub fine-grained PAT
-              </h1>
-              <input
-                className="registerInputPAT"
-                type="text"
-                placeholder="GitHub PAT"
-                value={githubPAT.githubPAT}
-                onChange={(e) => changeGitHubPAT(e)}
-                required
-              />
-            </div>
-          )}
-        </section>
-        {/* <div className="registerLine" /> */}
         <button className="log_regButton" onClick={signUp}>
           Sign up
         </button>

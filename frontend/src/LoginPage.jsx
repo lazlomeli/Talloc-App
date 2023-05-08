@@ -8,7 +8,7 @@ import { MessagesContext } from "./services/MessagesContext";
 export function LoginPage() {
   const [username, setUsername] = useState({ username: "" });
   const [password, setPassword] = useState({ password: "" });
-  const [gitHubUsername, setGitHubUsername] = useState("");
+  const [githubUsername, setGithubUsername] = useState("");
   const [isLogged, setIsLogged] = useState(false);
   const navigateTo = useNavigate();
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
@@ -19,15 +19,10 @@ export function LoginPage() {
   const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
 
   useEffect(() => {
-    setGitHubUsername(
-      localStorage.getItem(messages.LOCAL_STORAGE.GITHUB_USERNAME)
-    );
-  }, [isLogged]);
-
-  useEffect(() => {
     if (isLogged === true) {
+      const tallocUsername = { talloc_username: username.username };
       userAPI
-        .getGithubRepos(gitHubUsername, GATEWAY_API_URL)
+        .getGithubRepos(tallocUsername, githubUsername, GATEWAY_API_URL)
         .then((resp) => {
           let data = resp.data;
           let repositories = [];
@@ -36,20 +31,13 @@ export function LoginPage() {
             messages.LOCAL_STORAGE.REPOS,
             JSON.stringify(repositories)
           );
-          navigateTo(`${messages.ENDPOINT.DASHBOARD}`);
+          navigateTo(`/dashboard`);
         })
-        .catch((err) => {
-          let repositories = [];
-          localStorage.setItem(
-            messages.LOCAL_STORAGE.REPOS,
-            JSON.stringify(repositories)
-          );
-          navigateTo(`${messages.ENDPOINT.DASHBOARD}`);
-        });
+        .catch((err) => console.log(err));
     }
-  }, [gitHubUsername]);
+  }, [isLogged]);
 
-  const submitData = () => {
+  const submitData = async () => {
     let u = username.username.toLowerCase();
     let p = password.password.toLowerCase();
 
@@ -62,29 +50,32 @@ export function LoginPage() {
 
     if (isEmpty(u) || isEmpty(p)) {
       errorModalHandler(messages.ERRORS.WRONG_CREDENTIALS_1);
+      return;
     }
+    try {
+      const login = await userAPI.logIn(user, GATEWAY_API_URL);
+      localStorage.setItem(
+        messages.LOCAL_STORAGE.GITHUB_USERNAME,
+        login.data.github_username
+      );
+      setGithubUsername(login.data.github_username);
 
-    userAPI
-      .logIn(user, GATEWAY_API_URL)
-      .then((resp) => {
-        localStorage.setItem(
-          messages.LOCAL_STORAGE.GITHUB_USERNAME,
-          resp.data.github_username
-        );
-        setGitHubUsername(resp.data.github_username);
-      })
-      .catch((err) => {
-        console.log(err);
-        errorModalHandler(messages.ERRORS.WRONG_CREDENTIALS_1);
-      });
+      const encryptSession = await userAPI.encryptSession(
+        { username: user.username },
+        GATEWAY_API_URL
+      );
 
-    userAPI
-      .encryptSession({ username: user.username }, GATEWAY_API_URL)
-      .then((resp) => {
-        localStorage.setItem(messages.LOCAL_STORAGE.TALLOC_USERNAME, resp.data);
-        setIsLogged(true);
-      })
-      .catch((err) => console.log(err));
+      localStorage.setItem(
+        messages.LOCAL_STORAGE.TALLOC_USERNAME,
+        encryptSession.data
+      );
+      setGithubUsername(
+        localStorage.getItem(messages.LOCAL_STORAGE.GITHUB_USERNAME)
+      );
+      setIsLogged(true);
+    } catch (error) {
+      errorModalHandler(messages.ERRORS.WRONG_CREDENTIALS_1);
+    }
   };
 
   const changeUsername = (e) => {

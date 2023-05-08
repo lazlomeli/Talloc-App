@@ -55,7 +55,7 @@ export const UpdatePAT = () => {
       errorModalHandler(messages.ERRORS.WRONG_PAT);
     }
 
-    if (token.startsWith("github_pat_")) {
+    if (token.startsWith("github_pat_") && token.length === 93) {
       setLoadingVisibility(true);
       setTimeout(() => {
         infoModalHandler(messages.INFO.UPDATE_PAT);
@@ -85,7 +85,7 @@ export const UpdatePAT = () => {
           />
           <div className="updatePAT">
             <h1 className="updatePATtitle">
-              Enter your fine-grained GitHub PAT:
+              Enter your GitHub Personal Access Token:
             </h1>
             <div>
               <input

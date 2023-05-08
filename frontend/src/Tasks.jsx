@@ -7,6 +7,8 @@ import * as taskAPI from "./services/taskService";
 import { Task } from "./Task";
 import { MessagesContext } from "./services/MessagesContext";
 import { InfoContext } from "./services/InfoContext";
+import { LoadingContext } from "./services/LoadingContext";
+import { Oval } from "react-loader-spinner";
 
 const Tasks = ({ userSession }) => {
   const messages = useContext(MessagesContext);
@@ -30,15 +32,20 @@ const Tasks = ({ userSession }) => {
   const { openInfoModal, setOpenInfoModal } = useContext(InfoContext);
   const { infoMessage, setInfoMessage } = useContext(InfoContext);
   const { infoModalHandler } = useContext(InfoContext);
+  const { loadingVisibility, setLoadingVisibility } =
+    useContext(LoadingContext);
 
   const TASK_API_URL = import.meta.env.VITE_TASK_API_URL;
 
   useEffect(() => {
-    console.log(userSession);
-    taskAPI.getUserTasks(userSession, TASK_API_URL).then((resp) => {
-      setTasks(resp.data.reverse());
-    });
-  }, []);
+    setLoadingVisibility(true);
+    setTimeout(() => {
+      taskAPI.getUserTasks(userSession, TASK_API_URL).then((resp) => {
+        setTasks(resp.data.reverse());
+        setLoadingVisibility(false);
+      });
+    }, 500);
+  }, [userSession]);
 
   let repositories = JSON.parse(
     localStorage.getItem(messages.LOCAL_STORAGE.REPOS)
@@ -133,6 +140,19 @@ const Tasks = ({ userSession }) => {
           repositories={repositories}
         />
       </div>
+      <Oval
+        height={80}
+        width={80}
+        color="#00a586"
+        wrapperStyle={{}}
+        wrapperClass="loadingSpinner"
+        visible={loadingVisibility}
+        ariaLabel="oval-loading"
+        secondaryColor="#074b3e"
+        strokeWidth={2}
+        strokeWidthSecondary={2}
+      />
+      {loadingVisibility && <div className="overlay" style={{ zIndex: 2 }} />}
     </section>
   );
 };

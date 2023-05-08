@@ -125,9 +125,12 @@ router.get("/logout", (req, res) => {
     .catch((err) => console.log(err, "\nGW: Error deleting cookie"));
 });
 
-router.get("/github/:username", (req, res) => {
+router.post("/github/:username", (req, res) => {
+  const githubUsername = req.params.username;
+  console.log("GH: ", req.params.username);
+  console.log("REQ.BODY: ", req.body);
   axios
-    .get(`${userAPI}/users/${req.params.username}`)
+    .get(`${userAPI}/users/${req.body.talloc_username}`)
     .then((resp) => {
       config = {
         headers: {
@@ -137,16 +140,15 @@ router.get("/github/:username", (req, res) => {
       };
       axios
         .get(
-          `${process.env.GITHUB_API_URL}/users/${resp.data.username}/repos`,
+          `${process.env.GITHUB_API_URL}/users/${githubUsername}/repos`,
           config
         )
         .then((resp) => {
           res.send(resp.data);
-        });
+        })
+        .catch((err) => {});
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 });
 
 router.post("/encrypt", (req, res) => {

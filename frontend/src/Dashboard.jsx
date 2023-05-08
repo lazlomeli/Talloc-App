@@ -12,16 +12,42 @@ export const Dashboard = () => {
 
   const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
 
+  // useEffect(() => {
+  //   try {
+  //     const tokenizedUsername = localStorage.getItem(
+  //       messages.LOCAL_STORAGE.TALLOC_USERNAME
+  //     );
+
+  //     userAPI
+  //       .decryptSession({ username: tokenizedUsername }, GATEWAY_API_URL)
+  //       .then((resp) => {
+  //         setUserSession(resp.data);
+  //         console.log(resp.data);
+  //       });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
   useEffect(() => {
-    const tokenizedUsername = localStorage.getItem(
-      messages.LOCAL_STORAGE.TALLOC_USERNAME
-    );
-    userAPI
-      .decryptSession({ username: tokenizedUsername }, GATEWAY_API_URL)
-      .then((resp) => {
+    const fetchData = async () => {
+      try {
+        const tokenizedUsername = localStorage.getItem(
+          messages.LOCAL_STORAGE.TALLOC_USERNAME
+        );
+
+        const resp = await userAPI.decryptSession(
+          { username: tokenizedUsername },
+          GATEWAY_API_URL
+        );
+
         setUserSession(resp.data);
-      })
-      .catch((err) => console.log("ERROR: ", err));
+        console.log(resp.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

@@ -203,6 +203,7 @@ router.post("/decrypt", (req, res) => {
     tokenizedUsername,
     process.env.SESSION_ENCRYPT_TOKEN
   );
+
   res.send(decodedUsername);
 });
 
