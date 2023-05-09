@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'})
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const cors = require("cors");
 const usersRouter = require("./routers/user");
@@ -22,5 +22,5 @@ app.use(express.urlencoded({ extended: false }));
 app.use(usersRouter);
 
 app.listen(process.env.NODE_APP_PORT, () => {
-  console.log(`\n🚀 Server running on port ${process.env.NODE_APP_PORT}\n`)
+  console.log(`\n🚀 Server running on port ${process.env.NODE_APP_PORT}\n`);
 });

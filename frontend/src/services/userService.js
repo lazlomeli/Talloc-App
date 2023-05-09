@@ -2,14 +2,8 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-export const getUser = async (user, url) => {
-  try {
-    const response = await fetch(`${url}/${user}`);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+export const getUser = (user, url) => {
+  return axios.get(`${url}/${user}`);
 };
 
 export const logIn = (user, url) => {
@@ -21,7 +15,6 @@ export const registerUser = (user, url) => {
 };
 
 export const getGithubRepos = (tallocUsername, githubUsername, url) => {
-  console.log(githubUsername);
   return axios.post(`${url}/github/${githubUsername}`, tallocUsername);
 };
 
@@ -39,4 +32,8 @@ export const decryptSession = (username, url) => {
 
 export const updatePAT = (tokenAndUser, url) => {
   return axios.patch(`${url}/${tokenAndUser.username}`, tokenAndUser);
+};
+
+export const recoverUser = (user, url) => {
+  return axios.get(`${url}/${user}`);
 };

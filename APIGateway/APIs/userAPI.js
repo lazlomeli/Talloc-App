@@ -87,6 +87,22 @@ router.delete("/users/:id", auth.authenticateToken, (req, res) => {
     });
 });
 
+router.get("/recovery/:username", (req, res) => {
+  const userForToken = { username: req.params.username };
+  const token = auth.generateAccessToken(userForToken);
+  axios
+    .get(userAPI + req.path)
+    .then((resp) => {
+      res.cookie("talloc_user_cookie_token", token, {
+        httpOnly: true,
+      });
+      res.status(200).send(resp.data);
+    })
+    .catch((err) => {
+      res.send("User does not exist");
+    });
+});
+
 router.post("/login", (req, res) => {
   const userForToken = { username: req.body.username };
   const token = auth.generateAccessToken(userForToken);

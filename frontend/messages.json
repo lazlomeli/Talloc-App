@@ -34,7 +34,8 @@
     "WRONG_CREDENTIALS_2": "Incorrect username or password. Try again",
     "EMAIL_EXISTS": "E-mail already exists. Choose a different one",
     "GENERIC": "Something went wrong. Please try again",
-    "WRONG_PAT": "Invalid token. Enter a valid Github PAT"
+    "WRONG_PAT": "Invalid token. Enter a valid Github PAT",
+    "USER_DOESNT_EXIST": "No e-mail linked to the provided username. Try again"
   },
   "INFO": {
     "UPDATE_PAT": "GitHub PAT updated succesfully"

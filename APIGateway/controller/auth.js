@@ -1,9 +1,9 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-function generateAccessToken(user) {
+const generateAccessToken = (user) => {
   return jwt.sign(user, process.env.ACCESS_TOKEN);
-}
+};
 
 const authenticateToken = (req, res, next) => {
   let token = req.cookies.talloc_user_cookie_token;

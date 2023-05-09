@@ -5,7 +5,7 @@ const router = express.Router();
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
-async function getUser(req, res, next) {
+const getUser = async (req, res, next) => {
   let user;
   try {
     user = await User.findById(req.params.id);
@@ -20,9 +20,9 @@ async function getUser(req, res, next) {
 
   res.user = user;
   next();
-}
+};
 
-async function isValidUser(username) {
+const isValidUser = async (username) => {
   let foundUser;
   try {
     foundUser = await User.findOne({ username: username });
@@ -34,9 +34,9 @@ async function isValidUser(username) {
   } catch (error) {
     return res.status(404).json({ message: "User provided is invalid" });
   }
-}
+};
 
-async function isValidMail(mail) {
+const isValidMail = async (mail) => {
   let foundUser;
   try {
     foundUser = await User.findOne({ email: mail });
@@ -48,7 +48,7 @@ async function isValidMail(mail) {
   } catch (error) {
     return res.status(404).json({ message: "User e-mail is not valid" });
   }
-}
+};
 
 router.get("/users/:username", async (req, res) => {
   let user;
@@ -128,6 +128,17 @@ router.delete("/users/:id", getUser, async (req, res) => {
     res.json({ message: `Deleted user ${req.params.id}` });
   } catch (error) {
     res.status(500).json({ message: "Error deleting the user" });
+  }
+});
+
+router.get("/recovery/:username", async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (user == null) return res.status(400).send("Cannot find user");
+
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400);
   }
 });
 
