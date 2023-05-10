@@ -94,7 +94,18 @@ router.post("/recovery/sendmail", auth.authenticateToken, (req, res) => {
       res.send(resp.data);
     })
     .catch((err) => {
-      console.log("Recovery email error");
+      console.log("Recovery email error\n", err);
+    });
+});
+
+router.patch("/recovery/:username", (req, res) => {
+  axios
+    .patch(userAPI + req.path, req.body)
+    .then((resp) => {
+      res.send(resp.data);
+    })
+    .catch((err) => {
+      console.log("Recovery update error");
     });
 });
 

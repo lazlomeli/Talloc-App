@@ -30,8 +30,8 @@ export const decryptSession = (username, url) => {
   return axios.post(`${url}/decrypt`, username);
 };
 
-export const updatePAT = (tokenAndUser, url) => {
-  return axios.patch(`${url}/${tokenAndUser.username}`, tokenAndUser);
+export const updateUser = (updateOptions, url) => {
+  return axios.patch(`${url}/${updateOptions.username}`, updateOptions);
 };
 
 export const recoverUser = (user, url) => {

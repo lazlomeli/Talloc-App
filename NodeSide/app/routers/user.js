@@ -154,6 +154,25 @@ router.post("/recovery/sendmail", async (req, res) => {
   }
 });
 
+router.patch("/recovery/:username", async (req, res) => {
+  const username = req.params.username;
+  const password = req.body.update_query.password;
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const update = { $set: { password: hashedPassword } };
+
+  try {
+    const filter = { username: username };
+    const options = { returnOriginal: false };
+    const result = await User.findOneAndUpdate(filter, update, options);
+
+    res.status(200).json(result.value);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Could not update the user: ", username);
+  }
+});
+
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });

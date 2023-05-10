@@ -83,7 +83,8 @@ export function LoginPage() {
   const validateRecoveryCode = () => {
     if (generatedCode === recoveryCode) {
       infoModalHandler(messages.INFO.VALID_CODE);
-      navigateTo("/recovery");
+      localStorage.setItem("recovery_username", recoveryUsername);
+      navigateTo("/forgot-password");
     } else {
       errorModalHandler(messages.ERRORS.WRONG_RECOVERY_CODE);
     }

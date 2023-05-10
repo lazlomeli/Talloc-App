@@ -37,12 +37,14 @@
     "GENERIC": "Something went wrong. Please try again",
     "WRONG_PAT": "Invalid token. Enter a valid Github PAT",
     "USER_DOESNT_EXIST": "No e-mail linked to the provided username. Try again",
-    "WRONG_RECOVERY_CODE": "Invalid recovery code. Try again"
+    "WRONG_RECOVERY_CODE": "Invalid recovery code. Try again",
+    "PASSWORDS_DONT_MATCH": "Passwords don't match. Try again"
   },
   "INFO": {
     "UPDATE_PAT": "GitHub PAT updated succesfully",
     "EMAIL_SENT": "Email sent succesfully",
-    "VALID_CODE": "Code is valid. Redirecting you..."
+    "VALID_CODE": "Code is valid. Redirecting you...",
+    "PASSWORD_UPDATED": "Password updated succesfully"
   },
   "LOCAL_STORAGE": {
     "TALLOC_USERNAME": "talloc_username",

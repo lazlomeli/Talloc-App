@@ -27,7 +27,7 @@ export const UpdatePAT = () => {
   const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
   const USER_API_URL = import.meta.env.VITE_USER_API_URL;
 
-  const tokenAndUser = {
+  const updateOptions = {
     update_query: { github_pat: PAT },
     username: userSession,
   };
@@ -59,7 +59,7 @@ export const UpdatePAT = () => {
       setLoadingVisibility(true);
       setTimeout(() => {
         infoModalHandler(messages.INFO.UPDATE_PAT);
-        userAPI.updatePAT(tokenAndUser, USER_API_URL);
+        userAPI.updateUser(updateOptions, USER_API_URL);
         setLoadingVisibility(false);
       }, 500);
     } else {

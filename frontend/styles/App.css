@@ -126,7 +126,8 @@ body {
   margin-bottom: 20px;
 }
 .log_regMenu,
-.forgotPasswordMenu {
+.forgotPasswordMenu,
+.recoveryMenu {
   background-color: #161b22;
   outline: solid;
   outline-color: #30363d;
@@ -145,7 +146,8 @@ body {
 .log_regInputs,
 .updatePATInput,
 .forgotPasswordInput,
-.recoveryCodeInput {
+.recoveryCodeInput,
+.recoveryInputs {
   font-family: "Alliance No.1";
   margin-bottom: 10px;
   background: #010409;
@@ -208,6 +210,7 @@ body {
 }
 .forgotPasswordButton {
   margin: 15px;
+  width: 100px;
 }
 .forgotPasswordButton:hover {
   background: #2d43c0;
@@ -220,7 +223,8 @@ body {
   background-color: #464c53;
 }
 .log_regButton,
-.forgotPasswordButton {
+.forgotPasswordButton,
+.recoveryButton {
   font-family: "Alliance No.1";
   padding: 7px;
   cursor: pointer;
@@ -228,7 +232,6 @@ body {
   color: rgb(0, 0, 0);
   border: none;
   border-radius: 5px;
-  width: 100px;
   outline: solid;
   outline-width: 1px;
   outline-color: #0d1117;
@@ -238,6 +241,7 @@ body {
 }
 .log_regButton {
   margin-top: 40px;
+  width: 100px;
 }
 .log_regButton:hover {
   background: #2d43c0;
@@ -1811,6 +1815,30 @@ body {
   background-color: #4259db;
   color: #fff;
   border-color: #192772;
+}
+.recoveryButton {
+  margin-top: 40px;
+  width: 150px;
+}
+.recoveryMenu {
+  width: 300px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.recoveryInputs {
+  width: 200px;
+  margin-bottom: 20px;
+}
+.recoveryInputs:focus {
+  background: #30363d;
+  color: #fff;
+}
+.recoveryButton:hover {
+  background: #2d43c0;
+  color: #fff;
 }
 @keyframes showTrackerInfo {
   100% {
