@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const getUser = async (req, res, next) => {
   let user;
@@ -50,6 +51,14 @@ const isValidMail = async (mail) => {
   }
 };
 
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: "tallocapp",
+    pass: `${process.env.TALLOC_EMAIL_PASSWORD}`,
+  },
+});
+
 router.get("/users/:username", async (req, res) => {
   let user;
   try {
@@ -89,24 +98,6 @@ router.post("/users", async (req, res) => {
   }
 });
 
-// router.patch("/users/:id", getUser, async (req, res) => {
-//   if (req.body.username != null) {
-//     res.user.username = req.body.username;
-//   }
-//   if (req.body.email != null) {
-//     res.user.email = req.body.email;
-//   }
-//   if (req.body.password != null) {
-//     res.user.password = req.body.password;
-//   }
-//   try {
-//     const updatedUser = await res.user.save();
-//     res.json(updatedUser, { message: `Updated user ${req.params.id}` });
-//   } catch (error) {
-//     res.status(400).json({ message: "Error updating the user" });
-//   }
-// });
-
 router.patch("/users/:username", async (req, res) => {
   const username = req.params.username;
   const update = { $set: req.body.update_query };
@@ -139,6 +130,27 @@ router.get("/recovery/:username", async (req, res) => {
     res.status(200).send(user);
   } catch (error) {
     res.status(400);
+  }
+});
+
+router.post("/recovery/sendmail", async (req, res) => {
+  try {
+    const email = req.body.email;
+    const recoveryCode = req.body.recovery_code;
+
+    const options = {
+      from: "tallocapp@gmail.com",
+      to: email,
+      subject: "Talloc App Password Recovery",
+      text: `Your recovery code is ${recoveryCode}`,
+    };
+
+    await transporter.sendMail(options);
+    console.log("Email sent");
+    res.status(200);
+  } catch (err) {
+    console.log("Error: ", err);
+    res.status(500);
   }
 });
 

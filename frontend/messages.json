@@ -6,7 +6,8 @@
     "DASHBOARD": "/dashboard",
     "INSIGHTS": "/insights",
     "TRACKER": "/tracker",
-    "UPDATE_PAT": "/update_pat"
+    "UPDATE_PAT": "/update_pat",
+    "FORGOT_PASSWORD": "/forgot-password"
   },
   "UX": {
     "SELECT_LANGUAGE": "Select a language",
@@ -35,10 +36,13 @@
     "EMAIL_EXISTS": "E-mail already exists. Choose a different one",
     "GENERIC": "Something went wrong. Please try again",
     "WRONG_PAT": "Invalid token. Enter a valid Github PAT",
-    "USER_DOESNT_EXIST": "No e-mail linked to the provided username. Try again"
+    "USER_DOESNT_EXIST": "No e-mail linked to the provided username. Try again",
+    "WRONG_RECOVERY_CODE": "Invalid recovery code. Try again"
   },
   "INFO": {
-    "UPDATE_PAT": "GitHub PAT updated succesfully"
+    "UPDATE_PAT": "GitHub PAT updated succesfully",
+    "EMAIL_SENT": "Email sent succesfully",
+    "VALID_CODE": "Code is valid. Redirecting you..."
   },
   "LOCAL_STORAGE": {
     "TALLOC_USERNAME": "talloc_username",

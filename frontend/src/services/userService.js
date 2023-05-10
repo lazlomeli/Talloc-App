@@ -37,3 +37,18 @@ export const updatePAT = (tokenAndUser, url) => {
 export const recoverUser = (user, url) => {
   return axios.get(`${url}/${user}`);
 };
+
+export const sendRecoveryMail = (mailAndCode, url) => {
+  return axios.post(`${url}/sendmail`, mailAndCode);
+};
+
+export const generateRecoveryCode = () => {
+  let recoveryCode = "";
+
+  for (let i = 0; i < 6; i++) {
+    const randomNum = Math.floor(Math.random() * 10);
+    recoveryCode += randomNum;
+  }
+
+  return recoveryCode;
+};

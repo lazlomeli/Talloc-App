@@ -12,6 +12,7 @@ import { Tracker } from "./Tracker";
 import { MessagesContext } from "./services/MessagesContext";
 import messages from "../messages.json";
 import { UpdatePAT } from "./UpdatePAT";
+import { ForgotPassword } from "./ForgotPassword";
 
 export const App = () => {
   const [openErrorModal, setOpenErrorModal] = useState(false);
@@ -66,6 +67,10 @@ export const App = () => {
                 element={<RegisterPage />}
               />
               <Route path={messages.ENDPOINT.LOGIN} element={<LoginPage />} />
+              <Route
+                path={messages.ENDPOINT.FORGOT_PASSWORD}
+                element={<ForgotPassword />}
+              />
               <Route
                 path={messages.ENDPOINT.DASHBOARD}
                 element={<Dashboard />}

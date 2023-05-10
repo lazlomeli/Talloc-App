@@ -87,6 +87,17 @@ router.delete("/users/:id", auth.authenticateToken, (req, res) => {
     });
 });
 
+router.post("/recovery/sendmail", auth.authenticateToken, (req, res) => {
+  axios
+    .post(userAPI + req.path, req.body)
+    .then((resp) => {
+      res.send(resp.data);
+    })
+    .catch((err) => {
+      console.log("Recovery email error");
+    });
+});
+
 router.get("/recovery/:username", (req, res) => {
   const userForToken = { username: req.params.username };
   const token = auth.generateAccessToken(userForToken);

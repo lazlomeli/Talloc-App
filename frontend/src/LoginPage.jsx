@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorModal } from "./ErrorModal";
+import { InfoModal } from "./InfoModal";
 import { ErrorContext } from "./services/ErrorContext";
 import * as userAPI from "./services/userService";
 import { MessagesContext } from "./services/MessagesContext";
 import { ForgotPassword } from "./ForgotPassword";
+import { InfoContext } from "./services/InfoContext";
 
 export function LoginPage() {
   const [username, setUsername] = useState({ username: "" });
@@ -14,12 +16,16 @@ export function LoginPage() {
   const [forgotPassVisibility, setForgotPassVisibility] = useState(false);
   const [recoveryUsername, setRecoveryUsername] = useState("");
   const [recoveryCode, setRecoveryCode] = useState("");
+  const [generatedCode, setGeneratedCode] = useState("");
   const [recoveryCodeVisibility, setRecoveryCodeVisibility] = useState(false);
   const [recoveryMail, setRecoveryMail] = useState("");
   const navigateTo = useNavigate();
   const { openErrorModal, setOpenErrorModal } = useContext(ErrorContext);
   const { errorMessage, setErrorMessage } = useContext(ErrorContext);
   const { errorModalHandler } = useContext(ErrorContext);
+  const { openInfoModal, setOpenInfoModal } = useContext(InfoContext);
+  const { infoMessage, setInfoMessage } = useContext(InfoContext);
+  const { infoModalHandler } = useContext(InfoContext);
   const messages = useContext(MessagesContext);
 
   const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
@@ -57,10 +63,29 @@ export function LoginPage() {
 
   const sendMail = () => {
     userExists();
+    const code = userAPI.generateRecoveryCode();
 
     if (recoveryMail !== messages.UX.EMPTY_STRING) {
-      // EmailJS logic
+      userAPI
+        .sendRecoveryMail(
+          { email: recoveryMail, recovery_code: code },
+          RECOVERY_URL
+        )
+        .catch((err) => {
+          console.log(err);
+        });
+      infoModalHandler(messages.INFO.EMAIL_SENT);
+      setGeneratedCode(code);
       setRecoveryCodeVisibility(true);
+    }
+  };
+
+  const validateRecoveryCode = () => {
+    if (generatedCode === recoveryCode) {
+      infoModalHandler(messages.INFO.VALID_CODE);
+      navigateTo("/recovery");
+    } else {
+      errorModalHandler(messages.ERRORS.WRONG_RECOVERY_CODE);
     }
   };
 
@@ -158,10 +183,19 @@ export function LoginPage() {
             openModal={openErrorModal}
             closeModal={() => setOpenErrorModal(false)}
           />
+          <InfoModal
+            message={infoMessage}
+            openModal={openInfoModal}
+            closeModal={() => setOpenInfoModal(false)}
+          />
           <div className="forgotPasswordMenu">
             <p className="forgotPasswordDesc">
-              Enter your login username. A 6 digit recovery code will be sent to
-              that user's mail for the password recovery
+              Enter your login username. A{" "}
+              <span style={{ color: "#00c5a1" }}>6 digit recovery code</span>{" "}
+              will be sent to that user's mail for the password recovery.{" "}
+              <span style={{ color: "#00c5a1" }}>
+                Make sure to check your Spam tray
+              </span>
             </p>
             <input
               className="forgotPasswordInput"
@@ -185,7 +219,12 @@ export function LoginPage() {
                   required
                   onChange={(e) => setRecoveryCode(e.target.value)}
                 />
-                <button className="forgotPasswordButton">Check</button>
+                <button
+                  className="forgotPasswordButton"
+                  onClick={() => validateRecoveryCode()}
+                >
+                  Check
+                </button>
               </div>
             )}
           </div>
