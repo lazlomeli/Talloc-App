@@ -7,8 +7,8 @@ const db = require("./config/db");
 const app = express();
 
 const corsOptions = {
-  // origin: process.env.GATEWAY_API_URL_DOCKER,
-  origin: process.env.GATEWAY_API_URL,
+  origin: process.env.GATEWAY_API_URL_DOCKER,
+  // origin: process.env.GATEWAY_API_URL,
   credentials: true,
   exposedHeaders: ["set-cookie"],
 };

@@ -1131,8 +1131,8 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 1600px;
-  height: 810px;
+  /* width: 1600px;
+  height: 810px; */
   margin-left: 10px;
   align-content: flex-start;
   overflow-y: auto;
@@ -1843,6 +1843,47 @@ body {
 @keyframes showTrackerInfo {
   100% {
     opacity: 1;
+  }
+}
+@media screen and (max-width: 1360px) and (min-width: 960px) {
+  .dashboardSide {
+    width: 150px;
+  }
+  .dashboardSideTitle {
+    font-size: 25px;
+    width: 120px;
+  }
+  .modalContainer {
+    left: 20%;
+  }
+  .dashboardTasks {
+    width: 800px;
+  }
+  .insightsBackground {
+    width: 810px;
+  }
+  .insightsModal {
+    left: 20%;
+  }
+  .taskMoreInfoModal {
+    left: 15%;
+  }
+}
+
+@media screen and (min-width: 1359px) {
+  .dashboardSide {
+    width: 300px;
+  }
+  .dashboardSideTitle {
+    font-size: 25px;
+  }
+  .modalContainer {
+    left: 20%;
+  }
+  .dashboardTasks {
+    /* width: 100%; */
+  }
+  .insightsBackground {
   }
 }
 

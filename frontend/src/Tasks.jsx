@@ -13,8 +13,6 @@ import { Oval } from "react-loader-spinner";
 const Tasks = ({ userSession }) => {
   const messages = useContext(MessagesContext);
   const [openModal, setOpenModal] = useState(false);
-  const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [filterModalMessage, setFilterModalMessage] = useState("");
   const [showFilterBar, setShowFilterBar] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [taskID] = useState("");
@@ -44,7 +42,7 @@ const Tasks = ({ userSession }) => {
         setTasks(resp.data.reverse());
         setLoadingVisibility(false);
       });
-    }, 500);
+    }, 150);
   }, [userSession]);
 
   let repositories = JSON.parse(

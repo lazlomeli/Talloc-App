@@ -1,10 +1,10 @@
-require('dotenv').config({path: '../../.env'})
+require("dotenv").config({ path: "../../.env" });
 const mongoose = require("mongoose");
-mongoose.set('strictQuery', false)
+mongoose.set("strictQuery", false);
 
 const connectToDB = () => {
-  // mongoose.connect(process.env.MONGODB_URL_DOCKER, { useNewUrlParser: true });
-  mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
+  mongoose.connect(process.env.MONGODB_URL_DOCKER, { useNewUrlParser: true });
+  // mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
   db = mongoose.connection;
   db.on("error", (err) => console.error(err));

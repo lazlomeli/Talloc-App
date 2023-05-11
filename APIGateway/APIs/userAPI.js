@@ -6,8 +6,8 @@ const auth = require("../controller/auth");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
-// const userAPI = process.env.USER_API_URL_DOCKER
-const userAPI = process.env.USER_API_URL;
+const userAPI = process.env.USER_API_URL_DOCKER;
+// const userAPI = process.env.USER_API_URL;
 
 router.get("/users/:username", auth.authenticateToken, (req, res) => {
   axios

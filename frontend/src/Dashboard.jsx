@@ -12,24 +12,8 @@ export const Dashboard = () => {
 
   const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
 
-  // useEffect(() => {
-  //   try {
-  //     const tokenizedUsername = localStorage.getItem(
-  //       messages.LOCAL_STORAGE.TALLOC_USERNAME
-  //     );
-
-  //     userAPI
-  //       .decryptSession({ username: tokenizedUsername }, GATEWAY_API_URL)
-  //       .then((resp) => {
-  //         setUserSession(resp.data);
-  //         console.log(resp.data);
-  //       });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
   useEffect(() => {
-    const fetchData = async () => {
+    const decryptSesh = async () => {
       try {
         const tokenizedUsername = localStorage.getItem(
           messages.LOCAL_STORAGE.TALLOC_USERNAME
@@ -41,13 +25,12 @@ export const Dashboard = () => {
         );
 
         setUserSession(resp.data);
-        console.log(resp.data);
       } catch (err) {
         console.log(err);
       }
     };
 
-    fetchData();
+    decryptSesh();
   }, []);
 
   return (

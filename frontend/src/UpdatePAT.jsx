@@ -33,15 +33,19 @@ export const UpdatePAT = () => {
   };
 
   useEffect(() => {
-    const tokenizedUsername = localStorage.getItem(
-      messages.LOCAL_STORAGE.TALLOC_USERNAME
-    );
-    userAPI
-      .decryptSession({ username: tokenizedUsername }, GATEWAY_API_URL)
-      .then((resp) => {
-        setUserSession(resp.data);
-      })
-      .catch((err) => console.log("ERROR: ", err));
+    setLoadingVisibility(true);
+    setTimeout(() => {
+      const tokenizedUsername = localStorage.getItem(
+        messages.LOCAL_STORAGE.TALLOC_USERNAME
+      );
+      userAPI
+        .decryptSession({ username: tokenizedUsername }, GATEWAY_API_URL)
+        .then((resp) => {
+          setUserSession(resp.data);
+        })
+        .catch((err) => console.log("ERROR: ", err));
+      setLoadingVisibility(false);
+    }, 150);
   }, []);
 
   const showTokenTutorial = () => {

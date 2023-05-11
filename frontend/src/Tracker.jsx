@@ -11,6 +11,8 @@ import { TrackerRepo } from "./TrackerRepo";
 import { Forbidden } from "./Forbidden";
 import * as userAPI from "./services/userService";
 import { MessagesContext } from "./services/MessagesContext";
+import { LoadingContext } from "./services/LoadingContext";
+import { Oval } from "react-loader-spinner";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -18,6 +20,8 @@ export const Tracker = () => {
   const [tasks, setTasks] = useState([]);
   const [userSession, setUserSession] = useState("");
   const messages = useContext(MessagesContext);
+  const { loadingVisibility, setLoadingVisibility } =
+    useContext(LoadingContext);
 
   const TASK_API_URL = import.meta.env.VITE_TASK_API_URL;
   const GATEWAY_API_URL = import.meta.env.VITE_GATEWAY_API_URL;
@@ -35,10 +39,14 @@ export const Tracker = () => {
   }, []);
 
   useEffect(() => {
-    taskAPI
-      .getUserTasks(userSession, TASK_API_URL)
-      .then((resp) => setTasks(resp.data));
-  }, []);
+    setLoadingVisibility(true);
+    setTimeout(() => {
+      taskAPI
+        .getUserTasks(userSession, TASK_API_URL)
+        .then((resp) => setTasks(resp.data));
+      setLoadingVisibility(false);
+    }, 150);
+  }, [userSession]);
 
   return (
     <>
@@ -84,6 +92,21 @@ export const Tracker = () => {
               <OverallRadar tasks={tasks} />
             </section>
           </section>
+          <Oval
+            height={80}
+            width={80}
+            color="#00a586"
+            wrapperStyle={{}}
+            wrapperClass="loadingSpinner"
+            visible={loadingVisibility}
+            ariaLabel="oval-loading"
+            secondaryColor="#074b3e"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+          {loadingVisibility && (
+            <div className="overlay" style={{ zIndex: 2 }} />
+          )}
         </section>
       )}
     </>

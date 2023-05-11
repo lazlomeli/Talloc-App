@@ -4,8 +4,8 @@ const axios = require("axios");
 const router = express.Router();
 const auth = require("../controller/auth");
 
-// const taskAPI = process.env.TASK_API_URL_DOCKER
-const taskAPI = process.env.TASK_API_URL;
+const taskAPI = process.env.TASK_API_URL_DOCKER;
+// const taskAPI = process.env.TASK_API_URL;
 
 router.get("/tasks", auth.authenticateToken, (req, res) => {
   axios

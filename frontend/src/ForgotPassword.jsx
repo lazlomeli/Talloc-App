@@ -6,6 +6,7 @@ import { ErrorContext } from "./services/ErrorContext";
 import { MessagesContext } from "./services/MessagesContext";
 import { InfoContext } from "./services/InfoContext";
 import * as userAPI from "./services/userService";
+import { Forbidden } from "./Forbidden";
 
 export const ForgotPassword = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -45,39 +46,45 @@ export const ForgotPassword = () => {
   };
 
   return (
-    <div className="log_regPage">
-      <ErrorModal
-        message={errorMessage}
-        openModal={openErrorModal}
-        closeModal={() => setOpenErrorModal(false)}
-      />
-      <InfoModal
-        message={infoMessage}
-        openModal={openInfoModal}
-        closeModal={() => setOpenInfoModal(false)}
-      />
-      <img className="tallocLogin" src="../static/talloc.png" />
-      <div className="recoveryMenu">
-        <input
-          className="recoveryInputs"
-          type="password"
-          placeholder="Enter your new password"
-          value={newPassword}
-          required
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-        <input
-          className="recoveryInputs"
-          type="password"
-          placeholder="Repeat your new password"
-          value={repeatNewPassword}
-          required
-          onChange={(e) => setRepeatNewPassword(e.target.value)}
-        />
-        <button className="recoveryButton" onClick={() => updatePassword()}>
-          Change password
-        </button>
-      </div>
-    </div>
+    <>
+      {recoveryUsername === null ? (
+        <Forbidden />
+      ) : (
+        <div className="log_regPage">
+          <ErrorModal
+            message={errorMessage}
+            openModal={openErrorModal}
+            closeModal={() => setOpenErrorModal(false)}
+          />
+          <InfoModal
+            message={infoMessage}
+            openModal={openInfoModal}
+            closeModal={() => setOpenInfoModal(false)}
+          />
+          <img className="tallocLogin" src="../static/talloc.png" />
+          <div className="recoveryMenu">
+            <input
+              className="recoveryInputs"
+              type="password"
+              placeholder="Enter your new password"
+              value={newPassword}
+              required
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              className="recoveryInputs"
+              type="password"
+              placeholder="Repeat your new password"
+              value={repeatNewPassword}
+              required
+              onChange={(e) => setRepeatNewPassword(e.target.value)}
+            />
+            <button className="recoveryButton" onClick={() => updatePassword()}>
+              Change password
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };

@@ -71,9 +71,7 @@ export function LoginPage() {
           { email: recoveryMail, recovery_code: code },
           RECOVERY_URL
         )
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => console.log(err));
       infoModalHandler(messages.INFO.EMAIL_SENT);
       setGeneratedCode(code);
       setRecoveryCodeVisibility(true);
